@@ -6,6 +6,7 @@ import { MainComponent } from './components/main/main.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import { BoardComponent } from './components/board/board.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
+import { AddtaskComponent } from './components/addtask/addtask.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
       { path: '', component: MainComponent },
       { path: 'summary', component: SummaryComponent },
       { path: 'board', component: BoardComponent },
-      { path: 'contacts', component: ContactsComponent }
+      { path: 'contacts', component: ContactsComponent },
+      { path: 'addtask', component: AddtaskComponent}
 
     ]
   }

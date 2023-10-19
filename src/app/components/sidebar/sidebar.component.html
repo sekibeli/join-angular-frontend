@@ -9,18 +9,18 @@
             <img src="../../../assets/img/summary_icon.svg" alt="">
             <span class="menuText">Summary</span>
         </div>
-        <a href="../board.html"> <div class="menuBox" id="sidebar-board">
+       <div class="menuBox" id="sidebar-board" [routerLink]="['/home', 'board']">
             <img src="assets/img/board_icon.svg" alt="">
             <span class="menuText">Board</span>
-        </div></a>
-        <a href="../add_task.html"> <div class="menuBox" id="sidebar-addtask">
+        </div>
+        <div class="menuBox" id="sidebar-addtask" [routerLink]="['/home', 'addtask']">
             <img src="assets/img/addTask_icon.svg" alt="">
             <span class="menuText">Add Task</span>
-        </div></a>
-        <a href="../contact.html"><div class="menuBox" id="sidebar-Contacts">
+        </div>
+     <div class="menuBox" id="sidebar-Contacts" [routerLink]="['/home', 'contacts']">
            <img src="assets/img/contacts_icon.svg" alt="">
             <span class="menuText">Contacts</span>
-        </div></a>
+        </div>
     </div>
     <a href="../impressum.html"><div class="menuBox legal-text" id="sidebar-impressum">
         <img src="assets/img/info_icon.svg" alt="">
