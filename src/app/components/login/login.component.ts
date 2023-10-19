@@ -16,18 +16,17 @@ export class LoginComponent {
   constructor(private authService: AuthService, private route: Router){}
 
 
-  async login(event: Event){
-    event.preventDefault();
-   let resp: any = await this.authService.login(this.email, this.password).subscribe(
-      res => {
-        console.log('Login successful');
-        localStorage.setItem('token', resp.token);
-        this.route.navigate(['/home/summary']);
-      },
-      err => {
-        console.error('Login failed', err);
-        this.errorMessage = 'email or password is incorrect';
-      }
-    );
+
+async login() {
+  try {
+    let resp: any = await this.authService.login(this.email, this.password);
+    console.log(resp.token);
+    localStorage.setItem('token', resp.token);
+    this.route.navigateByUrl('/home');
+    console.log(resp);
+  } catch (e) {
+    alert('Anmeldung fehlgeschlagen - Passwort oder Username falsch');
+    console.log('Fehler:', e);
   }
+}
 }

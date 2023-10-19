@@ -9,17 +9,17 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
 
-  private apiUrl = 'https://joinbackend.pythonanywhere.com/login';
+  // private apiUrl = 'https://joinbackend.pythonanywhere.com/login';
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string) {
+  login(email: string, password: string):Promise<any>{
     const url = environment.baseUrl + '/login/';
     const body = {
       "username": email,
       "password": password
     }
     
-    return this.http.post(url,body);
+    return lastValueFrom(this.http.post(url,body));
   }
 }
