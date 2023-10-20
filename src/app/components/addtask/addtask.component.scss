@@ -1,7 +1,95 @@
-.addtaskContainer {
-    position: absolute;
-   left: 300px;
-   top: 150px;
+
+body {
+    background-color: #F5F5F5;
+}
+
+.addtaskBox {
+        position: absolute;
+   left: 250px;
+   top: 100px;
    display: flex;
+   flex-direction: column;
+   width: 100%;
+    min-width: 260px;
    
 }
+.addTaskContainer {
+display: flex;
+;
+}
+.left {
+   
+    width: 35vw;
+    margin: 10px;
+}
+.right {
+    width: 35vw;
+    margin: 10px;
+}
+.error-text {
+    font-size: 0.8em;
+    color: red;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 10px;
+    font-size: 16px;
+    height: 10px;
+    background: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+}
+
+#description {
+    height: 100px;
+    outline: none;
+}
+input {
+    outline: none;
+}
+
+.priority-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border: 1px solid rgb(188, 188, 188);
+    transition: background-color 0.3s;
+  }
+  
+  button.low {
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 1px solid rgb(188, 188, 188);
+
+
+  }
+  
+  button.medium {
+    background-color:  rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 1px solid rgb(188, 188, 188);
+  }
+  
+  button.urgent {
+    background-color:  rgb(255, 255, 255);
+    border-radius: 5px;
+    border: 1px solid rgb(188, 188, 188);
+  }
+  
+  button.active {
+    background-color: #4e9850; /* Farbe für den ausgewählten Button */
+    color: white; /* Textfarbe für den ausgewählten Button */
+  }

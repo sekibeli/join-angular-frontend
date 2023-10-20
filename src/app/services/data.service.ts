@@ -14,4 +14,14 @@ export class DataService {
     const url = environment.baseUrl + '/tasks/';
     return this.http.get(url);
   }
+
+  getContacts(): Observable<any> {
+    const url = environment.baseUrl + '/contacts/';
+    return this.http.get(url);
+  }
+
+  getCategories(): Observable<any> {
+    const url = environment.baseUrl + '/categories/';
+    return this.http.get(url);
+  }
 }

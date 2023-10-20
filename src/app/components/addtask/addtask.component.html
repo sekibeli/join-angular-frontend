@@ -1,10 +1,94 @@
 
-<div class="addtaskContainer">
-    <mat-form-field>
-        <app-leftside [leftForm]="getLeftForm()"></app-leftside>
-    </mat-form-field>
-    <mat-form-field>
-        <app-rightside [rightForm]="getRightForm()"></app-rightside>
-    </mat-form-field>
-</div>
+<div class='addtaskBox'>
+    <div><h1>Add Task</h1></div>
+    <form [formGroup]="taskForm">
+        <div class="addTaskContainer">
+            <div class="left">
+                <!-- Title input field -->
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" formControlName="title" class="form-control">
 
+                    <!-- Error message for title -->
+                    <div *ngIf="taskForm.controls['title'].touched && taskForm.controls['title'].invalid"
+                        class="error-text">
+                        Title is required
+                    </div>
+                </div>
+
+                <!-- Description textarea field -->
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" formControlName="description" class="form-control"></textarea>
+
+                    <!-- Error message for description -->
+                    <div *ngIf="taskForm.controls['description'].touched && taskForm.controls['description'].invalid"
+                        class="error-text">
+                        Description is required
+                    </div>
+                </div>
+
+              
+
+
+                <div class="form-group" >
+                    <label for="assigned">Category</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="Select Contacts" formControlName="category">
+                            <mat-option *ngFor="let category of categories" [value]="category">
+                                {{ category.title }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                
+                <div class="form-group" >
+                    <label for="assigned">Assigned to</label>
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="Select Contacts" multiple formControlName="assigned">
+                            <mat-option *ngFor="let contact of contacts" [value]="contact">
+                                {{ contact.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                
+            </div>
+            <div class="right">
+                
+                <div class="form-group">
+                    <label for="dueDate">Due Date</label>
+                    <input type="date" id="dueDate" formControlName="dueDate" class="form-control">
+                
+                    <div *ngIf="taskForm.get('dueDate')?.hasError('required')" class="error-text">
+                        Due Date is required
+                    </div>
+                    <div *ngIf="taskForm.get('dueDate')?.hasError('invalidDate')" class="error-text">
+                        Due Date must be after the current date
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="dueDate">Prio</label>
+                <div class="priority-buttons">
+                    <button (click)="setPriority('low')" [class.active]="priority === 'low'" class="low">Low</button>
+                    <button (click)="setPriority('medium')" [class.active]="priority === 'medium'" class="medium">Medium</button>
+                    <button (click)="setPriority('urgent')" [class.active]="priority === 'urgent'" class="urgent">Urgent</button>
+                  </div>
+                  </div>
+
+                  <!-- <div class="form-group">
+                    <label for="title">Subtasks</label>
+                    <input type="text" id="subtask" formControlName="subtask" class="form-control">
+                    <button (click)="addSubtask()">+</button>
+                  </div> -->
+     <!-- Submit button -->
+     
+     <button type="submit" [disabled]="taskForm.invalid" class="btn btn-primary">Submit</button>
+            </div>
+       
+        </div>
+    </form>
+
+</div>
