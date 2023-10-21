@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,12 @@ export class DataService {
   getCategories(): Observable<any> {
     const url = environment.baseUrl + '/categories/';
     return this.http.get(url);
+  }
+
+  saveTask(body: any): Observable<any> {
+
+    const url = environment.baseUrl + '/create_task_with_subtasks/';
+    console.log('saveTask');
+    return this.http.post(url, body)
   }
 }

@@ -27,6 +27,7 @@ export class AddtaskComponent implements OnInit {
     dueDate: new FormControl(this.tomorrow, [Validators.required, this.validateDate]),
     priority: new FormControl(this.priority, Validators.required),
     subtasks: new FormArray([]),
+    status: new FormControl('todo', Validators.required)
 
   })
 
@@ -66,7 +67,6 @@ export class AddtaskComponent implements OnInit {
     const today = new Date();
     today.setDate(today.getDate() + 1); // Add one day
     const tomorrowDate = new Date(today); // Erstelle eine Kopie des Datums
-    console.log('Tomorrow Date:', tomorrowDate);
     return tomorrowDate.toISOString().substr(0, 10); // Format as "yyyy-MM-dd" for input[type="date"]
   }
 
@@ -112,7 +112,8 @@ export class AddtaskComponent implements OnInit {
    
     if (this.taskForm.valid) {
       const taskData = this.taskForm.value;
-      console.log(taskData);
+      console.log('body:', taskData);
+      this.dataService.saveTask(taskData);
       // Send taskData to your backend service for saving.
     }
   }
