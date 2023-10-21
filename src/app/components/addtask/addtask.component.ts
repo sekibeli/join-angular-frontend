@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { Contact } from 'src/app/models/contact.class';
 import { Category } from 'src/app/models/category.class';
 import { DataService } from 'src/app/services/data.service';
@@ -10,26 +10,29 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './addtask.component.html',
   styleUrls: ['./addtask.component.scss']
 })
-export class AddtaskComponent implements OnInit{
+export class AddtaskComponent implements OnInit {
+  subtaskValues: string[] = [];
+  tomorrow: string = this.getTomorrowDate();
   priority: string = '';
-    contacts: Contact[] = [];
-    categories: Category[] = [];
-    selectedContacts: Contact[] = [];
-    showDropdown: boolean = false;
- 
-    taskForm: FormGroup = new FormGroup({
+  contacts: Contact[] = [];
+  categories: Category[] = [];
+  selectedContacts: Contact[] = [];
+  showDropdown: boolean = false;
+
+  taskForm: FormGroup = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    assigned: new FormControl('', Validators.required),
-    dueDate: new FormControl(null, [Validators.required, this.validateDate]),
     category: new FormControl(null, Validators.required),
-    subtasks: new FormControl('', Validators.required)
+    assigned: new FormControl('', Validators.required),
+    dueDate: new FormControl(this.tomorrow, [Validators.required, this.validateDate]),
+    priority: new FormControl(this.priority, Validators.required),
+    subtasks: new FormArray([]),
 
   })
 
- 
 
-  constructor(private fb: FormBuilder, private dataService: DataService){
+
+  constructor(private fb: FormBuilder, private dataService: DataService) {
     // this.contacts = [];
   }
 
@@ -45,7 +48,7 @@ export class AddtaskComponent implements OnInit{
   }
 
 
-  ngOnInit():void{
+  ngOnInit(): void {
     this.dataService.getContacts().subscribe(response => {
       this.contacts = response;
       console.log(this.contacts);
@@ -56,35 +59,62 @@ export class AddtaskComponent implements OnInit{
       console.log(this.categories);
 
     });
+
   }
 
- 
+  getTomorrowDate(): string {
+    const today = new Date();
+    today.setDate(today.getDate() + 1); // Add one day
+    const tomorrowDate = new Date(today); // Erstelle eine Kopie des Datums
+    console.log('Tomorrow Date:', tomorrowDate);
+    return tomorrowDate.toISOString().substr(0, 10); // Format as "yyyy-MM-dd" for input[type="date"]
+  }
 
-toggleDropdown() {
-  console.log(this.showDropdown)
+
+  toggleDropdown() {
+    console.log(this.showDropdown)
     this.showDropdown = !this.showDropdown;
-}
+  }
 
-isSelected(contact: Contact): boolean {
-  return this.taskForm.get('contact-' + contact.id)?.value === true;
-}
+  isSelected(contact: Contact): boolean {
+    return this.taskForm.get('contact-' + contact.id)?.value === true;
+  }
 
-setPriority(newPriority: string) {
-  this.priority = newPriority;
-}
+  setPriority(newPriority: string) {
+    this.priority = newPriority;
+    this.taskForm.get('priority')?.setValue(newPriority);
+    console.log(this.priority);
+    console.log(this.taskForm);
+    
+  }
 
-// addSubtask(){
-//   const subtaskValue = this.subtaskForm.get('subtask').value;
+  addSubtask(subtaskTitle: string) {
+    const subtasksArray = this.taskForm.get('subtasks') as FormArray;
+    // const inputFieldValue = this.taskForm.get('subtaskControl')?.value;
 
-//   if (subtaskValue) {
-//     // Hier können Sie die Logik zum Speichern der Subtask im Backend implementieren.
-//     // Z.B. durch einen API-Aufruf.
-//     // Dies ist nur ein einfaches Beispiel.
-//     console.log('Subtask to save:', subtaskValue);
+    const newSubtask = new FormGroup({
+      title: new FormControl(subtaskTitle),
+      completed: new FormControl(false),
+    });
 
-//     // Optional: Setzen Sie das Inputfeld auf einen leeren Wert nach dem Speichern.
-//     this.subtaskForm.get('subtask').setValue('');
-//   }
-// }
-  
+    subtasksArray.push(newSubtask);
+
+    subtaskTitle = '';
+    this.taskForm.get('subtask')?.reset();
+
+    this.subtaskValues = subtasksArray.controls.map((control) => control.value);
+    console.log(this.subtaskValues);
+    console.log(this.taskForm)
+  }
+
+
+  submitTask() {
+   
+    if (this.taskForm.valid) {
+      const taskData = this.taskForm.value;
+      console.log(taskData);
+      // Send taskData to your backend service for saving.
+    }
+  }
+
 }
