@@ -2,7 +2,7 @@ export class Category {
     id?: number;
     title: string;
     color: string;
-    author: number;
+    author?: number;
 
 
     constructor(obj?: any) {

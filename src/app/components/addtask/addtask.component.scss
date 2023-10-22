@@ -93,3 +93,37 @@ input {
     background-color: #4e9850; /* Farbe für den ausgewählten Button */
     color: white; /* Textfarbe für den ausgewählten Button */
   }
+
+  #newCategoryTitle {
+    padding: 20px 15px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    font-size: 1.05em;
+  }
+
+  .with-icons {
+    padding-right: 50px;  /* Platz für die Icons lassen */
+}
+
+.position-relative {
+    position: relative;
+}
+
+.icon-save,
+.icon-cancel {
+    position: absolute;
+    top: 65%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.icon-save {
+    right: 30px;
+}
+
+.icon-cancel {
+    right: 5px;
+}
+.mat-mdc-option {
+  min-height: 30px;
+}

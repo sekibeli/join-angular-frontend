@@ -4,6 +4,9 @@ import { Contact } from 'src/app/models/contact.class';
 import { Category } from 'src/app/models/category.class';
 import { DataService } from 'src/app/services/data.service';
 
+// Importieren Sie den Dialog-Komponenten, den Sie erstellen werden.
+
+
 
 @Component({
   selector: 'app-addtask',
@@ -11,7 +14,10 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./addtask.component.scss']
 })
 export class AddtaskComponent implements OnInit {
-  subtaskValues: string[] = [];
+  newCategoryTitle: string = '';
+  showNewCategoryInput: boolean = false;
+  // subtaskValues: string[] = [];
+  subtaskValues: { title: string, completed: boolean }[] = [];
   tomorrow: string = this.getTomorrowDate();
   priority: string = '';
   contacts: Contact[] = [];
@@ -31,6 +37,10 @@ export class AddtaskComponent implements OnInit {
 
   })
 
+  categoryForm: FormGroup = new FormGroup ({
+    newCategoryTitle: new FormControl('', Validators.required),
+    color: new FormControl('', Validators.required)
+  })
 
 
   constructor(private fb: FormBuilder, private dataService: DataService) {
@@ -120,5 +130,51 @@ export class AddtaskComponent implements OnInit {
     });
     }
   }
+
+  createNewCategory(){
+    this.showNewCategoryInput  = true;
+  }
+
+  enableNewCategoryInput() {
+    this.showNewCategoryInput = true;
+}
+
+saveNewCategory() {
+  const newCategoryTitleValue = this.categoryForm.get('newCategoryTitle')?.value;
+  console.log('newCategoryTitleValue:', newCategoryTitleValue);
+  console.log(this.newCategoryTitle);
+  this.newCategoryTitle = newCategoryTitleValue;
+    if (newCategoryTitleValue) {
+        const newCategory = new Category({
+            title: this.newCategoryTitle,
+            color: '#552233',
+            
+            
+        });
+        this.categoryForm.statusChanges.subscribe(status => {
+          console.log('Formularstatus:', status);
+        });
+        this.categories.push(newCategory);
+        this.taskForm.get('category')?.setValue(newCategory);
+        this.showNewCategoryInput = false;
+        this.newCategoryTitle = '';
+        console.log('body:', newCategory);
+        this.dataService.saveNewCategory(newCategory).subscribe(response => {
+          console.log('Category saved', response)
+        }, error => {
+          console.log(error);
+        })
+        
+    }
+}
+
+cancelNewCategory() {
+    this.showNewCategoryInput = false;
+    this.newCategoryTitle = '';
+}
+
+cancelSubtask(){
+
+}
 
 }
