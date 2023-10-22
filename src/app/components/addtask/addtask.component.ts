@@ -113,8 +113,11 @@ export class AddtaskComponent implements OnInit {
     if (this.taskForm.valid) {
       const taskData = this.taskForm.value;
       console.log('body:', taskData);
-      this.dataService.saveTask(taskData);
-      // Send taskData to your backend service for saving.
+      this.dataService.saveTask(taskData).subscribe(response => {
+        console.log('Response:', response);
+    }, error => {
+        console.error('Error:', error);
+    });
     }
   }
 

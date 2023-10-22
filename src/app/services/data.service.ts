@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -30,6 +30,11 @@ export class DataService {
 
     const url = environment.baseUrl + '/create_task_with_subtasks/';
     console.log('saveTask');
-    return this.http.post(url, body)
+    return this.http.post(url, body).pipe(
+      catchError(error => {
+        console.error('Error:', error);
+        return throwError(error);
+      })
+    );
   }
 }
