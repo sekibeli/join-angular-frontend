@@ -52,13 +52,7 @@
                         </div>
                     </form>
 
-                    <!-- <form [formGroup]="categoryForm" (ngSubmit)="saveNewCategory()"  *ngIf="showNewCategoryInput">
-                        <div class="form-group">
-                                   <input type="text" id="newCategoryTitle" formControlName="newCategoryTitle" placeholder="Add new Category">
-                            </div>
-                        <button type="submit">Save New Category</button>
-                    </form> -->
-                </div>
+                   </div>
                 
                 <div class="form-group" >
                     <label for="assigned">Assigned to</label>
@@ -101,12 +95,11 @@
                   <div class="form-group position-relative">
                     <label for="title">Subtasks</label>
                     <input type="text" id="subtask" class="form-control" #subtaskInput>
-                    <mat-icon class="icon-save" style="color: green;" (click)="addSubtask(subtaskInput.value)">done</mat-icon>
-                    <mat-icon class="icon-cancel" style="color: red;" (click)="cancelSubtask()">close</mat-icon>
-                    <!-- <button (click)="addSubtask(subtaskInput.value)">+</button> -->
+                    <mat-icon class="icon-save" style="color: green;" (click)="addSubtask(subtaskInput.value,  subtaskInput)">done</mat-icon>
+                    <mat-icon class="icon-cancel" style="color: red;" (click)="cancelSubtask(subtaskInput)">close</mat-icon>
                   </div>
                   <div *ngFor="let subtask of subtaskValues">
-                    {{subtask.title}}
+                    <div class="subtaskList"><div>{{subtask.title}}</div><div (click)="deleteSubtask(subtask.title)"><mat-icon style="color: rgb(255, 0, 0);">delete</mat-icon></div></div>
                   </div>
 
                   

@@ -98,24 +98,29 @@ export class AddtaskComponent implements OnInit {
     
   }
 
-  addSubtask(subtaskTitle: string) {
-    const subtasksArray = this.taskForm.get('subtasks') as FormArray;
-    // const inputFieldValue = this.taskForm.get('subtaskControl')?.value;
-
-    const newSubtask = new FormGroup({
-      title: new FormControl(subtaskTitle),
-      completed: new FormControl(false),
-    });
-
-    subtasksArray.push(newSubtask);
-
-    subtaskTitle = '';
-    this.taskForm.get('subtask')?.reset();
-
-    this.subtaskValues = subtasksArray.controls.map((control) => control.value);
-    console.log(this.subtaskValues);
-    console.log(this.taskForm)
+  addSubtask(subtaskTitle: string, inputElem: HTMLInputElement) {
+    if (subtaskTitle.length === 0) {
+      return; 
+    }
+      const subtasksArray = this.taskForm.get('subtasks') as FormArray;
+      
+      const newSubtask = new FormGroup({
+        title: new FormControl(subtaskTitle),
+        completed: new FormControl(false),
+      });
+  
+      subtasksArray.push(newSubtask);
+  
+      subtaskTitle = '';
+      // this.taskForm.get('subtaskInput')?.reset();
+      inputElem.value = '';
+  
+      this.subtaskValues = subtasksArray.controls.map((control) => control.value);
+      console.log(this.subtaskValues);
+      console.log(this.taskForm)
+       
   }
+
 
 
   submitTask() {
@@ -141,24 +146,17 @@ export class AddtaskComponent implements OnInit {
 
 saveNewCategory() {
   const newCategoryTitleValue = this.categoryForm.get('newCategoryTitle')?.value;
-  console.log('newCategoryTitleValue:', newCategoryTitleValue);
-  console.log(this.newCategoryTitle);
   this.newCategoryTitle = newCategoryTitleValue;
     if (newCategoryTitleValue) {
         const newCategory = new Category({
             title: this.newCategoryTitle,
-            color: '#552233',
-            
-            
+            color: '#552233'          
         });
-        this.categoryForm.statusChanges.subscribe(status => {
-          console.log('Formularstatus:', status);
-        });
+       
         this.categories.push(newCategory);
         this.taskForm.get('category')?.setValue(newCategory);
         this.showNewCategoryInput = false;
         this.newCategoryTitle = '';
-        console.log('body:', newCategory);
         this.dataService.saveNewCategory(newCategory).subscribe(response => {
           console.log('Category saved', response)
         }, error => {
@@ -173,8 +171,17 @@ cancelNewCategory() {
     this.newCategoryTitle = '';
 }
 
-cancelSubtask(){
-
+cancelSubtask(inputElem: HTMLInputElement){
+  inputElem.value = '';
 }
 
+deleteSubtask(sub: string){
+  this.subtaskValues = this.subtaskValues.filter(subtask => subtask.title !== sub);
+
+  const subtasksArray = this.taskForm.get('subtasks') as FormArray;
+    const indexToRemove = subtasksArray.controls.findIndex(control => control.get('title')?.value === sub);
+    if (indexToRemove > -1) {
+        subtasksArray.removeAt(indexToRemove);
+    }
+}
 }

@@ -4,7 +4,7 @@ body {
 }
 
 .addtaskBox {
-        position: absolute;
+   position: absolute;
    left: 250px;
    top: 100px;
    display: flex;
@@ -15,10 +15,9 @@ body {
 }
 .addTaskContainer {
 display: flex;
-;
+
 }
 .left {
-   
     width: 35vw;
     margin: 10px;
 }
@@ -94,6 +93,14 @@ input {
     color: white; /* Textfarbe für den ausgewählten Button */
   }
 
+  button.urgent.active {
+    background-color: #a30808; /* Farbe für den ausgewählten Button */
+  }
+
+  button.medium.active {
+    background-color: #0e269f; /* Farbe für den ausgewählten Button */
+  }
+
   #newCategoryTitle {
     padding: 20px 15px;
     border-radius: 5px;
@@ -126,4 +133,49 @@ input {
 }
 .mat-mdc-option {
   min-height: 30px;
+}
+
+.subtaskList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:3px 10px;
+  background-color: #f8f8f8;
+  color: grey;
+  // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 0.8em;
+  border-radius: 3px;
+  
+
+
+
+}
+@media (max-width: 900px){
+ 
+  .addtaskBox {
+   left: 50px;
+}
+
+.addTaskContainer {
+  left: 50px;
+  flex-direction: column;
+  padding-bottom: 100px;
+}
+
+.left {
+  width: 80%
+}
+
+.right {
+  width: 80%
+}
+
+}
+
+@media (max-width: 380px){
+ 
+  .addtaskBox {
+   left: 20px;
+}
 }

@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of, throwError } from 'rxjs';
+import { Observable, catchError, of, shareReplay, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { HttpHeaders } from '@angular/common/http';
 import { Category } from '../models/category.class';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  private cachedCategories: Observable<any> | null = null;
+  private cachedContacts: Observable<any> | null = null;
 
   constructor(private http: HttpClient) { }
 
@@ -19,17 +20,34 @@ export class DataService {
 
   getContacts(): Observable<any> {
     const url = environment.baseUrl + '/contacts/';
-    return this.http.get(url);
+    if (!this.cachedContacts) {
+      this.cachedContacts = this.http.get(url).pipe(
+      shareReplay(1)  // Dies stellt sicher, dass das Ergebnis für zukünftige Abonnenten zwischengespeichert wird
+     );
+ }
+    return this.cachedContacts;
   }
 
-  getCategories(): Observable<any> {
+   getCategories(): Observable<any> {
     const url = environment.baseUrl + '/categories/';
-    return this.http.get(url);
-  }
+
+    if (!this.cachedCategories) {
+         this.cachedCategories = this.http.get(url).pipe(
+         shareReplay(1)  
+        );
+    }
+
+    // Gibt das zwischengespeicherte Observable zurück (entweder das neu abgerufene oder das bereits vorhandene)
+    return this.cachedCategories;
+}
 
   saveNewCategory(body:Category): Observable<any> {
     const url = environment.baseUrl + '/categories/';
-    return this.http.post(url, body);
+    return this.http.post(url, body).pipe(
+      tap(()=> {
+        this.cachedCategories = null;
+      })
+    );
   }
   
   saveTask(body: any): Observable<any> {
