@@ -25,6 +25,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { TaskComponent } from './components/board/task/task.component';
 
 
 
@@ -40,6 +41,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     BoardComponent,
     AddtaskComponent,
     ContactsComponent,
+    TaskComponent,
    
 
   ],
