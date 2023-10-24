@@ -6,7 +6,8 @@
              [cdkDropListData]="todo" 
              [cdkDropListConnectedTo]="[inProgressList, awaitingFeedbackList, doneList]" 
              class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item.title}}</div>
+          <div class="example-box" *ngFor="let item of todo" cdkDrag>
+            <app-task [task]="item"></app-task></div>
         </div>
       </div>
 
@@ -16,7 +17,8 @@
              [cdkDropListData]="inProgress" 
              [cdkDropListConnectedTo]="[todoList, awaitingFeedbackList, doneList]" 
              class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of inProgress" cdkDrag>{{item.title}}</div>
+          <div class="example-box" *ngFor="let item of inProgress" cdkDrag>
+            <app-task [task]="item"></app-task></div>
         </div>
       </div>
 
@@ -26,7 +28,8 @@
              [cdkDropListData]="awaitingFeedback" 
              [cdkDropListConnectedTo]="[todoList, inProgressList, doneList]" 
              class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of awaitingFeedback" cdkDrag>{{item.title}}</div>
+          <div class="example-box" *ngFor="let item of awaitingFeedback" cdkDrag>
+            <app-task [task]="item"></app-task></div>
         </div>
       </div>
 
@@ -36,7 +39,8 @@
              [cdkDropListData]="done" 
              [cdkDropListConnectedTo]="[todoList, inProgressList, awaitingFeedbackList]" 
              class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of done" cdkDrag>{{item.title}}</div>
+          <div class="example-box" *ngFor="let item of done" cdkDrag>
+            <app-task [task]="item"></app-task></div>
         </div>
       </div>
 

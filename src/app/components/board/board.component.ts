@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import {NgFor} from '@angular/common';
 import {
@@ -14,7 +14,7 @@ import {
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit{
   public tasks:any = [];
   public todo: any[] = [];
   public inProgress: any[] = [];
@@ -35,7 +35,9 @@ export class BoardComponent {
     });
   }
 
-
+ngOnInit(): void {
+    console.log();
+}
   // todo = ['Get to work', 'Pick up groceries'];
 
   // done = ['Get up', 'Brush teeth'];
