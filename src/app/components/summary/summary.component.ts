@@ -12,7 +12,7 @@ export class SummaryComponent{
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataService.getData().subscribe(response => {
+    this.dataService.getTasks().subscribe(response => {
       this.data = response;
       console.log(this.data);
 

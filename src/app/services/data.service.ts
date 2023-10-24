@@ -10,12 +10,18 @@ import { Category } from '../models/category.class';
 export class DataService {
   private cachedCategories: Observable<any> | null = null;
   private cachedContacts: Observable<any> | null = null;
+  private cachedTasks: Observable<any> | null = null;
 
   constructor(private http: HttpClient) { }
 
-  getData(): Observable<any> {
+  getTasks(): Observable<any> {
     const url = environment.baseUrl + '/tasks/';
-    return this.http.get(url);
+    if (!this.cachedTasks) {
+      this.cachedTasks = this.http.get(url).pipe(
+      shareReplay(1)  // Dies stellt sicher, dass das Ergebnis für zukünftige Abonnenten zwischengespeichert wird
+     );
+ }
+    return this.cachedTasks;
   }
 
   getContacts(): Observable<any> {
