@@ -1,7 +1,12 @@
 <div class="boardBox">
-
-    <div class="example-container">
-        <h2>Todo</h2>
+<div class="boardHeader">
+  <div class="head">
+  <h1>Board</h1>
+  </div><div class="headRightSide"></div>
+</div>
+<div class="boardContent">
+    <div class="tasks-col">
+        <h5>Todo</h5>
         <div cdkDropList id="todoList" #todoList="cdkDropList" 
              [cdkDropListData]="todo" 
              [cdkDropListConnectedTo]="[inProgressList, awaitingFeedbackList, doneList]" 
@@ -11,8 +16,8 @@
         </div>
       </div>
 
-      <div class="example-container">
-        <h2>In Progress</h2>
+      <div class="tasks-col">
+        <h5>In Progress</h5>
         <div cdkDropList id="inProgressList" #inProgressList="cdkDropList" 
              [cdkDropListData]="inProgress" 
              [cdkDropListConnectedTo]="[todoList, awaitingFeedbackList, doneList]" 
@@ -22,8 +27,8 @@
         </div>
       </div>
 
-      <div class="example-container">
-        <h2>Awaiting Feedback</h2>
+      <div class="tasks-col">
+        <h5>Awaiting Feedback</h5>
         <div cdkDropList id="awaitingFeedbackList" #awaitingFeedbackList="cdkDropList" 
              [cdkDropListData]="awaitingFeedback" 
              [cdkDropListConnectedTo]="[todoList, inProgressList, doneList]" 
@@ -33,8 +38,8 @@
         </div>
       </div>
 
-      <div class="example-container">
-        <h2>Done</h2>
+      <div class="tasks-col">
+        <h5>Done</h5>
         <div cdkDropList id="doneList" #doneList="cdkDropList" 
              [cdkDropListData]="done" 
              [cdkDropListConnectedTo]="[todoList, inProgressList, awaitingFeedbackList]" 

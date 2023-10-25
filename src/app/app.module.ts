@@ -26,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { TaskComponent } from './components/board/task/task.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 
@@ -59,7 +60,8 @@ import { TaskComponent } from './components/board/task/task.component';
     MatOptionModule,
     MatSelectModule,
     MatIconModule,
-    DragDropModule
+    DragDropModule,
+    MatProgressBarModule
   ],
   providers: [
     {

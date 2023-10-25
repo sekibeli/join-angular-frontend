@@ -2,14 +2,14 @@
 left: 250px;
 top: 100px;
 display: flex;
-
+flex-direction: column;
 width: 100%;
  min-width: 260px;
 }
 
-.example-container {
-    width: 400px;
-    max-width: 100%;
+.tasks-col {
+    width: 200px;
+   
     margin: 0 25px 25px 0;
     display: inline-block;
     vertical-align: top;
@@ -64,4 +64,10 @@ width: 100%;
 
   .cdk-drop-list {
     border-radius: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+
   }
+  app-task {
+    width: 100%;
+}

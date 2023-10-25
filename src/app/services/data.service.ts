@@ -11,6 +11,7 @@ export class DataService {
   private cachedCategories: Observable<any> | null = null;
   private cachedContacts: Observable<any> | null = null;
   private cachedTasks: Observable<any> | null = null;
+  private cachedSubtasks: Observable<any> | null = null;
 
   constructor(private http: HttpClient) { }
 
@@ -66,4 +67,27 @@ export class DataService {
       })
     );
   }
+
+  getSubtasks(){
+       
+    const url = environment.baseUrl + '/subtasks/';
+    if (!this.cachedSubtasks) {
+      this.cachedSubtasks = this.http.get(url).pipe(
+      shareReplay(1)  // Dies stellt sicher, dass das Ergebnis für zukünftige Abonnenten zwischengespeichert wird
+     );
+ }
+    return this.cachedSubtasks;
+  }
+
+
+  getSubtasksByIds(ids: number[]): Observable<any> {
+    const url = `${environment.baseUrl}/subtasks/?ids[]=${ids.join('&ids[]=')}`;
+    return this.http.get(url);
 }
+
+getContactsByIds(ids: number[]): Observable<any> {
+  const url = `${environment.baseUrl}/assigned/?ids[]=${ids.join('&ids[]=')}`;
+  return this.http.get(url);
+}
+}
+

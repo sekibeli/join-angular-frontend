@@ -16,6 +16,7 @@ import {
 })
 export class BoardComponent implements OnInit{
   public tasks:any = [];
+  public subtasks:any = [];
   public todo: any[] = [];
   public inProgress: any[] = [];
   public awaitingFeedback: any[] = [];
@@ -25,14 +26,17 @@ export class BoardComponent implements OnInit{
     this.dataService.getTasks().subscribe(response => {
       this.tasks = response;
       console.log(this.tasks);
+      console.log(this.tasks[0].subtasks)
 
       // tasks nach status sortieren
       this.todo = this.tasks.filter((task:any) => task.status.title === 'todo');
       this.inProgress = this.tasks.filter((task:any) => task.status.title === 'inProgress');
       this.awaitingFeedback = this.tasks.filter((task:any) => task.status.title === 'awaitingFeedback');
       this.done = this.tasks.filter((task:any) => task.status.title === 'done');
-
+      
     });
+    
+   
   }
 
 ngOnInit(): void {
