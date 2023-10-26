@@ -150,20 +150,36 @@ saveNewCategory() {
     if (newCategoryTitleValue) {
         const newCategory = new Category({
             title: this.newCategoryTitle,
-            color: '#552233'          
+            color: this.generateDarkColor()          
         });
        
         this.categories.push(newCategory);
-        this.taskForm.get('category')?.setValue(newCategory);
+        // this.taskForm.get('category')?.setValue(newCategory);
         this.showNewCategoryInput = false;
         this.newCategoryTitle = '';
         this.dataService.saveNewCategory(newCategory).subscribe(response => {
-          console.log('Category saved', response)
+          console.log('Category saved', response);
+          if (response && response.id) {
+            newCategory.id = response.id;
+            newCategory.author = response.author; // Stellen Sie sicher, dass 'author' in der Antwort enthalten ist
+        }
+        console.log('Category saved', response.id);
+          const categoryToSelect = this.categories.find(cat => cat.title === newCategory.title);
+    if (categoryToSelect) {
+        this.taskForm.get('category')?.setValue(categoryToSelect);
+    }
         }, error => {
           console.log(error);
         })
         
     }
+    
+}
+refreshCategories() {
+  this.dataService.getCategories().subscribe(response => {
+    this.categories = response;
+    console.log(this.categories);
+  });
 }
 
 cancelNewCategory() {
@@ -183,5 +199,20 @@ deleteSubtask(sub: string){
     if (indexToRemove > -1) {
         subtasksArray.removeAt(indexToRemove);
     }
+}
+
+generateDarkColor(): string {
+  // Funktion um eine zufällige dunkle Farbkomponente zu generieren
+  function randomDarkComponent(): number {
+    return Math.floor(Math.random() * (200 - 80 + 1) + 80); // Werte zwischen 80 und 200
+  }
+
+  // Erzeugt die RGB-Komponenten
+  const r = randomDarkComponent();
+  const g = randomDarkComponent();
+  const b = randomDarkComponent();
+
+  // Gibt die Farbe im #xxxxxx Format zurück
+  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
 }
 }

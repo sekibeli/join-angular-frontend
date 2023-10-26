@@ -19,8 +19,7 @@ constructor(private dataService: DataService){}
 ngOnInit(): void {
   this.dataService.getSubtasksByIds(this.task.subtasks).subscribe(subtaskResponse => {
     this.subtasks = subtaskResponse;
-    console.log(this.subtasks.length);
-    this.getCompletedSubtasksPercentage();
+      this.getCompletedSubtasksPercentage();
 });
 
 this.dataService.getContactsByIds(this.task.assigned).subscribe(assignedResponse => {
@@ -32,7 +31,6 @@ this.dataService.getContactsByIds(this.task.assigned).subscribe(assignedResponse
 
 getCompletedSubtasksPercentage(){
   this.completedCount = this.subtasks.filter((subtask:any) => subtask.completed).length;
-  console.log('erledigt: ', this.completedCount);
   this.percent = ( this.completedCount / this.subtasks.length) * 100;
 }
 }

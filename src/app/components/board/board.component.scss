@@ -3,12 +3,15 @@ left: 250px;
 top: 100px;
 display: flex;
 flex-direction: column;
-width: 100%;
- min-width: 260px;
+// width: 100%;
+//  min-width: 260px;
+ width: calc(100% - 232px); /* nimmt die gesamte verfügbare Breite minus der 232px der Sidebar */
+ overflow-x: hidden; /* verhindert horizontales Scrollen */
 }
 
 .tasks-col {
-    width: 200px;
+  flex: 1; /* ermöglicht, dass die Elemente gleichmäßig die verfügbare Breite nutzen */
+    min-width: 200px;
    
     margin: 0 25px 25px 0;
     display: inline-block;
@@ -16,15 +19,16 @@ width: 100%;
   }
   
   .example-list {
-    border: solid 1px #ccc;
-    min-height: 60px;
-    background: white;
+    border: dotted 1px #ccc;
+    min-height: 100px;
+    // background: white;
     border-radius: 4px;
     overflow: hidden;
     display: block;
+    width: 17vw;
   }
   
-  .example-box {
+  .task-box {
     padding: 20px 10px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
@@ -36,6 +40,8 @@ width: 100%;
     cursor: move;
     background: white;
     font-size: 14px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 17vw;
   }
   
   .cdk-drag-preview {

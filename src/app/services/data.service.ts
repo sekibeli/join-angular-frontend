@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of, shareReplay, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.class';
+import { Status } from '../models/status.class';
 
 @Injectable({
   providedIn: 'root'
@@ -88,6 +89,11 @@ export class DataService {
 getContactsByIds(ids: number[]): Observable<any> {
   const url = `${environment.baseUrl}/assigned/?ids[]=${ids.join('&ids[]=')}`;
   return this.http.get(url);
+}
+
+updateTaskStatus(taskId: number, newStatusId: number): Observable<any> {
+  const url = `${environment.baseUrl}/tasks/${taskId}/`;
+  return this.http.patch(url, { status_id: newStatusId });
 }
 }
 

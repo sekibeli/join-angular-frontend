@@ -8,6 +8,7 @@ import {
   CdkDrag,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
+import { Status } from 'src/app/models/status.class';
 
 @Component({
   selector: 'app-board',
@@ -42,9 +43,6 @@ export class BoardComponent implements OnInit{
 ngOnInit(): void {
     console.log();
 }
-  // todo = ['Get to work', 'Pick up groceries'];
-
-  // done = ['Get up', 'Brush teeth'];
 
   drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
@@ -58,17 +56,22 @@ ngOnInit(): void {
       );
       // Aktualisieren des Status der verschobenen Aufgabe
       const movedTask = event.container.data[event.currentIndex];
-      const newStatus = this.getStatusByContainerId(event.container.id);
-      movedTask.status.title = newStatus;
+      const newStatusId = this.getStatusByContainerId(event.container.id);
+         
+      this.dataService.updateTaskStatus(movedTask.id, newStatusId)
+      .subscribe(response => {
+          console.log("Status updated successfully", response);
+      }, error => {
+          console.error("Error updating status", error);
+      });
     }
   }
-
-  getStatusByContainerId(id: string): string {
+  getStatusByContainerId(id: string): number {
     switch (id) {
-      case 'todoList': return 'todo';
-      case 'inProcessList': return 'inProcess';
-      case 'awaitingFeedbackList': return 'awaitingFeedback';
-      default: return 'done';
+        case 'todoList': return 1;
+        case 'inProgressList': return 2;
+        case 'awaitingFeedbackList': return 3;
+        default: return 4;
     }
-  }
+}
 }
