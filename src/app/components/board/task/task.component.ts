@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { TaskDetailComponent } from '../task-detail/task-detail.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-task',
@@ -15,7 +17,7 @@ public percent!: number;
 public completedCount!: number;
 assigned: any[] = [];
 
-constructor(private dataService: DataService){}
+constructor(private dataService: DataService, private dialog: MatDialog){}
 
 
 ngOnInit(): void {
@@ -37,5 +39,18 @@ this.dataService.getContactsByIds(this.task.assigned).subscribe(assignedResponse
 getCompletedSubtasksPercentage(){
   this.completedCount = this.subtasks.filter((subtask:any) => subtask.completed).length;
   this.percent = ( this.completedCount / this.subtasks.length) * 100;
+}
+
+openTask() {
+  const dialogConfig = new MatDialogConfig();
+  // if (this.drawerService.isSmallScreen) {
+
+  //   dialogConfig.maxWidth = '100vw';
+  //   dialogConfig.maxHeight = '90vh';
+  // }
+
+  // dialogConfig.data = { user: user };
+  const dialogRef = this.dialog.open(TaskDetailComponent, dialogConfig);
+  // dialogRef.componentInstance.user = this.user.value;
 }
 }

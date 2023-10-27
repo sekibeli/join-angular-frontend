@@ -1,4 +1,4 @@
-<div class="singleTaskContainer">
+<div class="singleTaskContainer" (click)="openTask()">
     <div class="taskCategory" [style.backgroundColor]="task.category?.color">{{ task.category?.title}}</div>
     <div class="taskTitle">{{ task.title}}</div>
     <div class="taskDescription">{{task.description}}</div>

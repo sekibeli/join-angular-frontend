@@ -4,6 +4,7 @@ import { Observable, catchError, of, shareReplay, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.class';
 import { Status } from '../models/status.class';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

@@ -27,6 +27,8 @@ import { MatIconModule } from '@angular/material/icon';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { TaskComponent } from './components/board/task/task.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { TaskDetailComponent } from './components/board/task-detail/task-detail.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -43,6 +45,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     AddtaskComponent,
     ContactsComponent,
     TaskComponent,
+    TaskDetailComponent,
    
 
   ],
@@ -61,7 +64,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatSelectModule,
     MatIconModule,
     DragDropModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule
   ],
   providers: [
     {

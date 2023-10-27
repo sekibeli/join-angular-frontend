@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, FormA
 import { Contact } from 'src/app/models/contact.class';
 import { Category } from 'src/app/models/category.class';
 import { DataService } from 'src/app/services/data.service';
+import { Router } from '@angular/router';
 
 // Importieren Sie den Dialog-Komponenten, den Sie erstellen werden.
 
@@ -37,13 +38,13 @@ export class AddtaskComponent implements OnInit {
 
   })
 
-  categoryForm: FormGroup = new FormGroup ({
+  categoryForm: FormGroup = new FormGroup({
     newCategoryTitle: new FormControl('', Validators.required),
     color: new FormControl('', Validators.required)
   })
 
 
-  constructor(private fb: FormBuilder, private dataService: DataService) {
+  constructor(private fb: FormBuilder, private dataService: DataService, private route: Router) {
     // this.contacts = [];
   }
 
@@ -95,124 +96,147 @@ export class AddtaskComponent implements OnInit {
     this.taskForm.get('priority')?.setValue(newPriority);
     console.log(this.priority);
     console.log(this.taskForm);
-    
+
   }
 
   addSubtask(subtaskTitle: string, inputElem: HTMLInputElement) {
     if (subtaskTitle.length === 0) {
-      return; 
+      return;
     }
-      const subtasksArray = this.taskForm.get('subtasks') as FormArray;
-      
-      const newSubtask = new FormGroup({
-        title: new FormControl(subtaskTitle),
-        completed: new FormControl(false),
-      });
-  
-      subtasksArray.push(newSubtask);
-  
-      subtaskTitle = '';
-      // this.taskForm.get('subtaskInput')?.reset();
-      inputElem.value = '';
-  
-      this.subtaskValues = subtasksArray.controls.map((control) => control.value);
-      console.log(this.subtaskValues);
-      console.log(this.taskForm)
-       
+    const subtasksArray = this.taskForm.get('subtasks') as FormArray;
+
+    const newSubtask = new FormGroup({
+      title: new FormControl(subtaskTitle),
+      completed: new FormControl(false),
+    });
+
+    subtasksArray.push(newSubtask);
+
+    subtaskTitle = '';
+    // this.taskForm.get('subtaskInput')?.reset();
+    inputElem.value = '';
+
+    this.subtaskValues = subtasksArray.controls.map((control) => control.value);
+    console.log(this.subtaskValues);
+    console.log(this.taskForm)
+
   }
 
 
 
   submitTask() {
-   
+
     if (this.taskForm.valid) {
       const taskData = this.taskForm.value;
       console.log('body:', taskData);
       this.dataService.saveTask(taskData).subscribe(response => {
         console.log('Response:', response);
-    }, error => {
+        this.resetFormAndUI();
+        this.route.navigateByUrl('/home/board');
+      }, error => {
         console.error('Error:', error);
-    });
+      });
     }
   }
 
-  createNewCategory(){
-    this.showNewCategoryInput  = true;
+  createNewCategory() {
+    this.showNewCategoryInput = true;
   }
 
   enableNewCategoryInput() {
     this.showNewCategoryInput = true;
-}
-
-saveNewCategory() {
-  const newCategoryTitleValue = this.categoryForm.get('newCategoryTitle')?.value;
-  this.newCategoryTitle = newCategoryTitleValue;
-    if (newCategoryTitleValue) {
-        const newCategory = new Category({
-            title: this.newCategoryTitle,
-            color: this.generateDarkColor()          
-        });
-       
-        this.categories.push(newCategory);
-        // this.taskForm.get('category')?.setValue(newCategory);
-        this.showNewCategoryInput = false;
-        this.newCategoryTitle = '';
-        this.dataService.saveNewCategory(newCategory).subscribe(response => {
-          console.log('Category saved', response);
-          if (response && response.id) {
-            newCategory.id = response.id;
-            newCategory.author = response.author; // Stellen Sie sicher, dass 'author' in der Antwort enthalten ist
-        }
-        console.log('Category saved', response.id);
-          const categoryToSelect = this.categories.find(cat => cat.title === newCategory.title);
-    if (categoryToSelect) {
-        this.taskForm.get('category')?.setValue(categoryToSelect);
-    }
-        }, error => {
-          console.log(error);
-        })
-        
-    }
-    
-}
-refreshCategories() {
-  this.dataService.getCategories().subscribe(response => {
-    this.categories = response;
-    console.log(this.categories);
-  });
-}
-
-cancelNewCategory() {
-    this.showNewCategoryInput = false;
-    this.newCategoryTitle = '';
-}
-
-cancelSubtask(inputElem: HTMLInputElement){
-  inputElem.value = '';
-}
-
-deleteSubtask(sub: string){
-  this.subtaskValues = this.subtaskValues.filter(subtask => subtask.title !== sub);
-
-  const subtasksArray = this.taskForm.get('subtasks') as FormArray;
-    const indexToRemove = subtasksArray.controls.findIndex(control => control.get('title')?.value === sub);
-    if (indexToRemove > -1) {
-        subtasksArray.removeAt(indexToRemove);
-    }
-}
-
-generateDarkColor(): string {
-  // Funktion um eine zufällige dunkle Farbkomponente zu generieren
-  function randomDarkComponent(): number {
-    return Math.floor(Math.random() * (200 - 80 + 1) + 80); // Werte zwischen 80 und 200
   }
 
-  // Erzeugt die RGB-Komponenten
-  const r = randomDarkComponent();
-  const g = randomDarkComponent();
-  const b = randomDarkComponent();
+  resetFormAndUI() {
+    // Formularwerte zurücksetzen
+    this.taskForm.reset({
+      dueDate: this.getTomorrowDate(),
+      priority: '',
+      status: 'todo'
+    });
 
-  // Gibt die Farbe im #xxxxxx Format zurück
-  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-}
+    this.categoryForm.reset();
+
+    // UI-Zustände zurücksetzen
+    this.priority = '';
+    this.subtaskValues = [];
+    this.showNewCategoryInput = false;
+    this.selectedContacts = [];
+    // this.taskForm.get('category')?.markAsUntouched();
+    // this.taskForm.get('assigned')?.markAsUntouched();
+    // this.taskForm.get('category')?.markAsPristine();
+    // this.taskForm.get('assigned')?.markAsPristine();
+   
+  }
+  saveNewCategory() {
+    const newCategoryTitleValue = this.categoryForm.get('newCategoryTitle')?.value;
+    this.newCategoryTitle = newCategoryTitleValue;
+    if (newCategoryTitleValue) {
+      const newCategory = new Category({
+        title: this.newCategoryTitle,
+        color: this.generateDarkColor()
+      });
+
+      this.categories.push(newCategory);
+      // this.taskForm.get('category')?.setValue(newCategory);
+      this.showNewCategoryInput = false;
+      this.newCategoryTitle = '';
+      this.dataService.saveNewCategory(newCategory).subscribe(response => {
+        console.log('Category saved', response);
+        if (response && response.id) {
+          newCategory.id = response.id;
+          newCategory.author = response.author; // Stellen Sie sicher, dass 'author' in der Antwort enthalten ist
+        }
+        console.log('Category saved', response.id);
+        const categoryToSelect = this.categories.find(cat => cat.title === newCategory.title);
+        if (categoryToSelect) {
+          this.taskForm.get('category')?.setValue(categoryToSelect);
+        }
+      }, error => {
+        console.log(error);
+      })
+
+    }
+
+  }
+  refreshCategories() {
+    this.dataService.getCategories().subscribe(response => {
+      this.categories = response;
+      console.log(this.categories);
+    });
+  }
+
+  cancelNewCategory() {
+    this.showNewCategoryInput = false;
+    this.newCategoryTitle = '';
+  }
+
+  cancelSubtask(inputElem: HTMLInputElement) {
+    inputElem.value = '';
+  }
+
+  deleteSubtask(sub: string) {
+    this.subtaskValues = this.subtaskValues.filter(subtask => subtask.title !== sub);
+
+    const subtasksArray = this.taskForm.get('subtasks') as FormArray;
+    const indexToRemove = subtasksArray.controls.findIndex(control => control.get('title')?.value === sub);
+    if (indexToRemove > -1) {
+      subtasksArray.removeAt(indexToRemove);
+    }
+  }
+
+  generateDarkColor(): string {
+    // Funktion um eine zufällige dunkle Farbkomponente zu generieren
+    function randomDarkComponent(): number {
+      return Math.floor(Math.random() * (200 - 80 + 1) + 80); // Werte zwischen 80 und 200
+    }
+
+    // Erzeugt die RGB-Komponenten
+    const r = randomDarkComponent();
+    const g = randomDarkComponent();
+    const b = randomDarkComponent();
+
+    // Gibt die Farbe im #xxxxxx Format zurück
+    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+  }
 }
