@@ -29,7 +29,7 @@ import { TaskComponent } from './components/board/task/task.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { TaskDetailComponent } from './components/board/task-detail/task-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -65,7 +65,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     DragDropModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    DatePipe
   ],
   providers: [
     {

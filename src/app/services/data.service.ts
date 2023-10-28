@@ -96,5 +96,10 @@ updateTaskStatus(taskId: number, newStatusId: number): Observable<any> {
   const url = `${environment.baseUrl}/tasks/${taskId}/`;
   return this.http.patch(url, { status_id: newStatusId });
 }
+
+getTaskById(id:number){
+  const url = `${environment.baseUrl}/tasks/${id}/`;
+  return this.http.get(url);
+}
 }
 

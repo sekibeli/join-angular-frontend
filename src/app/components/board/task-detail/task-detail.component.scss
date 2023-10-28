@@ -1,0 +1,73 @@
+.taskDetailContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background-color: white;
+    border-radius: 25px;
+    border: 1px solid grey;
+    gap: 10px;
+   width: 300px;
+ 
+}
+.taskCategory {
+    color: white;
+    border-radius: 3px;
+    padding: 3px 5px ;
+    width: 100px;
+}
+.taskTitle {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.taskDescription {
+    color: grey;
+
+}
+.closeOverlay {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    
+}
+
+.taskPriorityRow {
+    display: flex;
+    align-items: center;
+
+}
+.priority {
+    margin-left: 5px;
+
+    img {
+        width: 14px;
+    }
+}
+
+.assignedContent {
+    display: flex;
+    margin-right: -5px;
+}
+.assigned {
+    color: white;
+    border-radius: 50%;
+    padding:5px;
+    // margin-bottom: 3px;
+    // margin-right: -5px;
+    border: 1px solid white;
+    font-size: 0.7em;
+
+}
+
+.row {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+
+
+}
+
+.assignedTopic {
+    margin-bottom: 10px;
+}

@@ -1,4 +1,4 @@
-<div class="singleTaskContainer" (click)="openTask()">
+<div class="singleTaskContainer" (click)="openTask(task.id)">
     <div class="taskCategory" [style.backgroundColor]="task.category?.color">{{ task.category?.title}}</div>
     <div class="taskTitle">{{ task.title}}</div>
     <div class="taskDescription">{{task.description}}</div>
@@ -12,7 +12,9 @@
                 {{contact?.initials}}
             </div>
         </div>
-        <div class="priority"></div>
+        <div class="priority">
+            <img [src]="'./../../../../assets/img/' + task.priority.title + '.svg'" [alt]="task.priority.title">
+        </div>
     </div>
 
 </div>

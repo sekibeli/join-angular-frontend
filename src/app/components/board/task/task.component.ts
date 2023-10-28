@@ -41,7 +41,7 @@ getCompletedSubtasksPercentage(){
   this.percent = ( this.completedCount / this.subtasks.length) * 100;
 }
 
-openTask() {
+openTask(id:number) {
   const dialogConfig = new MatDialogConfig();
   // if (this.drawerService.isSmallScreen) {
 
@@ -49,8 +49,8 @@ openTask() {
   //   dialogConfig.maxHeight = '90vh';
   // }
 
-  // dialogConfig.data = { user: user };
+   dialogConfig.data =  id ;
   const dialogRef = this.dialog.open(TaskDetailComponent, dialogConfig);
-  // dialogRef.componentInstance.user = this.user.value;
+  dialogRef.componentInstance.taskId = id;
 }
 }
