@@ -21,43 +21,51 @@ export class BoardComponent implements OnInit, OnDestroy{
   //public tasks:any = [];
 
   alive: boolean = true;
-  tasks$ = new BehaviorSubject<any[]>([]);
+  // tasks$ = new BehaviorSubject<any[]>([]);
   // public subtasks:any = [];
-  public todo: any[] = [];
-  public inProgress: any[] = [];
-  public awaitingFeedback: any[] = [];
-  public done: any[] = [];
+  // public todo: any[] = [];
+  // public inProgress: any[] = [];
+  // public awaitingFeedback: any[] = [];
+  // public done: any[] = [];
 
-  constructor(private dataService: DataService){
-    this.fetchAndSortTasks();
+  constructor(public dataService: DataService){
+    this.dataService.fetchAndSortTasks();
+   
   }
 
 ngOnInit(): void {
+  this.dataService.cachedTasks?.subscribe((tasks)=> {
+    console.log('cachedTasks', tasks);
+  })
   
 }
 
 processTasks(tasks: any[]) {
-  this.tasks$.next(tasks);
+  // this.tasks$.next(tasks);
   
 }
 ngOnDestroy(): void {
    this.alive = false; 
+   console.log('board destroyed');
 }
-fetchAndSortTasks() {
+// fetchAndSortTasks() {
   
-  this.dataService.getTasks().subscribe(tasks => {
-    this.tasks$.next(tasks);
+//   this.dataService.getTasks().subscribe(tasks => {
+//     this.tasks$.next(tasks);
     
-    // tasks nach status sortieren
-    this.todo = tasks.filter((task:any) => task.status.title === 'todo');
-    this.inProgress = tasks.filter((task:any) => task.status.title === 'inProgress');
-    this.awaitingFeedback = tasks.filter((task:any) => task.status.title === 'awaitingFeedback');
-    this.done = tasks.filter((task:any) => task.status.title === 'done');
-  });
+//     // tasks nach status sortieren
+//     this.todo = tasks.filter((task:any) => task.status.title === 'todo');
+//     this.inProgress = tasks.filter((task:any) => task.status.title === 'inProgress');
+//     this.awaitingFeedback = tasks.filter((task:any) => task.status.title === 'awaitingFeedback');
+//     this.done = tasks.filter((task:any) => task.status.title === 'done');
+//   });
   
-}
+// }
 
-  drop(event: CdkDragDrop<any[]>) {
+  drop(event: CdkDragDrop<any[] | null, any> ) {
+    if (!event.previousContainer.data || !event.container.data) {
+      return;  // Verlassen Sie die Funktion, wenn einer der Daten null ist.
+    }
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -75,6 +83,7 @@ fetchAndSortTasks() {
       this.dataService.updateTaskStatus(movedTask.id, newStatusId)
       .subscribe(response => {
           console.log("Status updated successfully", response);
+          
          
       }, error => {
           console.error("Error updating status", error);

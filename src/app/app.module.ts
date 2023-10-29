@@ -66,7 +66,8 @@ import { DatePipe } from '@angular/common';
     DragDropModule,
     MatProgressBarModule,
     MatDialogModule,
-    DatePipe
+    DatePipe,
+    
   ],
   providers: [
     {

@@ -8,21 +8,22 @@
     <div class="tasks-col">
         <h5>Todo</h5>
         <div cdkDropList id="todoList" #todoList="cdkDropList" 
-             [cdkDropListData]="todo" 
-             [cdkDropListConnectedTo]="[inProgressList, awaitingFeedbackList, doneList]" 
-             class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="task-box" *ngFor="let item of todo" cdkDrag>
-            <app-task [task]="item"></app-task></div>
+        [cdkDropListData]="this.dataService.todo$ | async" 
+        [cdkDropListConnectedTo]="[inProgressList, awaitingFeedbackList, doneList]" 
+        class="example-list" (cdkDropListDropped)="drop($event)">
+     <div class="task-box" *ngFor="let item of this.dataService.todo$| async" cdkDrag>
+       <app-task [task]="item"></app-task>
+          </div>
         </div>
       </div>
 
       <div class="tasks-col">
         <h5>In Progress</h5>
         <div cdkDropList id="inProgressList" #inProgressList="cdkDropList" 
-             [cdkDropListData]="inProgress" 
+             [cdkDropListData]="this.dataService.inProgress$ | async" 
              [cdkDropListConnectedTo]="[todoList, awaitingFeedbackList, doneList]" 
              class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="task-box" *ngFor="let item of inProgress" cdkDrag>
+          <div class="task-box" *ngFor="let item of this.dataService.inProgress$ | async" cdkDrag>
             <app-task [task]="item"></app-task></div>
         </div>
       </div>
@@ -30,10 +31,10 @@
       <div class="tasks-col">
         <h5>Awaiting Feedback</h5>
         <div cdkDropList id="awaitingFeedbackList" #awaitingFeedbackList="cdkDropList" 
-             [cdkDropListData]="awaitingFeedback" 
+             [cdkDropListData]="this.dataService.awaitingFeedback$ | async" 
              [cdkDropListConnectedTo]="[todoList, inProgressList, doneList]" 
              class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="task-box" *ngFor="let item of awaitingFeedback" cdkDrag>
+          <div class="task-box" *ngFor="let item of this.dataService.awaitingFeedback$ | async" cdkDrag>
             <app-task [task]="item"></app-task></div>
         </div>
       </div>
@@ -41,10 +42,10 @@
       <div class="tasks-col">
         <h5>Done</h5>
         <div cdkDropList id="doneList" #doneList="cdkDropList" 
-             [cdkDropListData]="done" 
+             [cdkDropListData]="this.dataService.done$ | async" 
              [cdkDropListConnectedTo]="[todoList, inProgressList, awaitingFeedbackList]" 
              class="example-list" (cdkDropListDropped)="drop($event)">
-          <div class="task-box" *ngFor="let item of done" cdkDrag>
+          <div class="task-box" *ngFor="let item of this.dataService.done$ | async" cdkDrag>
             <app-task [task]="item"></app-task></div>
         </div>
       </div>

@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class AddtaskComponent implements OnInit {
   newCategoryTitle: string = '';
   showNewCategoryInput: boolean = false;
-  // subtaskValues: string[] = [];
+
   subtaskValues: { title: string, completed: boolean }[] = [];
   tomorrow: string = this.getTomorrowDate();
   priority: string = '';
@@ -130,9 +130,17 @@ export class AddtaskComponent implements OnInit {
       const taskData = this.taskForm.value;
       console.log('body:', taskData);
       this.dataService.saveTask(taskData).subscribe(response => {
-        console.log('Response:', response);
+       
+        console.log('taskData:', taskData);
+        console.log('Task gespeichert', response)
         this.resetFormAndUI();
-        this.route.navigateByUrl('/home/board');
+
+         this.route.navigateByUrl('/home/board').then(()=> {
+          this.dataService.cachedTasks = null;
+          this.dataService.fetchAndSortTasks();
+         });
+         
+       
       }, error => {
         console.error('Error:', error);
       });
@@ -162,10 +170,7 @@ export class AddtaskComponent implements OnInit {
     this.subtaskValues = [];
     this.showNewCategoryInput = false;
     this.selectedContacts = [];
-    // this.taskForm.get('category')?.markAsUntouched();
-    // this.taskForm.get('assigned')?.markAsUntouched();
-    // this.taskForm.get('category')?.markAsPristine();
-    // this.taskForm.get('assigned')?.markAsPristine();
+
    
   }
   saveNewCategory() {

@@ -12,8 +12,21 @@ import { BehaviorSubject } from 'rxjs';
 export class DataService {
   private cachedCategories: Observable<any> | null = null;
   private cachedContacts: Observable<any> | null = null;
-  private cachedTasks: Observable<any> | null = null;
+  public cachedTasks: Observable<any> | null = null;
   private cachedSubtasks: Observable<any> | null = null;
+
+
+  tasks$ = new BehaviorSubject<any[]>([]);
+  // public subtasks:any = [];
+  public todo: any[] = [];
+  public todo$ = new BehaviorSubject<any[]>([]);
+  public inProgress: any[] = [];
+  public awaitingFeedback: any[] = [];
+  public done: any[] = [];
+  public inProgress$ = new BehaviorSubject<any[]>([]);
+public awaitingFeedback$ = new BehaviorSubject<any[]>([]);
+public done$ = new BehaviorSubject<any[]>([]);
+
 
   constructor(private http: HttpClient) { }
 
@@ -101,5 +114,24 @@ getTaskById(id:number){
   const url = `${environment.baseUrl}/tasks/${id}/`;
   return this.http.get(url);
 }
+
+fetchAndSortTasks() {
+  
+  this.getTasks().subscribe(tasks => {
+    this.tasks$.next(tasks);
+    console.log('alle Tasks:', tasks);
+  
+    // sortieren
+    this.todo$.next(tasks.filter((task: any) => task.status.title === 'todo'));
+    this.inProgress$.next(tasks.filter((task: any) => task.status.title === 'inProgress'));
+    this.awaitingFeedback$.next(tasks.filter((task: any) => task.status.title === 'awaitingFeedback'));
+    this.done$.next(tasks.filter((task: any) => task.status.title === 'done'));
+    
+    console.log('todo-Tasks:', this.todo);
+  });
+  
+}
+
+
 }
 
