@@ -13,6 +13,7 @@
         class="example-list" (cdkDropListDropped)="drop($event)">
      <div class="task-box" *ngFor="let item of this.dataService.todo$| async" cdkDrag>
        <app-task [task]="item"></app-task>
+      
           </div>
         </div>
       </div>
@@ -25,6 +26,7 @@
              class="example-list" (cdkDropListDropped)="drop($event)">
           <div class="task-box" *ngFor="let item of this.dataService.inProgress$ | async" cdkDrag>
             <app-task [task]="item"></app-task></div>
+            
         </div>
       </div>
 

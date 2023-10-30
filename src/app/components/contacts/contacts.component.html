@@ -1,1 +1,45 @@
-<p>contacts works!</p>
+<div class="container" id="container-content"></div>
+<!-- <div class="makeBgDarker d-none" id="makeBgDarker" onclick="closeItQuick()"></div>
+<div class="overlayTask d-none" id="overlayTask"></div> -->
+<div class="main2" id="main-contact">
+  <div class="new-contact-overlay-box d-none" id="overlay-box">
+    <div class="new-contact-overlay" id="new-contact-overlay">
+      <div class="new-contact-left" id="new-contact-left"></div>
+      <div class="new-contact-right" id="new-contact-right-content"></div>
+    </div>
+  </div>
+  <div class="add-new-contact-button" onclick="addNewContact()">
+    <span>New contact</span>
+    <img src="assets/img/contactnew.png" alt="" />
+  </div>
+  <div class="contact-container">
+    <div class="contact-list-box" id="contact-list-content">
+        <!-- {{contacts.name. | async}} -->
+    </div>
+    <div class="contact-main-box" id="contact-main-box">
+      <div class="contact-main-content" id="show-contact-content">
+        <div class="contact-headline-box">
+          <span class="kanban-text">Kanban Projekt Management Tool</span>
+          <span class="contact-headline">Contacts</span>
+          <div class="vertical-and-better">
+            <div class="contact-vertical"></div>
+            <span class="contact-better-with">Better with a team</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="create-new-message" id="create-success-message">
+    <span id="message-text-contacts">Contact successfully created</span>
+  </div>
+  <div id="infoText" class="d-none">
+    <span>Task added to board</span><img src="assets/img/board_icon.svg" />
+  </div>
+  <div
+    class="makeBgDarker d-none"
+    id="makeBgDarker"
+    onclick="closeItQuick()"
+  ></div>
+  <div class="overlayTask d-none" id="overlayTask"></div>
+  <div class="newTask d-none" id="newTask"></div>
+</div>

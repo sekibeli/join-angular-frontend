@@ -32,11 +32,12 @@ public done$ = new BehaviorSubject<any[]>([]);
 
   getTasks(): Observable<any> {
     const url = environment.baseUrl + '/tasks/';
-    if (!this.cachedTasks) {
-      this.cachedTasks = this.http.get(url).pipe(
-      shareReplay(1)  // Dies stellt sicher, dass das Ergebnis für zukünftige Abonnenten zwischengespeichert wird
-     );
- }
+    // if (!this.cachedTasks) {
+      this.cachedTasks = this.http.get(url)
+//       .pipe(
+//       shareReplay(1)  // Dies stellt sicher, dass das Ergebnis für zukünftige Abonnenten zwischengespeichert wird
+//      );
+//  }
     return this.cachedTasks;
   }
 
@@ -127,7 +128,7 @@ fetchAndSortTasks() {
     this.awaitingFeedback$.next(tasks.filter((task: any) => task.status.title === 'awaitingFeedback'));
     this.done$.next(tasks.filter((task: any) => task.status.title === 'done'));
     
-    console.log('todo-Tasks:', this.todo);
+    // console.log('todo-Tasks:', this.todo);
   });
   
 }

@@ -35,7 +35,7 @@ export class BoardComponent implements OnInit, OnDestroy{
 
 ngOnInit(): void {
   this.dataService.cachedTasks?.subscribe((tasks)=> {
-    console.log('cachedTasks', tasks);
+    // console.log('cachedTasks', tasks);
   })
   
 }
