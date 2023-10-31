@@ -30,6 +30,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { TaskDetailComponent } from './components/board/task-detail/task-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
+import { ContactComponent } from './components/contacts/contact/contact.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { DatePipe } from '@angular/common';
     ContactsComponent,
     TaskComponent,
     TaskDetailComponent,
+    ContactComponent,
    
 
   ],

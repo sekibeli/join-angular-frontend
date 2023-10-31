@@ -14,7 +14,11 @@
   </div>
   <div class="contact-container">
     <div class="contact-list-box" id="contact-list-content">
-        <!-- {{contacts.name. | async}} -->
+      
+        <div class="contactBox" *ngFor="let contact of contacts | async">
+          <app-contact [contact]="contact"></app-contact>
+        </div>
+     
     </div>
     <div class="contact-main-box" id="contact-main-box">
       <div class="contact-main-content" id="show-contact-content">
