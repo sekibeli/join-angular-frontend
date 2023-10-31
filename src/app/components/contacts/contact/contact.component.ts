@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+
 import { Contact } from 'src/app/models/contact.class';
+
 
 @Component({
   selector: 'app-contact',
@@ -8,4 +10,8 @@ import { Contact } from 'src/app/models/contact.class';
 })
 export class ContactComponent {
 @Input() contact?: Contact;
+
+
+
+
 }

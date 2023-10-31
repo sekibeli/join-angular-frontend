@@ -14,12 +14,21 @@
   </div>
   <div class="contact-container">
     <div class="contact-list-box" id="contact-list-content">
-      
-        <div class="contactBox" *ngFor="let contact of contacts | async">
-          <app-contact [contact]="contact"></app-contact>
+  
+      <ng-container *ngIf="contacts$ | async as groupedContacts">
+        <div *ngFor="let letter of getKeys(groupedContacts)">
+            <div class="letter-divider">
+              
+                {{ letter }}
+                <hr>
+            </div>
+    
+            <div class="contactBox" *ngFor="let contact of groupedContacts[letter]">
+                <app-contact [contact]="contact"></app-contact>
+            </div>
         </div>
-     
-    </div>
+    </ng-container>
+  </div>
     <div class="contact-main-box" id="contact-main-box">
       <div class="contact-main-content" id="show-contact-content">
         <div class="contact-headline-box">
