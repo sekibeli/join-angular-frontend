@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data.service';
+import { AddtaskComponent } from '../../addtask/addtask.component';
 
 @Component({
   selector: 'app-task-detail',
@@ -12,7 +13,7 @@ taskId?: number;
 public task: any;
 assigned: any;
 subtasks:any;
-  constructor(private dataService: DataService, @Inject(MAT_DIALOG_DATA) public id: number, public dialogRef: MatDialogRef<TaskDetailComponent>){
+  constructor(private dataService: DataService, @Inject(MAT_DIALOG_DATA) public id: number, public dialogRef: MatDialogRef<TaskDetailComponent>, private dialog: MatDialog){
 this.taskId = id;
 
 
@@ -52,5 +53,19 @@ this.dataService.getTaskById(this.taskId).subscribe(response => {
       this.dataService.fetchAndSortTasks();
       this.dialogRef.close();
     })
+  }
+
+  openEditTask(task:any){
+    this.dialogRef.close();
+    const dialogConfig = new MatDialogConfig();
+    
+  
+      dialogConfig.width = '100vw';
+      dialogConfig.height = '90vh';
+    
+  
+     dialogConfig.data =  {task: task, editMode: true} ;
+    const dialogRef = this.dialog.open(AddtaskComponent, dialogConfig);
+    // dialogRef.componentInstance.taskId = id;
   }
 }

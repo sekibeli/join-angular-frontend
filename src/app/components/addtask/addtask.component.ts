@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { Contact } from 'src/app/models/contact.class';
 import { Category } from 'src/app/models/category.class';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 // Importieren Sie den Dialog-Komponenten, den Sie erstellen werden.
 
@@ -15,6 +16,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./addtask.component.scss']
 })
 export class AddtaskComponent implements OnInit {
+  @Input() editMode = false;
+  @Input() taskToEdit: any;
+
   newCategoryTitle: string = '';
   showNewCategoryInput: boolean = false;
 
@@ -44,8 +48,9 @@ export class AddtaskComponent implements OnInit {
   })
 
 
-  constructor(private fb: FormBuilder, private dataService: DataService, private route: Router) {
+  constructor(private fb: FormBuilder, private dataService: DataService, private route: Router, @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
     // this.contacts = [];
+    console.log(data);
   }
 
   validateDate(control: AbstractControl) {
@@ -61,6 +66,13 @@ export class AddtaskComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    if (this.editMode && this.taskToEdit) {
+      this.taskForm.patchValue(this.taskToEdit);
+      // Setzen Sie auch andere Eigenschaften wie Subtasks oder Assigned, etc.
+    }
+
+
     this.dataService.getContacts().subscribe(response => {
       this.contacts = response;
       console.log(this.contacts);
