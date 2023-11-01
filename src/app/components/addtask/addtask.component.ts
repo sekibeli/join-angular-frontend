@@ -53,7 +53,7 @@ export class AddtaskComponent implements OnInit {
     // console.log(data.editMode);
     if(data){
       this.editMode = data.editMode;
-    console.log(this.editMode);
+    console.log(data);
     } else {
       this.editMode = false;
       console.log(false);

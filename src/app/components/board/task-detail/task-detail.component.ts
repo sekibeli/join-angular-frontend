@@ -65,7 +65,11 @@ this.dataService.getTaskById(this.taskId).subscribe(response => {
       dialogConfig.maxHeight = '90vh';
     
   
-     dialogConfig.data =  {task: task, editMode: true} ;
+     dialogConfig.data =  {
+      task: task, 
+      assigned: this.assigned,
+      subtasks: this.subtasks,
+      editMode: true} ;
     const dialogRef = this.dialog.open(AddtaskComponent, dialogConfig);
     // dialogRef.componentInstance.taskId = id;
   }
