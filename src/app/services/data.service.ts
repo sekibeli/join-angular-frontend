@@ -116,6 +116,11 @@ getTaskById(id:number){
   return this.http.get(url);
 }
 
+deleteTask(id:number){
+  const url = `${environment.baseUrl}/tasks/${id}/`;
+  return this.http.delete(url);
+}
+
 fetchAndSortTasks() {
   
   this.getTasks().subscribe(tasks => {

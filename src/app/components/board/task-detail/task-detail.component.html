@@ -1,5 +1,5 @@
 <div *ngIf="task" class="taskDetailContainer">
-    <div class="closeOverlay"><mat-icon>close</mat-icon></div>
+    <div class="closeOverlay" (click)="closeDialog()"><mat-icon>close</mat-icon></div>
     <div class="taskCategory" [style.backgroundColor]="task.category?.color">{{ task.category?.title}}</div>
     <div class="taskTitle">{{task.title}}</div>
     <div class="taskDescription">{{task.description}}</div>
@@ -19,6 +19,18 @@
 
         {{contact.name}}
        </div>
+    </div>
+    <div class="subtasksContent">
+        <div class="subtaskTopic">Subtasks</div>
+        <div class="subtasks" *ngFor="let subtask of subtasks">
+            <mat-checkbox [checked]="subtask.completed" disabled></mat-checkbox>
+            {{subtask.title}}
+        </div>
+    </div>
+    <div class="buttons">
+        <div class="buttonBox" (click)="deleteTask(task.id)"><mat-icon>delete</mat-icon></div>
+
+        <div class="buttonBox"><mat-icon>edit</mat-icon></div>
     </div>
 </div>
 

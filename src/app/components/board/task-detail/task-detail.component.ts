@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -11,8 +11,10 @@ export class TaskDetailComponent implements OnInit {
 taskId?: number;
 public task: any;
 assigned: any;
-  constructor(private dataService: DataService, @Inject(MAT_DIALOG_DATA) public id: number){
+subtasks:any;
+  constructor(private dataService: DataService, @Inject(MAT_DIALOG_DATA) public id: number, public dialogRef: MatDialogRef<TaskDetailComponent>){
 this.taskId = id;
+
 
 this.dataService.getTaskById(this.taskId).subscribe(response => {
   this.task = response;
@@ -23,6 +25,15 @@ this.dataService.getTaskById(this.taskId).subscribe(response => {
       console.log('detail-assigned:',this.assigned);
     }); 
     }
+
+    if (this.task && this.task.subtasks) {
+      this.dataService.getSubtasksByIds(this.task.subtasks).subscribe(subtaskResponse => {
+        this.subtasks = subtaskResponse;
+         
+    });
+  }
+
+    
 })
     
   }
@@ -31,4 +42,15 @@ this.dataService.getTaskById(this.taskId).subscribe(response => {
    
   }
   
+  closeDialog(){
+    this.dialogRef.close();
+  }
+
+  deleteTask(taskId:number){
+    this.dataService.deleteTask(taskId).subscribe(response => {
+      console.log(response);
+      this.dataService.fetchAndSortTasks();
+      this.dialogRef.close();
+    })
+  }
 }
