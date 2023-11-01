@@ -16,7 +16,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./addtask.component.scss']
 })
 export class AddtaskComponent implements OnInit {
-  @Input() editMode = false;
+ editMode = false;
   @Input() taskToEdit: any;
 
   newCategoryTitle: string = '';
@@ -50,7 +50,14 @@ export class AddtaskComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private dataService: DataService, private route: Router, @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
     // this.contacts = [];
-    console.log(data);
+    // console.log(data.editMode);
+    if(data){
+      this.editMode = data.editMode;
+    console.log(this.editMode);
+    } else {
+      this.editMode = false;
+      console.log(false);
+    }
   }
 
   validateDate(control: AbstractControl) {
@@ -67,9 +74,9 @@ export class AddtaskComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.editMode && this.taskToEdit) {
-      this.taskForm.patchValue(this.taskToEdit);
-      // Setzen Sie auch andere Eigenschaften wie Subtasks oder Assigned, etc.
+    if (this.editMode) {
+      this.taskForm.patchValue(this.data.task);
+    
     }
 
 
