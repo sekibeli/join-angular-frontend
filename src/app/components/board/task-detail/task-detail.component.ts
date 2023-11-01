@@ -59,9 +59,10 @@ this.dataService.getTaskById(this.taskId).subscribe(response => {
     this.dialogRef.close();
     const dialogConfig = new MatDialogConfig();
     
-  
-      dialogConfig.width = '100vw';
-      dialogConfig.height = '90vh';
+    dialogConfig.minWidth = '100vw';
+    dialogConfig.minHeight = '90vh';
+      dialogConfig.maxWidth = '100vw';
+      dialogConfig.maxHeight = '90vh';
     
   
      dialogConfig.data =  {task: task, editMode: true} ;
