@@ -143,13 +143,19 @@ input {
   background-color: #f8f8f8;
   color: grey;
   // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  // box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: rgb(80, 80, 80);
   font-size: 0.8em;
   border-radius: 3px;
-  
+  width: 100%;
+  margin-bottom: 3px;
 
 
 
+}
+
+.subtaskRow {
+  display: flex;
 }
 @media (max-width: 900px){
  

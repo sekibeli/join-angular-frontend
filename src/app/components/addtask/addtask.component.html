@@ -1,6 +1,7 @@
 
 <div class='addtaskBox'>
-    <div><h1>Add Task</h1></div>
+    <div *ngIf="!editMode"><h1>Add Task</h1></div>
+    <div *ngIf="editMode"><h1>Edit Task</h1></div>
     <form [formGroup]="taskForm">
         <div class="addTaskContainer">
             <div class="left">
@@ -73,7 +74,7 @@
                 
                 <div class="form-group">
                     <label for="dueDate">Due Date</label>
-                    <input type="date" id="dueDate" formControlName="dueDate" class="form-control" [value]="tomorrow">
+                    <input type="date" id="dueDate" formControlName="dueDate" class="form-control" [value]="editMode ? taskForm.get('dueDate')?.value : tomorrow">
                 
                     <div *ngIf="taskForm.get('dueDate')?.hasError('required')" class="error-text">
                         Due Date is required
@@ -98,9 +99,11 @@
                     <mat-icon class="icon-save" style="color: green;" (click)="addSubtask(subtaskInput.value,  subtaskInput)">done</mat-icon>
                     <mat-icon class="icon-cancel" style="color: red;" (click)="cancelSubtask(subtaskInput)">close</mat-icon>
                   </div>
-                  <div *ngFor="let subtask of subtaskValues">
-                    <div class="subtaskList"><div>{{subtask.title}}</div><div (click)="deleteSubtask(subtask.title)"><mat-icon style="color: rgb(255, 0, 0);">delete</mat-icon></div></div>
-                  </div>
+                 
+                    <div class="subtaskRow" *ngFor="let subtask of subtaskValues">
+                        <mat-checkbox [checked]="subtask.completed"></mat-checkbox><div class="subtaskList"><div>{{subtask.title}}</div><div (click)="deleteSubtask(subtask.title)"><mat-icon style="color: rgb(255, 0, 0);">delete</mat-icon></div></div>
+                    </div>
+              
 
                   
 

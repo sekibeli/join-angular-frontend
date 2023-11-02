@@ -17,7 +17,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class AddtaskComponent implements OnInit {
  editMode = false;
-  @Input() taskToEdit: any;
+  // @Input() taskToEdit: any;
 
   newCategoryTitle: string = '';
   showNewCategoryInput: boolean = false;
@@ -51,14 +51,42 @@ export class AddtaskComponent implements OnInit {
   constructor(private fb: FormBuilder, private dataService: DataService, private route: Router, @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
     // this.contacts = [];
     // console.log(data.editMode);
+   
+  }
+
+  private setFormValues(data: any): void {
     if(data){
       this.editMode = data.editMode;
+      this.subtaskValues = data.subtasks;
+      const formattedDueDate = this.convertToYYYYMMDD(data.task.dueDate);
+   
+      // const selectedCategory = this.categories.find(cat => cat.title === data.task.category.title);
+      
+
+      // Für die zugewiesenen Kontakte, angenommen sie sind in der Form von IDs
+      // const selectedContacts = this.contacts.filter(contact =>
+      //   data.assigned.map(a => a.id).includes(contact.id)
+      // );
+    
+      if (this.editMode) {
+        this.taskForm.patchValue({
+          ...this.data.task,
+        dueDate: formattedDueDate,
+        priority: data.task.priority.title.toLowerCase(),
+        category: data.task.category,
+        // assigned: selectedContacts,
+       // status: data.task.status.title.toLowerCase() 
+        });
+        this.priority = data.task.priority.title.toLowerCase()
+      }
     console.log(data);
+    console.log('active category:', data.task.category)
     } else {
       this.editMode = false;
       console.log(false);
     }
   }
+
 
   validateDate(control: AbstractControl) {
     const currentDate = new Date();
@@ -74,10 +102,7 @@ export class AddtaskComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.editMode) {
-      this.taskForm.patchValue(this.data.task);
-    
-    }
+   
 
 
     this.dataService.getContacts().subscribe(response => {
@@ -90,7 +115,7 @@ export class AddtaskComponent implements OnInit {
       console.log(this.categories);
 
     });
-
+    this.setFormValues(this.data);
   }
 
   getTomorrowDate(): string {
@@ -262,5 +287,15 @@ export class AddtaskComponent implements OnInit {
 
     // Gibt die Farbe im #xxxxxx Format zurück
     return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+  }
+
+  convertToYYYYMMDD(dateIsoString: string): string {
+    const dateObj = new Date(dateIsoString);
+    const year = dateObj.getFullYear();
+    // getMonth() gibt einen 0-basierten Index zurück, daher +1 für einen 1-basierten Monat
+    const month = dateObj.getMonth() + 1;
+    const day = dateObj.getDate();
+    // Verwenden Sie padStart um sicherzustellen, dass Monat und Tag immer zweistellig sind
+    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
   }
 }
