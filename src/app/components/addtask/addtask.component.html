@@ -1,5 +1,6 @@
 
 <div class='addtaskBox'>
+    <div *ngIf="editMode" class="closeOverlay" (click)="closeDialog()"><mat-icon>close</mat-icon></div>
     <div *ngIf="!editMode"><h1>Add Task</h1></div>
     <div *ngIf="editMode"><h1>Edit Task</h1></div>
     <form [formGroup]="taskForm">
@@ -109,7 +110,8 @@
 
      <!-- Submit button -->
      
-     <button type="submit" (click)="submitTask()" [disabled]="taskForm.invalid" class="btn btn-primary">Submit</button>
+     <button *ngIf="!editMode" type="submit" (click)="submitTask()" [disabled]="taskForm.invalid" class="btn btn-primary">Submit</button>
+     <button *ngIf="editMode" type="submit" (click)="editTask()" [disabled]="taskForm.invalid" class="btn btn-primary">Edit Task</button>
             </div>
        
         </div>

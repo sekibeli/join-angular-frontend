@@ -6,7 +6,7 @@ export class Category {
 
 
     constructor(obj?: any) {
-        this.id = obj ? obj.id : '';
+        this.id = obj ? obj.id : null;
         this.title = obj ? obj.title : '';
         this.color = obj ? obj.color : '';
         this.author = obj ? obj.author : '';

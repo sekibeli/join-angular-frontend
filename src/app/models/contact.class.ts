@@ -9,7 +9,7 @@ email: string;
 
 
     constructor(obj?:any){
-        this.id = obj ? obj.id: '';
+        this.id = obj ? obj.id: null;
         this.name = obj ? obj.name : '';
         this.author = obj ? obj.author : '';
         this.initials = obj? obj.initials : '';

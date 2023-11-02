@@ -1,10 +1,12 @@
-import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { Contact } from 'src/app/models/contact.class';
 import { Category } from 'src/app/models/category.class';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogRef } from '@angular/cdk/dialog';
+import { Subscription } from 'rxjs';
 
 // Importieren Sie den Dialog-Komponenten, den Sie erstellen werden.
 
@@ -15,7 +17,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './addtask.component.html',
   styleUrls: ['./addtask.component.scss']
 })
-export class AddtaskComponent implements OnInit {
+export class AddtaskComponent implements OnInit, OnDestroy {
+  private contactsSub: Subscription;
+  private categoriesSub: Subscription;
  editMode = false;
   // @Input() taskToEdit: any;
 
@@ -48,19 +52,41 @@ export class AddtaskComponent implements OnInit {
   })
 
 
-  constructor(private fb: FormBuilder, private dataService: DataService, private route: Router, @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private fb: FormBuilder, private dataService: DataService, private route: Router, @Optional() @Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: DialogRef<AddtaskComponent>) {
     // this.contacts = [];
     // console.log(data.editMode);
    
+    this.contactsSub = this.dataService.getContacts().subscribe((response: Contact[]) => {
+      this.contacts = response;
+      console.log(this.contacts);
+      if (this.editMode && this.data.task && this.data.task.assigned) {
+        // Angenommen, this.data.task.assigned ist ein Array von Kontakt IDs
+        const assignedContacts = this.data.task.assigned.map((assignedId: number )=>
+          this.contacts.find(contact => contact.id === assignedId)
+        ).filter((contact: Contact | undefined) => !!contact); // filtert undefined Werte heraus, falls ein Kontakt nicht gefunden wurde
+    
+        this.taskForm.get('assigned')?.setValue(assignedContacts);
+      }
+
+    });
+    this.categoriesSub = this.dataService.getCategories().subscribe(response => {
+      this.categories = response;
+      console.log(response);
+      if(this.editMode){
+        const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category.id);
+        this.taskForm.get('category')?.setValue(categoryToSet || null);
+      }
+      
+    });
   }
 
-  private setFormValues(data: any): void {
+   setFormValues(data: any): void {
     if(data){
       this.editMode = data.editMode;
       this.subtaskValues = data.subtasks;
       const formattedDueDate = this.convertToYYYYMMDD(data.task.dueDate);
    
-      // const selectedCategory = this.categories.find(cat => cat.title === data.task.category.title);
+       
       
 
       // Für die zugewiesenen Kontakte, angenommen sie sind in der Form von IDs
@@ -73,14 +99,14 @@ export class AddtaskComponent implements OnInit {
           ...this.data.task,
         dueDate: formattedDueDate,
         priority: data.task.priority.title.toLowerCase(),
-        category: data.task.category,
+        // category: data.task.category.title,
         // assigned: selectedContacts,
        // status: data.task.status.title.toLowerCase() 
         });
         this.priority = data.task.priority.title.toLowerCase()
       }
     console.log(data);
-    console.log('active category:', data.task.category)
+    console.log('active category:', data.task.category.title);
     } else {
       this.editMode = false;
       console.log(false);
@@ -101,20 +127,7 @@ export class AddtaskComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-   
-
-
-    this.dataService.getContacts().subscribe(response => {
-      this.contacts = response;
-      console.log(this.contacts);
-
-    });
-    this.dataService.getCategories().subscribe(response => {
-      this.categories = response;
-      console.log(this.categories);
-
-    });
+ 
     this.setFormValues(this.data);
   }
 
@@ -191,6 +204,27 @@ export class AddtaskComponent implements OnInit {
     }
   }
 
+  editTask(){
+    if (this.taskForm.valid) {
+      const taskData = this.taskForm.value;
+      console.log('body:', taskData);
+      this.dataService.editTask(taskData, this.data.task.id).subscribe(response => {
+       
+        console.log('taskData:', taskData);
+        console.log('Task gespeichert', response)
+        this.resetFormAndUI();
+
+         this.route.navigateByUrl('/home/board').then(()=> {
+          this.dataService.cachedTasks = null;
+          this.dataService.fetchAndSortTasks();
+         });
+         
+       
+      }, error => {
+        console.error('Error:', error);
+      });
+    }
+  }
   createNewCategory() {
     this.showNewCategoryInput = true;
   }
@@ -298,4 +332,19 @@ export class AddtaskComponent implements OnInit {
     // Verwenden Sie padStart um sicherzustellen, dass Monat und Tag immer zweistellig sind
     return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
   }
+  closeDialog(){
+    this.dialogRef.close();
+  }
+
+  ngOnDestroy(): void {
+    if (this.contactsSub) {
+      this.contactsSub.unsubscribe();
+    }
+    
+    if (this.categoriesSub) {
+      this.categoriesSub.unsubscribe();
+    }
+    console.log('kaputtboardzu');
+  }
+
 }

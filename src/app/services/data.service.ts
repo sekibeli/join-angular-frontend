@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.class';
 import { Status } from '../models/status.class';
 import { BehaviorSubject } from 'rxjs';
+import { Contact } from '../models/contact.class';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,7 @@ public done$ = new BehaviorSubject<any[]>([]);
     return this.cachedTasks;
   }
 
-  getContacts(): Observable<any> {
+  getContacts(): Observable<Contact[]> {
     const url = environment.baseUrl + '/contacts/';
     if (!this.cachedContacts) {
       this.cachedContacts = this.http.get(url).pipe(
@@ -51,7 +52,7 @@ public done$ = new BehaviorSubject<any[]>([]);
     return this.cachedContacts;
   }
 
-   getCategories(): Observable<any> {
+   getCategories(): Observable<Category[]> {
     const url = environment.baseUrl + '/categories/';
 
     if (!this.cachedCategories) {
