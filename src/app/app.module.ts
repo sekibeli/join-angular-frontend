@@ -31,6 +31,8 @@ import { TaskDetailComponent } from './components/board/task-detail/task-detail.
 import { MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { ContactComponent } from './components/contacts/contact/contact.component';
+import { WrapperAddtaskComponent } from './components/addtask/wrapper-addtask/wrapper-addtask.component';
+
 
 
 @NgModule({
@@ -48,6 +50,7 @@ import { ContactComponent } from './components/contacts/contact/contact.componen
     TaskComponent,
     TaskDetailComponent,
     ContactComponent,
+    WrapperAddtaskComponent,
    
 
   ],
@@ -69,6 +72,8 @@ import { ContactComponent } from './components/contacts/contact/contact.componen
     MatProgressBarModule,
     MatDialogModule,
     DatePipe,
+   
+    
     
   ],
   providers: [

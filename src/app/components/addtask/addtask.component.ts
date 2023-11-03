@@ -4,7 +4,7 @@ import { Contact } from 'src/app/models/contact.class';
 import { Category } from 'src/app/models/category.class';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
 import { Subscription } from 'rxjs';
 
@@ -21,7 +21,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
   private contactsSub: Subscription;
   private categoriesSub: Subscription;
  editMode = false;
-  // @Input() taskToEdit: any;
+   @Input() data: any;
 
   newCategoryTitle: string = '';
   showNewCategoryInput: boolean = false;
@@ -52,19 +52,21 @@ export class AddtaskComponent implements OnInit, OnDestroy {
   })
 
 
-  constructor(private fb: FormBuilder, private dataService: DataService, private route: Router, @Optional() @Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: DialogRef<AddtaskComponent>) {
+  constructor(private fb: FormBuilder, private dataService: DataService, private route: Router) {
     // this.contacts = [];
     // console.log(data.editMode);
    
     this.contactsSub = this.dataService.getContacts().subscribe((response: Contact[]) => {
       this.contacts = response;
       console.log(this.contacts);
+      console.log('load');
       if (this.editMode && this.data.task && this.data.task.assigned) {
         // Angenommen, this.data.task.assigned ist ein Array von Kontakt IDs
+        console.log('load1');
         const assignedContacts = this.data.task.assigned.map((assignedId: number )=>
           this.contacts.find(contact => contact.id === assignedId)
         ).filter((contact: Contact | undefined) => !!contact); // filtert undefined Werte heraus, falls ein Kontakt nicht gefunden wurde
-    
+        console.log(assignedContacts);
         this.taskForm.get('assigned')?.setValue(assignedContacts);
       }
 
@@ -72,6 +74,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     this.categoriesSub = this.dataService.getCategories().subscribe(response => {
       this.categories = response;
       console.log(response);
+      console.log('load2');
       if(this.editMode){
         const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category.id);
         this.taskForm.get('category')?.setValue(categoryToSet || null);
@@ -333,7 +336,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
   }
   closeDialog(){
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 
   ngOnDestroy(): void {

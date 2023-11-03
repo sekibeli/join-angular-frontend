@@ -1,6 +1,6 @@
 
 <div class='addtaskBox'>
-    <div *ngIf="editMode" class="closeOverlay" (click)="closeDialog()"><mat-icon>close</mat-icon></div>
+    <!-- <div *ngIf="editMode" class="closeOverlay" (click)="closeDialog()"><mat-icon>close</mat-icon></div> -->
     <div *ngIf="!editMode"><h1>Add Task</h1></div>
     <div *ngIf="editMode"><h1>Edit Task</h1></div>
     <form [formGroup]="taskForm">
@@ -37,8 +37,8 @@
                     <label for="category">Category</label>
                     <mat-form-field appearance="outline"  *ngIf="!showNewCategoryInput">
                         <mat-select placeholder="Select Category" formControlName="category">
-                            <mat-option *ngFor="let category of categories" [value]="category">
-                                {{ category.title }}
+                            <mat-option *ngFor="let categoryTemp of categories" [value]="categoryTemp">
+                                {{ categoryTemp.title }}
                             </mat-option>
                             <mat-option (click)="createNewCategory()">
                                 Create new Category

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data.service';
 import { AddtaskComponent } from '../../addtask/addtask.component';
+import { WrapperAddtaskComponent } from '../../addtask/wrapper-addtask/wrapper-addtask.component';
 
 @Component({
   selector: 'app-task-detail',
@@ -70,7 +71,7 @@ this.dataService.getTaskById(this.taskId).subscribe(response => {
       assigned: this.assigned,
       subtasks: this.subtasks,
       editMode: true} ;
-    const dialogRef = this.dialog.open(AddtaskComponent, dialogConfig);
+    const dialogRef = this.dialog.open(WrapperAddtaskComponent, dialogConfig);
     // dialogRef.componentInstance.taskId = id;
   }
 }
