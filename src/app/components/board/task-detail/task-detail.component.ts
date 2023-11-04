@@ -57,7 +57,7 @@ this.dataService.getTaskById(this.taskId).subscribe(response => {
   }
 
   openEditTask(task:any){
-    this.dialogRef.close();
+   
     const dialogConfig = new MatDialogConfig();
     
     dialogConfig.minWidth = '100vw';
@@ -73,5 +73,6 @@ this.dataService.getTaskById(this.taskId).subscribe(response => {
       editMode: true} ;
     const dialogRef = this.dialog.open(WrapperAddtaskComponent, dialogConfig);
     // dialogRef.componentInstance.taskId = id;
+    this.dialogRef.close();
   }
 }

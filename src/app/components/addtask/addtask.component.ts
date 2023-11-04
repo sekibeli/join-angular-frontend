@@ -20,15 +20,15 @@ import { Subscription } from 'rxjs';
 export class AddtaskComponent implements OnInit, OnDestroy {
   private contactsSub: Subscription;
   private categoriesSub: Subscription;
- editMode = false;
-   @Input() data: any;
+  editMode = false;
+  @Input() data: any;
 
   newCategoryTitle: string = '';
   showNewCategoryInput: boolean = false;
 
   subtaskValues: { title: string, completed: boolean }[] = [];
   tomorrow: string = this.getTomorrowDate();
-  priority: string = '';
+  priority: any = null;
   contacts: Contact[] = [];
   categories: Category[] = [];
   selectedContacts: Contact[] = [];
@@ -55,61 +55,63 @@ export class AddtaskComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder, private dataService: DataService, private route: Router) {
     // this.contacts = [];
     // console.log(data.editMode);
-   
+
     this.contactsSub = this.dataService.getContacts().subscribe((response: Contact[]) => {
       this.contacts = response;
-      console.log(this.contacts);
-      console.log('load');
+      console.log('constructor - contacts', this.contacts);
+      console.log('constructor - vor dem 1. if');
+      console.log('constructor - seeload', this.editMode, this.data.task)
       if (this.editMode && this.data.task && this.data.task.assigned) {
-        // Angenommen, this.data.task.assigned ist ein Array von Kontakt IDs
-        console.log('load1');
-        const assignedContacts = this.data.task.assigned.map((assignedId: number )=>
+
+        console.log('constructor innerhalb 1. if');
+        const assignedContacts = this.data.task.assigned.map((assignedId: number) =>
           this.contacts.find(contact => contact.id === assignedId)
         ).filter((contact: Contact | undefined) => !!contact); // filtert undefined Werte heraus, falls ein Kontakt nicht gefunden wurde
-        console.log(assignedContacts);
+        console.log('constructor - assignedContacts: ', assignedContacts);
         this.taskForm.get('assigned')?.setValue(assignedContacts);
       }
 
     });
     this.categoriesSub = this.dataService.getCategories().subscribe(response => {
       this.categories = response;
-      console.log(response);
-      console.log('load2');
-      if(this.editMode){
+      // console.log(response);
+      console.log('load2', this.categories);
+      if (this.editMode) {
         const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category.id);
         this.taskForm.get('category')?.setValue(categoryToSet || null);
       }
-      
+
     });
   }
 
-   setFormValues(data: any): void {
-    if(data){
+  setFormValues(data: any): void {
+    if (data) {
       this.editMode = data.editMode;
       this.subtaskValues = data.subtasks;
       const formattedDueDate = this.convertToYYYYMMDD(data.task.dueDate);
-   
-       
-      
+
+
+
 
       // Für die zugewiesenen Kontakte, angenommen sie sind in der Form von IDs
       // const selectedContacts = this.contacts.filter(contact =>
       //   data.assigned.map(a => a.id).includes(contact.id)
       // );
-    
+
       if (this.editMode) {
+        this.priority = data.task.priority;
         this.taskForm.patchValue({
           ...this.data.task,
-        dueDate: formattedDueDate,
-        priority: data.task.priority.title.toLowerCase(),
-        // category: data.task.category.title,
-        // assigned: selectedContacts,
-       // status: data.task.status.title.toLowerCase() 
+          dueDate: formattedDueDate,
+          priority: this.priority.title.toLowerCase(),
+          // category: data.task.category.title,
+          // assigned: selectedContacts,
+          // status: data.task.status.title.toLowerCase() 
         });
         this.priority = data.task.priority.title.toLowerCase()
       }
-    console.log(data);
-    console.log('active category:', data.task.category.title);
+      console.log('setFormValues - data:', data);
+      console.log('setFormValues - active category:', data.task.category.title);
     } else {
       this.editMode = false;
       console.log(false);
@@ -130,7 +132,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
- 
+
     this.setFormValues(this.data);
   }
 
@@ -151,9 +153,9 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     return this.taskForm.get('contact-' + contact.id)?.value === true;
   }
 
-  setPriority(newPriority: string) {
+  setPriority(newPriority: any) {
     this.priority = newPriority;
-    this.taskForm.get('priority')?.setValue(newPriority);
+    this.taskForm.get('priority')?.setValue(newPriority.title);
     console.log(this.priority);
     console.log(this.taskForm);
 
@@ -199,33 +201,41 @@ export class AddtaskComponent implements OnInit, OnDestroy {
           this.dataService.cachedTasks = null;
           this.dataService.fetchAndSortTasks();
          });
-         
-       
+
+
       }, error => {
         console.error('Error:', error);
       });
     }
   }
 
-  editTask(){
+  editTask() {
+    
     if (this.taskForm.valid) {
-      const taskData = this.taskForm.value;
-      console.log('body:', taskData);
-      this.dataService.editTask(taskData, this.data.task.id).subscribe(response => {
-       
-        console.log('taskData:', taskData);
-        console.log('Task gespeichert', response)
-        this.resetFormAndUI();
+      // Erstelle eine Kopie von taskData, um die Originaldaten nicht zu verändern
+      const taskData = { ...this.taskForm.value };
+      // const taskData = this.taskForm.value;
+      taskData.priority = this.priority;
+      console.log('prio in editTask', taskData.priority);
 
-         this.route.navigateByUrl('/home/board').then(()=> {
-          this.dataService.cachedTasks = null;
-          this.dataService.fetchAndSortTasks();
-         });
-         
-       
-      }, error => {
-        console.error('Error:', error);
-      });
+
+      // taskData.assigned = taskData.assigned.map((contact: Contact) => contact.id);
+      // console.log('body:', taskData);
+      // this.dataService.editTask(taskData, this.data.task.id).subscribe(response => {
+
+      //   console.log('taskData:', taskData);
+      //   console.log('Task gespeichert', response)
+      //   this.resetFormAndUI();
+
+      //    this.route.navigateByUrl('/home/board').then(()=> {
+      //     this.dataService.cachedTasks = null;
+      //     this.dataService.fetchAndSortTasks();
+      //    });
+
+
+      // }, error => {
+      //   console.error('Error:', error);
+      // });
     }
   }
   createNewCategory() {
@@ -252,7 +262,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     this.showNewCategoryInput = false;
     this.selectedContacts = [];
 
-   
+
   }
   saveNewCategory() {
     const newCategoryTitleValue = this.categoryForm.get('newCategoryTitle')?.value;
@@ -335,7 +345,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     // Verwenden Sie padStart um sicherzustellen, dass Monat und Tag immer zweistellig sind
     return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
   }
-  closeDialog(){
+  closeDialog() {
     // this.dialogRef.close();
   }
 
@@ -343,7 +353,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     if (this.contactsSub) {
       this.contactsSub.unsubscribe();
     }
-    
+
     if (this.categoriesSub) {
       this.categoriesSub.unsubscribe();
     }
