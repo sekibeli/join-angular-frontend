@@ -58,9 +58,9 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
     this.contactsSub = this.dataService.getContacts().subscribe((response: Contact[]) => {
       this.contacts = response;
-      console.log('constructor - contacts', this.contacts);
-      console.log('constructor - vor dem 1. if');
-      console.log('constructor - seeload', this.editMode, this.data.task)
+      // console.log('constructor - contacts', this.contacts);
+      // console.log('constructor - vor dem 1. if');
+      // console.log('constructor - seeload', this.editMode, this.data.task)
       if (this.editMode && this.data.task && this.data.task.assigned) {
 
         console.log('constructor innerhalb 1. if');
@@ -153,9 +153,9 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     return this.taskForm.get('contact-' + contact.id)?.value === true;
   }
 
-  setPriority(newPriority: any) {
+  setPriority(newPriority: string) {
     this.priority = newPriority;
-    this.taskForm.get('priority')?.setValue(newPriority.title);
+    this.taskForm.get('priority')?.setValue(newPriority);
     console.log(this.priority);
     console.log(this.taskForm);
 
