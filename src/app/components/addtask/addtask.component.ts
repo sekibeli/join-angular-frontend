@@ -216,26 +216,26 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       const taskData = { ...this.taskForm.value };
       // const taskData = this.taskForm.value;
       taskData.priority = this.priority;
-      console.log('prio in editTask', taskData.priority);
+      console.log('taskData in editTask', taskData);
 
 
-      // taskData.assigned = taskData.assigned.map((contact: Contact) => contact.id);
-      // console.log('body:', taskData);
-      // this.dataService.editTask(taskData, this.data.task.id).subscribe(response => {
+      taskData.assigned = taskData.assigned.map((contact: Contact) => contact.id);
+      console.log('body:', taskData);
+      this.dataService.editTask(taskData, this.data.task.id).subscribe(response => {
 
-      //   console.log('taskData:', taskData);
-      //   console.log('Task gespeichert', response)
-      //   this.resetFormAndUI();
+        console.log('taskData:', taskData);
+        console.log('Task gespeichert', response)
+        this.resetFormAndUI();
 
-      //    this.route.navigateByUrl('/home/board').then(()=> {
-      //     this.dataService.cachedTasks = null;
-      //     this.dataService.fetchAndSortTasks();
-      //    });
+         this.route.navigateByUrl('/home/board').then(()=> {
+          this.dataService.cachedTasks = null;
+          this.dataService.fetchAndSortTasks();
+         });
 
 
-      // }, error => {
-      //   console.error('Error:', error);
-      // });
+      }, error => {
+        console.error('Error:', error);
+      });
     }
   }
   createNewCategory() {
