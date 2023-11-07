@@ -33,7 +33,7 @@ this.dataService.getContactsByIds(this.task.assigned).subscribe(assignedResponse
   // console.log('assigned:',this.assigned);
 }); 
 }
-
+console.log(this.task);
 }
 
 getCompletedSubtasksPercentage(){

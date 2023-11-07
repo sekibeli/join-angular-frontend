@@ -10,6 +10,15 @@ import { Subscription } from 'rxjs';
 
 // Importieren Sie den Dialog-Komponenten, den Sie erstellen werden.
 
+ export enum Priority {
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  URGENT = 'URGENT'
+}
+interface PriorityType {
+  key: Priority;
+  value: string;
+}
 
 
 @Component({
@@ -18,6 +27,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./addtask.component.scss']
 })
 export class AddtaskComponent implements OnInit, OnDestroy {
+  Priority = Priority;
   private contactsSub: Subscription;
   private categoriesSub: Subscription;
   editMode = false;
@@ -25,10 +35,12 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
   newCategoryTitle: string = '';
   showNewCategoryInput: boolean = false;
+  
+ 
 
   subtaskValues: { title: string, completed: boolean }[] = [];
   tomorrow: string = this.getTomorrowDate();
-  priority: any = null;
+  priority: PriorityType = {key: Priority.LOW, value: 'low'}; 
   contacts: Contact[] = [];
   categories: Category[] = [];
   selectedContacts: Contact[] = [];
@@ -53,6 +65,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
 
   constructor(private fb: FormBuilder, private dataService: DataService, private route: Router) {
+  
     // this.contacts = [];
     // console.log(data.editMode);
 
@@ -91,27 +104,24 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       const formattedDueDate = this.convertToYYYYMMDD(data.task.dueDate);
 
 
-
-
-      // Für die zugewiesenen Kontakte, angenommen sie sind in der Form von IDs
-      // const selectedContacts = this.contacts.filter(contact =>
-      //   data.assigned.map(a => a.id).includes(contact.id)
-      // );
-
       if (this.editMode) {
         this.priority = data.task.priority;
+        console.log('subtask', this.subtaskValues);
         this.taskForm.patchValue({
           ...this.data.task,
           dueDate: formattedDueDate,
-          priority: this.priority.title.toLowerCase(),
+          priority: this.priority,
+          subtasks: this.subtaskValues
+          
           // category: data.task.category.title,
           // assigned: selectedContacts,
           // status: data.task.status.title.toLowerCase() 
         });
-        this.priority = data.task.priority.title.toLowerCase()
+        this.priority = data.task.priority;
       }
       console.log('setFormValues - data:', data);
       console.log('setFormValues - active category:', data.task.category.title);
+     
     } else {
       this.editMode = false;
       console.log(false);
@@ -132,7 +142,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-
+console.log('prio key: ', Priority.LOW);
     this.setFormValues(this.data);
   }
 
@@ -153,9 +163,19 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     return this.taskForm.get('contact-' + contact.id)?.value === true;
   }
 
-  setPriority(newPriority: string) {
-    this.priority = newPriority;
-    this.taskForm.get('priority')?.setValue(newPriority);
+  setPriority(newPriority: PriorityType) {
+    const priorityKey: Priority = newPriority.key;
+    // Der Wert sollte bereits ein Kleinbuchstabe sein, wie im Enum definiert
+    const priorityValue = newPriority.value.toLowerCase();
+
+    const priorityToSend: PriorityType = {
+      key: priorityKey, // Direkt zuweisen, da es vom Typ Priority ist
+      value: newPriority.value // Der Wert sollte bereits in Kleinbuchstaben sein.
+    };
+
+    this.priority = priorityToSend;
+    console.log(this.priority);
+    this.taskForm.get('priority')?.setValue(newPriority.value);
     console.log(this.priority);
     console.log(this.taskForm);
 
@@ -257,7 +277,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     this.categoryForm.reset();
 
     // UI-Zustände zurücksetzen
-    this.priority = '';
+    this.priority = {key: Priority.LOW, value: 'low'};
     this.subtaskValues = [];
     this.showNewCategoryInput = false;
     this.selectedContacts = [];

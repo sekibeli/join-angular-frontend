@@ -88,9 +88,9 @@
                 <div class="form-group">
                     <label for="dueDate">Prio</label>
                 <div class="priority-buttons">
-                    <button (click)="setPriority('low')" [class.active]="priority === 'low'" class="low">Low</button>
-                    <button (click)="setPriority('medium')" [class.active]="priority === 'medium'" class="medium">Medium</button>
-                    <button (click)="setPriority('urgent')" [class.active]="priority === 'urgent'" class="urgent">Urgent</button>
+                    <button (click)="setPriority({key: Priority.LOW, value: 'low'})" [class.active]="priority.key === Priority.LOW" class="low">Low</button>
+                    <button (click)="setPriority({key: Priority.MEDIUM, value: 'medium'})" [class.active]="priority.key === Priority.MEDIUM" class="medium">Medium</button>
+                    <button (click)="setPriority({key: Priority.URGENT, value: 'urgent'})" [class.active]="priority.key === Priority.URGENT" class="urgent">Urgent</button>
                   </div>
                   </div>
 
