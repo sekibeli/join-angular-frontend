@@ -28,9 +28,9 @@ ngOnInit(): void {
 });
   }
   if (this.task && this.task.assigned) {
-this.dataService.getContactsByIds(this.task.assigned).subscribe(assignedResponse => {
+ this.dataService.getContactsByIds(this.task.assigned).subscribe(assignedResponse => {
   this.assigned = assignedResponse;
-  // console.log('assigned:',this.assigned);
+ 
 }); 
 }
 console.log(this.task);

@@ -11,9 +11,9 @@ import { Subscription } from 'rxjs';
 // Importieren Sie den Dialog-Komponenten, den Sie erstellen werden.
 
  export enum Priority {
-  LOW = 'LOW',
-  MEDIUM = 'MEDIUM',
-  URGENT = 'URGENT'
+  LOW = 'low',
+  MEDIUM = 'medium',
+  URGENT = 'urgent'
 }
 interface PriorityType {
   key: Priority;
@@ -40,7 +40,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
   subtaskValues: { title: string, completed: boolean }[] = [];
   tomorrow: string = this.getTomorrowDate();
-  priority: PriorityType = {key: Priority.LOW, value: 'low'}; 
+  priority?: PriorityType; 
   contacts: Contact[] = [];
   categories: Category[] = [];
   selectedContacts: Contact[] = [];
@@ -66,18 +66,12 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder, private dataService: DataService, private route: Router) {
   
-    // this.contacts = [];
-    // console.log(data.editMode);
-
     this.contactsSub = this.dataService.getContacts().subscribe((response: Contact[]) => {
       this.contacts = response;
-      // console.log('constructor - contacts', this.contacts);
-      // console.log('constructor - vor dem 1. if');
-      // console.log('constructor - seeload', this.editMode, this.data.task)
+   
       if (this.editMode && this.data.task && this.data.task.assigned) {
 
-        console.log('constructor innerhalb 1. if');
-        const assignedContacts = this.data.task.assigned.map((assignedId: number) =>
+          const assignedContacts = this.data.task.assigned.map((assignedId: number) =>
           this.contacts.find(contact => contact.id === assignedId)
         ).filter((contact: Contact | undefined) => !!contact); // filtert undefined Werte heraus, falls ein Kontakt nicht gefunden wurde
         console.log('constructor - assignedContacts: ', assignedContacts);
@@ -87,7 +81,6 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     });
     this.categoriesSub = this.dataService.getCategories().subscribe(response => {
       this.categories = response;
-      // console.log(response);
       console.log('load2', this.categories);
       if (this.editMode) {
         const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category.id);
@@ -118,14 +111,14 @@ export class AddtaskComponent implements OnInit, OnDestroy {
           // status: data.task.status.title.toLowerCase() 
         });
         this.priority = data.task.priority;
+       
       }
       console.log('setFormValues - data:', data);
       console.log('setFormValues - active category:', data.task.category.title);
      
     } else {
       this.editMode = false;
-      console.log(false);
-    }
+     }
   }
 
 
