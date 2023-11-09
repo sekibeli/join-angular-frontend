@@ -6,6 +6,8 @@ import { Category } from '../models/category.class';
 import { Status } from '../models/status.class';
 import { BehaviorSubject } from 'rxjs';
 import { Contact } from '../models/contact.class';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { WrapperAddtaskComponent } from '../components/addtask/wrapper-addtask/wrapper-addtask.component';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,8 @@ public awaitingFeedback$ = new BehaviorSubject<any[]>([]);
 public done$ = new BehaviorSubject<any[]>([]);
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient ) { }
+ 
 
   getTasks(): Observable<any> {
     const url = environment.baseUrl + '/tasks/';
