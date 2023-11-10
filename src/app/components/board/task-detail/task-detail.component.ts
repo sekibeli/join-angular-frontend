@@ -70,9 +70,12 @@ this.dataService.getTaskById(this.taskId).subscribe(response => {
       task: task, 
       assigned: this.assigned,
       subtasks: this.subtasks,
-      editMode: true} ;
-    const dialogRef = this.dialog.open(WrapperAddtaskComponent, dialogConfig);
-    // dialogRef.componentInstance.taskId = id;
+      editMode: true
+    } ;
+    // const dialogRef = 
+    this.dialog.open(WrapperAddtaskComponent, dialogConfig);
+   
+    console.log();
     this.dialogRef.close();
   }
 }

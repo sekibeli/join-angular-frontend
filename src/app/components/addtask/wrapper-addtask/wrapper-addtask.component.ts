@@ -8,7 +8,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class WrapperAddtaskComponent {
 
-  constructor(private dialogRef: MatDialogRef<WrapperAddtaskComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any){}
+  constructor(private dialogRef: MatDialogRef<WrapperAddtaskComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any){
+    console.log('data Wrapper:', data);
+  }
 
 
   closeDialog(){

@@ -23,7 +23,7 @@ async login() {
     let resp: any = await this.authService.login(this.email, this.password);
     console.log(resp.token);
     localStorage.setItem('token', resp.token);
-    this.route.navigateByUrl('/home');
+    this.route.navigateByUrl('/home/summary');
     console.log(resp);
   } catch (e) {
     alert('Anmeldung fehlgeschlagen - Passwort oder Username falsch');

@@ -69,6 +69,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     this.contactsSub = this.dataService.getContacts().subscribe((response: Contact[]) => {
       this.contacts = response;
    
+   
       if (this.editMode && this.data.task && this.data.task.assigned) {
 
           const assignedContacts = this.data.task.assigned.map((assignedId: number) =>
@@ -371,6 +372,7 @@ console.log('prio key: ', Priority.LOW);
       this.categoriesSub.unsubscribe();
     }
     console.log('kaputtboardzu');
+    console.log('editMode:', this.editMode);
   }
 
 }
