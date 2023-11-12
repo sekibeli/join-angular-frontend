@@ -143,6 +143,7 @@ fetchAndSortTasks() {
 }
 
 editTask(task:any, id:number){
+  console.log('last check:', task);
   const url = `${environment.baseUrl}/tasks/${id}/`;
   return this.http.put(url, task);
 }

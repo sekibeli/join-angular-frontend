@@ -68,22 +68,22 @@ export class AddtaskComponent implements OnInit, OnDestroy {
   
     this.contactsSub = this.dataService.getContacts().subscribe((response: Contact[]) => {
       this.contacts = response;
+   this.editMode = true;
    
-   
-      if (this.editMode && this.data.task && this.data.task.assigned) {
-
+      if (this.editMode && this.data) {
+       
           const assignedContacts = this.data.task.assigned.map((assignedId: number) =>
           this.contacts.find(contact => contact.id === assignedId)
         ).filter((contact: Contact | undefined) => !!contact); // filtert undefined Werte heraus, falls ein Kontakt nicht gefunden wurde
-        console.log('constructor - assignedContacts: ', assignedContacts);
+       
         this.taskForm.get('assigned')?.setValue(assignedContacts);
       }
 
     });
     this.categoriesSub = this.dataService.getCategories().subscribe(response => {
       this.categories = response;
-      console.log('load2', this.categories);
-      if (this.editMode) {
+     
+      if (this.editMode && this.data) {
         const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category.id);
         this.taskForm.get('category')?.setValue(categoryToSet || null);
       }
@@ -112,6 +112,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
           // status: data.task.status.title.toLowerCase() 
         });
         this.priority = data.task.priority;
+        console.log('geladene Subtasks:', this.subtaskValues);
        
       }
       console.log('setFormValues - data:', data);
@@ -138,6 +139,22 @@ export class AddtaskComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 console.log('prio key: ', Priority.LOW);
     this.setFormValues(this.data);
+
+    if (this.editMode && this.data.task && this.data.task.assigned) {
+       
+      const assignedContacts = this.data.task.assigned.map((assignedId: number) =>
+      this.contacts.find(contact => contact.id === assignedId)
+    ).filter((contact: Contact | undefined) => !!contact); // filtert undefined Werte heraus, falls ein Kontakt nicht gefunden wurde
+    console.log('constructor - assignedContacts: ', assignedContacts);
+    this.taskForm.get('assigned')?.setValue(assignedContacts);
+  }
+
+  if (this.editMode) {
+    const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category.id);
+    this.taskForm.get('category')?.setValue(categoryToSet || null);
+  }
+
+
   }
 
   getTomorrowDate(): string {
@@ -228,9 +245,11 @@ console.log('prio key: ', Priority.LOW);
     if (this.taskForm.valid) {
       // Erstelle eine Kopie von taskData, um die Originaldaten nicht zu verändern
       const taskData = { ...this.taskForm.value };
+
       // const taskData = this.taskForm.value;
       taskData.priority = this.priority;
       console.log('taskData in editTask', taskData);
+
 
 
       taskData.assigned = taskData.assigned.map((contact: Contact) => contact.id);
