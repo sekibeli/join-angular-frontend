@@ -9,8 +9,19 @@ import {
   CdkDrag,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
-import { Status } from 'src/app/models/status.class';
+// import { Status } from 'src/app/models/status.class';
 import { BehaviorSubject } from 'rxjs';
+
+export enum Status {
+  todo = 'To do',
+  inProgress = 'In Progress' ,
+  awaitingFeedback = 'Awaiting Feedback',
+  done = 'Done'
+}
+interface PriorityType {
+  key: Status;
+  value: string;
+}
 
 @Component({
   selector: 'app-board',
@@ -19,8 +30,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class BoardComponent implements OnInit, OnDestroy{
   //public tasks:any = [];
+  Status = Status;
 
   alive: boolean = true;
+
   // tasks$ = new BehaviorSubject<any[]>([]);
   // public subtasks:any = [];
   // public todo: any[] = [];

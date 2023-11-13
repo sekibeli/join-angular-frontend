@@ -243,11 +243,13 @@ console.log('prio key: ', Priority.LOW);
   editTask() {
     
     if (this.taskForm.valid) {
+  
       // Erstelle eine Kopie von taskData, um die Originaldaten nicht zu verändern
       const taskData = { ...this.taskForm.value };
-
+      taskData.category = taskData.category.id; // Todo: Richtig in Formdata speichern
+      taskData.status = taskData.status.id; // Todo: Richtig in Formdata speichern
       // const taskData = this.taskForm.value;
-      taskData.priority = this.priority;
+      taskData.priority = this.priority?.value;
       console.log('taskData in editTask', taskData);
 
 
