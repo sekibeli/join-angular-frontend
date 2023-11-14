@@ -16,6 +16,7 @@ subtasks: any[] = [];
 public percent!: number;
 public completedCount!: number;
 assigned: any[] = [];
+category: any;
 
 constructor(private dataService: DataService, private dialog: MatDialog){}
 
@@ -34,7 +35,15 @@ ngOnInit(): void {
  
 }); 
 }
+
+if(this.task){
+  this.dataService.getCategoryById(this.task.category).subscribe(categoryResponse => {
+    this.category = categoryResponse;
+    console.log(this.category);
+  })
+}
 console.log(this.task);
+
 }
 
 getCompletedSubtasksPercentage(){

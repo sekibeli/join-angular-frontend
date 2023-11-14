@@ -76,8 +76,9 @@ public done$ = new BehaviorSubject<any[]>([]);
     return this.cachedCategories;
 }
 
-getCategoryById(id: number[]): Observable<any> {
-  const url = `${environment.baseUrl}/categories/?ids[]=${id.join('&ids[]=')}`;
+getCategoryById(id: number): Observable<any> {
+ 
+  const url = `${environment.baseUrl}/categories/?id=${id}`;
   return this.http.get(url);
 }
 
