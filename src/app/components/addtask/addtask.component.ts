@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnDestroy, OnInit, Optional } from '@angular/
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { Contact } from 'src/app/models/contact.class';
 import { Category } from 'src/app/models/category.class';
-import { DataService } from 'src/app/services/data.service';
+import { DataService, Status } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
@@ -54,7 +54,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     dueDate: new FormControl(this.tomorrow, [Validators.required, this.validateDate]),
     priority: new FormControl(this.priority, Validators.required),
     subtasks: new FormArray([]),
-    status: new FormControl('todo', Validators.required)
+    status: new FormControl(Status.todo, Validators.required)
 
   })
 
@@ -137,7 +137,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-console.log('prio key: ', Priority.LOW);
+
     this.setFormValues(this.data);
 
     if (this.editMode && this.data.task && this.data.task.assigned) {
@@ -221,6 +221,8 @@ console.log('prio key: ', Priority.LOW);
 
     if (this.taskForm.valid) {
       const taskData = this.taskForm.value;
+      taskData.category = taskData.category.id;
+      taskData.status = this.dataService.Status.todo;
       console.log('body:', taskData);
       this.dataService.saveTask(taskData).subscribe(response => {
        

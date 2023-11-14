@@ -6,7 +6,7 @@
     <div class="taskDateRow">Due date : {{task.dueDate | date:'dd/MM/yyyy'}}</div>
     <div class="taskPriorityRow">Priority: {{task.priority.title}} 
         <div class="priority">
-        <img [src]="'./../../../../assets/img/' + task.priority.value + '.svg'" [alt]="task.priority.title">
+        <img [src]="'./../../../../assets/img/' + task.priority + '.svg'" [alt]="task.priority.title">
     </div></div>
     <div class="assignedTo">
        <div class="assignedTopic">Assigned To:</div> 

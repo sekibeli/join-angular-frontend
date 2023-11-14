@@ -21,6 +21,7 @@ constructor(private dataService: DataService, private dialog: MatDialog){}
 
 
 ngOnInit(): void {
+ 
   if (this.task && this.task.subtasks) {
   this.dataService.getSubtasksByIds(this.task.subtasks).subscribe(subtaskResponse => {
     this.subtasks = subtaskResponse;

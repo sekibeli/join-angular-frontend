@@ -3,16 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of, shareReplay, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.class';
-import { Status } from '../models/status.class';
+// import { Status } from '../models/status.class';
 import { BehaviorSubject } from 'rxjs';
 import { Contact } from '../models/contact.class';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { WrapperAddtaskComponent } from '../components/addtask/wrapper-addtask/wrapper-addtask.component';
 
+export enum Status {
+  todo = 'To do',
+  inProgress = 'In Progress' ,
+  awaitingFeedback = 'Awaiting Feedback',
+  done = 'Done'
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  Status = Status;
   private cachedCategories: Observable<any> | null = null;
   private cachedContacts: Observable<any> | null = null;
   public cachedTasks: Observable<any> | null = null;
@@ -66,6 +74,11 @@ public done$ = new BehaviorSubject<any[]>([]);
 
     // Gibt das zwischengespeicherte Observable zurück (entweder das neu abgerufene oder das bereits vorhandene)
     return this.cachedCategories;
+}
+
+getCategoryById(id: number[]): Observable<any> {
+  const url = `${environment.baseUrl}/categories/?ids[]=${id.join('&ids[]=')}`;
+  return this.http.get(url);
 }
 
   saveNewCategory(body:Category): Observable<any> {
@@ -130,12 +143,12 @@ fetchAndSortTasks() {
   this.getTasks().subscribe(tasks => {
     this.tasks$.next(tasks);
     console.log('alle Tasks:', tasks);
-  
+    
     // sortieren
-    this.todo$.next(tasks.filter((task: any) => task.status.title === 'todo'));
-    this.inProgress$.next(tasks.filter((task: any) => task.status.title === 'inProgress'));
-    this.awaitingFeedback$.next(tasks.filter((task: any) => task.status.title === 'awaitingFeedback'));
-    this.done$.next(tasks.filter((task: any) => task.status.title === 'done'));
+    this.todo$.next(tasks.filter((task: any) => task.status === 'To do'));
+    this.inProgress$.next(tasks.filter((task: any) => task.status.title === 'In Progress'));
+    this.awaitingFeedback$.next(tasks.filter((task: any) => task.status.title === 'Awaiting Feedback'));
+    this.done$.next(tasks.filter((task: any) => task.status.title === 'Done'));
     
     // console.log('todo-Tasks:', this.todo);
   });

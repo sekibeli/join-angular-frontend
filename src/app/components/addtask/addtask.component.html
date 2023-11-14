@@ -110,7 +110,7 @@
 
      <!-- Submit button -->
      
-     <button *ngIf="!editMode" type="submit" (click)="submitTask()" [disabled]="taskForm.invalid" class="btn btn-primary">Submit</button>
+     <button *ngIf="editMode" type="submit" (click)="submitTask()" [disabled]="taskForm.invalid" class="btn btn-primary">Submit</button>
      <button *ngIf="editMode" type="submit" (click)="editTask()" [disabled]="taskForm.invalid" class="btn btn-primary">Edit Task</button>
             </div>
        
