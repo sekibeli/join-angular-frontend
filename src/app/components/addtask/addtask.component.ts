@@ -10,15 +10,15 @@ import { Subscription } from 'rxjs';
 
 // Importieren Sie den Dialog-Komponenten, den Sie erstellen werden.
 
- export enum Priority {
-  LOW = 'low',
-  MEDIUM = 'medium',
-  URGENT = 'urgent'
-}
-interface PriorityType {
-  key: Priority;
-  value: string;
-}
+//  export enum Priority {
+//   LOW = 'low',
+//   MEDIUM = 'medium',
+//   URGENT = 'urgent'
+// }
+// interface PriorityType {
+//   key: Priority;
+//   value: string;
+// }
 
 
 @Component({
@@ -28,7 +28,7 @@ interface PriorityType {
 })
 export class AddtaskComponent implements OnInit, OnDestroy {
   @Output() closeEvent = new EventEmitter<void>();  //Möglichkeit die Elternkomponente von der Kinderkomponente aus zu schließen.
-  Priority = Priority;
+  // Priority = Priority;
   private contactsSub: Subscription;
   private categoriesSub: Subscription;
   editMode = false;
@@ -36,12 +36,12 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
   newCategoryTitle: string = '';
   showNewCategoryInput: boolean = false;
-  
- 
+
+
 
   subtaskValues: { title: string, completed: boolean }[] = [];
   tomorrow: string = this.getTomorrowDate();
-  priority?: PriorityType; 
+  priority?: string;
   contacts: Contact[] = [];
   categories: Category[] = [];
   selectedContacts: Contact[] = [];
@@ -66,24 +66,24 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
 
   constructor(private fb: FormBuilder, private dataService: DataService, private route: Router) {
-  
+
     this.contactsSub = this.dataService.getContacts().subscribe((response: Contact[]) => {
       this.contacts = response;
-   this.editMode = true;
-   
+      this.editMode = true;
+
       if (this.editMode && this.data) {
-       
-          const assignedContacts = this.data.task.assigned.map((assignedId: number) =>
+
+        const assignedContacts = this.data.task.assigned.map((assignedId: number) =>
           this.contacts.find(contact => contact.id === assignedId)
         ).filter((contact: Contact | undefined) => !!contact); // filtert undefined Werte heraus, falls ein Kontakt nicht gefunden wurde
-       
+
         this.taskForm.get('assigned')?.setValue(assignedContacts);
       }
 
     });
     this.categoriesSub = this.dataService.getCategories().subscribe(response => {
       this.categories = response;
-    
+
       if (this.editMode && this.data) {
         const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category);
         this.taskForm.get('category')?.setValue(categoryToSet || null);
@@ -110,21 +110,21 @@ export class AddtaskComponent implements OnInit, OnDestroy {
           dueDate: formattedDueDate,
           priority: this.priority,
           subtasks: this.subtaskValues
-          
+
           // category: data.task.category.title,
           // assigned: selectedContacts,
           // status: data.task.status.title.toLowerCase() 
         });
         this.priority = data.task.priority;
         // console.log('geladene Subtasks:', this.subtaskValues);
-       
+
       }
       console.log('setFormValues - data:', data);
-    
-     
+
+
     } else {
       this.editMode = false;
-     }
+    }
   }
 
 
@@ -145,18 +145,18 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     this.setFormValues(this.data);
 
     if (this.editMode && this.data.task && this.data.task.assigned) {
-       
-      const assignedContacts = this.data.task.assigned.map((assignedId: number) =>
-      this.contacts.find(contact => contact.id === assignedId)
-    ).filter((contact: Contact | undefined) => !!contact); // filtert undefined Werte heraus, falls ein Kontakt nicht gefunden wurde
-    // console.log('constructor - assignedContacts: ', assignedContacts);
-    this.taskForm.get('assigned')?.setValue(assignedContacts);
-  }
 
-  if (this.editMode) {
-    const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category);
-    this.taskForm.get('category')?.setValue(categoryToSet || null);
-  }
+      const assignedContacts = this.data.task.assigned.map((assignedId: number) =>
+        this.contacts.find(contact => contact.id === assignedId)
+      ).filter((contact: Contact | undefined) => !!contact); // filtert undefined Werte heraus, falls ein Kontakt nicht gefunden wurde
+      // console.log('constructor - assignedContacts: ', assignedContacts);
+      this.taskForm.get('assigned')?.setValue(assignedContacts);
+    }
+
+    if (this.editMode) {
+      const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category);
+      this.taskForm.get('category')?.setValue(categoryToSet || null);
+    }
 
 
   }
@@ -178,27 +178,24 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     return this.taskForm.get('contact-' + contact.id)?.value === true;
   }
 
-  setPriority(newPriority: PriorityType) {
-    const priorityKey: Priority = newPriority.key;
-   
-    const priorityValue = newPriority.value.toLowerCase();
+  // setPriority(newPriority: string) {
+  //   const priorityKey: Priority = newPriority.key;
+  //   const priorityValue = newPriority.value.toLowerCase();
 
-    const priorityToSend: PriorityType = {
-      key: priorityKey, // Direkt zuweisen, da es vom Typ Priority ist
-      value: newPriority.value // Der Wert sollte bereits in Kleinbuchstaben sein.
-    };
+  //   const priorityToSend: PriorityType = {
+  //     key: priorityKey, // Direkt zuweisen, da es vom Typ Priority ist
+  //     value: newPriority.value // Der Wert sollte bereits in Kleinbuchstaben sein.
+  //   };
 
-    this.priority = priorityToSend;
-    console.log(this.priority);
-    this.taskForm.get('priority')?.setValue(newPriority.value);
-    console.log(this.priority);
-    console.log(this.taskForm);
+  //   this.priority = priorityToSend;
+  //   this.taskForm.get('priority')?.setValue(newPriority.value);
+  //   console.log(this.priority);
+  //   console.log(this.taskForm);
 
-  }
+  // }
 
-  setPriorityNew(newPrio: string){
-   
-
+  setPriorityNew(newPrio: string) {
+    this.priority = newPrio;
     this.taskForm.get('priority')?.setValue(newPrio);
     console.log(this.taskForm);
   }
@@ -236,15 +233,15 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       taskData.status = this.dataService.Status.todo;
       console.log('body:', taskData);
       this.dataService.saveTask(taskData).subscribe(response => {
-       
+
         console.log('taskData:', taskData);
         console.log('Task gespeichert', response)
         this.resetFormAndUI();
 
-         this.route.navigateByUrl('/home/board').then(()=> {
+        this.route.navigateByUrl('/home/board').then(() => {
           this.dataService.cachedTasks = null;
           this.dataService.fetchAndSortTasks();
-         });
+        });
 
 
       }, error => {
@@ -254,15 +251,15 @@ export class AddtaskComponent implements OnInit, OnDestroy {
   }
 
   editTask() {
-    
+
     if (this.taskForm.valid) {
-  
+
       // Erstelle eine Kopie von taskData, um die Originaldaten nicht zu verändern
       const taskData = { ...this.taskForm.value };
       taskData.category = taskData.category.id; // Todo: Richtig in Formdata speichern
       taskData.status = taskData.status.id; // Todo: Richtig in Formdata speichern
       // const taskData = this.taskForm.value;
-      taskData.priority = this.priority?.value;
+      taskData.priority = this.priority;
       console.log('taskData in editTask', taskData);
 
 
@@ -275,10 +272,10 @@ export class AddtaskComponent implements OnInit, OnDestroy {
         console.log('Task gespeichert', response)
         this.resetFormAndUI();
 
-         this.route.navigateByUrl('/home/board').then(()=> {
+        this.route.navigateByUrl('/home/board').then(() => {
           this.dataService.cachedTasks = null;
           this.dataService.fetchAndSortTasks();
-         });
+        });
 
 
       }, error => {
@@ -306,7 +303,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     this.categoryForm.reset();
 
     // UI-Zustände zurücksetzen
-    this.priority = {key: Priority.LOW, value: 'low'};
+    // this.priority = {key: Priority.LOW, value: 'low'};
     this.subtaskValues = [];
     this.showNewCategoryInput = false;
     this.selectedContacts = [];

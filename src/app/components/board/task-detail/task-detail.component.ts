@@ -60,7 +60,7 @@ export class TaskDetailComponent implements OnInit {
 
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.minWidth = '100vw';
+    dialogConfig.minWidth = '80vw';
     dialogConfig.minHeight = '90vh';
     dialogConfig.maxWidth = '100vw';
     dialogConfig.maxHeight = '90vh';

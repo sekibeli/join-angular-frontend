@@ -9,12 +9,13 @@ body {
    top: 100px;
    display: flex;
    flex-direction: column;
-   width: 100%;
+   width: calc(100% - 250px);
     min-width: 260px;
    
 }
 .addTaskContainer {
 display: flex;
+
 
 }
 .left {
