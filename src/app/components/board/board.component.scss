@@ -5,7 +5,7 @@ display: flex;
 flex-direction: column;
 // width: 100%;
 //  min-width: 260px;
- width: calc(100% - 232px); /* nimmt die gesamte verfügbare Breite minus der 232px der Sidebar */
+ width: calc(100% - 250px); /* nimmt die gesamte verfügbare Breite minus der 232px der Sidebar */
  overflow-x: hidden; /* verhindert horizontales Scrollen */
 }
 

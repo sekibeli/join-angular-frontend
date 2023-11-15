@@ -256,8 +256,10 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
       // Erstelle eine Kopie von taskData, um die Originaldaten nicht zu verändern
       const taskData = { ...this.taskForm.value };
+    
       taskData.category = taskData.category.id; // Todo: Richtig in Formdata speichern
       taskData.status = taskData.status.id; // Todo: Richtig in Formdata speichern
+   
       // const taskData = this.taskForm.value;
       taskData.priority = this.priority;
       console.log('taskData in editTask', taskData);
