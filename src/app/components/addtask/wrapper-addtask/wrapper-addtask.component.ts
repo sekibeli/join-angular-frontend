@@ -16,4 +16,9 @@ export class WrapperAddtaskComponent {
   closeDialog(){
     this.dialogRef.close();
   }
+  
+  closeSelf() {
+    this.dialogRef.close();
+    console.log('Elternkomponente wird geschlossen');
+  }
 }

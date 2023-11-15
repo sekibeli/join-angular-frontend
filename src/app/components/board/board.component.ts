@@ -104,12 +104,12 @@ ngOnDestroy(): void {
       });
     }
   }
-  getStatusByContainerId(id: string): number {
+  getStatusByContainerId(id: string): string {
     switch (id) {
-        case 'todoList': return 1;
-        case 'inProgressList': return 2;
-        case 'awaitingFeedbackList': return 3;
-        default: return 4;
+        case 'todoList': return "to do";
+        case 'inProgressList': return "In Progress";
+        case 'awaitingFeedbackList': return "Awaiting Feedback";
+        default: return "Done";
     }
 }
 }

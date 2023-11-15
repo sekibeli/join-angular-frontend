@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Component, Inject, EventEmitter, Input, Output, OnDestroy, OnInit, Optional } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { Contact } from 'src/app/models/contact.class';
 import { Category } from 'src/app/models/category.class';
@@ -27,6 +27,7 @@ interface PriorityType {
   styleUrls: ['./addtask.component.scss']
 })
 export class AddtaskComponent implements OnInit, OnDestroy {
+  @Output() closeEvent = new EventEmitter<void>();  //Möglichkeit die Elternkomponente von der Kinderkomponente aus zu schließen.
   Priority = Priority;
   private contactsSub: Subscription;
   private categoriesSub: Subscription;
@@ -82,13 +83,16 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     });
     this.categoriesSub = this.dataService.getCategories().subscribe(response => {
       this.categories = response;
-     
+    
       if (this.editMode && this.data) {
-        const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category.id);
+        const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category);
         this.taskForm.get('category')?.setValue(categoryToSet || null);
       }
 
     });
+  }
+  closeParent() {
+    this.closeEvent.emit();
   }
 
   setFormValues(data: any): void {
@@ -100,7 +104,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
       if (this.editMode) {
         this.priority = data.task.priority;
-        console.log('subtask', this.subtaskValues);
+        // console.log('subtask', this.subtaskValues);
         this.taskForm.patchValue({
           ...this.data.task,
           dueDate: formattedDueDate,
@@ -112,11 +116,11 @@ export class AddtaskComponent implements OnInit, OnDestroy {
           // status: data.task.status.title.toLowerCase() 
         });
         this.priority = data.task.priority;
-        console.log('geladene Subtasks:', this.subtaskValues);
+        // console.log('geladene Subtasks:', this.subtaskValues);
        
       }
       console.log('setFormValues - data:', data);
-      console.log('setFormValues - active category:', data.task.category.title);
+    
      
     } else {
       this.editMode = false;
@@ -145,12 +149,12 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       const assignedContacts = this.data.task.assigned.map((assignedId: number) =>
       this.contacts.find(contact => contact.id === assignedId)
     ).filter((contact: Contact | undefined) => !!contact); // filtert undefined Werte heraus, falls ein Kontakt nicht gefunden wurde
-    console.log('constructor - assignedContacts: ', assignedContacts);
+    // console.log('constructor - assignedContacts: ', assignedContacts);
     this.taskForm.get('assigned')?.setValue(assignedContacts);
   }
 
   if (this.editMode) {
-    const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category.id);
+    const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category);
     this.taskForm.get('category')?.setValue(categoryToSet || null);
   }
 
@@ -166,7 +170,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
 
   toggleDropdown() {
-    console.log(this.showDropdown)
+    // console.log(this.showDropdown)
     this.showDropdown = !this.showDropdown;
   }
 
@@ -176,7 +180,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
   setPriority(newPriority: PriorityType) {
     const priorityKey: Priority = newPriority.key;
-    // Der Wert sollte bereits ein Kleinbuchstabe sein, wie im Enum definiert
+   
     const priorityValue = newPriority.value.toLowerCase();
 
     const priorityToSend: PriorityType = {
@@ -190,6 +194,13 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     console.log(this.priority);
     console.log(this.taskForm);
 
+  }
+
+  setPriorityNew(newPrio: string){
+   
+
+    this.taskForm.get('priority')?.setValue(newPrio);
+    console.log(this.taskForm);
   }
 
   addSubtask(subtaskTitle: string, inputElem: HTMLInputElement) {
@@ -274,6 +285,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
         console.error('Error:', error);
       });
     }
+    this.closeParent();
   }
   createNewCategory() {
     this.showNewCategoryInput = true;

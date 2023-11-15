@@ -39,7 +39,6 @@ ngOnInit(): void {
 if(this.task){
   this.dataService.getCategoryById(this.task.category).subscribe(categoryResponse => {
     this.category = categoryResponse;
-    console.log(this.category);
   })
 }
 console.log(this.task);

@@ -78,7 +78,7 @@ public done$ = new BehaviorSubject<any[]>([]);
 
 getCategoryById(id: number): Observable<any> {
  
-  const url = `${environment.baseUrl}/categories/?id=${id}`;
+  const url = `${environment.baseUrl}/categories/${id}/`;
   return this.http.get(url);
 }
 
@@ -124,9 +124,10 @@ getContactsByIds(ids: number[]): Observable<any> {
   return this.http.get(url);
 }
 
-updateTaskStatus(taskId: number, newStatusId: number): Observable<any> {
+updateTaskStatus(taskId: number, newStatus: string): Observable<any> {
+  console.log(taskId, newStatus );
   const url = `${environment.baseUrl}/tasks/${taskId}/`;
-  return this.http.patch(url, { status_id: newStatusId });
+  return this.http.patch(url, { status: newStatus });
 }
 
 getTaskById(id:number){
@@ -147,9 +148,9 @@ fetchAndSortTasks() {
     
     // sortieren
     this.todo$.next(tasks.filter((task: any) => task.status === 'To do'));
-    this.inProgress$.next(tasks.filter((task: any) => task.status.title === 'In Progress'));
-    this.awaitingFeedback$.next(tasks.filter((task: any) => task.status.title === 'Awaiting Feedback'));
-    this.done$.next(tasks.filter((task: any) => task.status.title === 'Done'));
+    this.inProgress$.next(tasks.filter((task: any) => task.status === 'In Progress'));
+    this.awaitingFeedback$.next(tasks.filter((task: any) => task.status === 'Awaiting Feedback'));
+    this.done$.next(tasks.filter((task: any) => task.status === 'Done'));
     
     // console.log('todo-Tasks:', this.todo);
   });

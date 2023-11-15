@@ -1,9 +1,9 @@
 <div class="singleTaskContainer" (click)="openTask(task.id)">
-    <div class="taskCategory" [style.backgroundColor]="task.category?.color">{{ task.category?.title}}</div>
+    <div class="taskCategory" [style.backgroundColor]="category?.color">{{ category?.title}}</div>
     <div class="taskTitle">{{ task.title}}</div>
     <div class="taskDescription">{{task.description}}</div>
     <div class="progressRow">
-        <mat-progress-bar mode="determinate" value="{{percent}}" [ngStyle]="{'--mdc-linear-progress-active-indicator-color': task.category?.color}"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" value="{{percent}}" [ngStyle]="{'--mdc-linear-progress-active-indicator-color': category?.color}"></mat-progress-bar>
         <div class="progressText">{{completedCount}}/{{subtasks.length}} done</div>
     </div>
     <div class="lastRow">

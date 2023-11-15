@@ -10,45 +10,45 @@ import { WrapperAddtaskComponent } from '../../addtask/wrapper-addtask/wrapper-a
   styleUrls: ['./task-detail.component.scss']
 })
 export class TaskDetailComponent implements OnInit {
-taskId?: number;
-public task: any;
-assigned: any;
-subtasks:any;
-  constructor(private dataService: DataService, @Inject(MAT_DIALOG_DATA) public id: number, public dialogRef: MatDialogRef<TaskDetailComponent>, private dialog: MatDialog){
-this.taskId = id;
+  taskId?: number;
+  public task: any;
+  assigned: any;
+  subtasks: any;
+  constructor(private dataService: DataService, @Inject(MAT_DIALOG_DATA) public id: number, public dialogRef: MatDialogRef<TaskDetailComponent>, private dialog: MatDialog) {
+    this.taskId = id;
 
 
-this.dataService.getTaskById(this.taskId).subscribe(response => {
-  this.task = response;
+    this.dataService.getTaskById(this.taskId).subscribe(response => {
+      this.task = response;
 
-  if (this.task && this.task.assigned) {
-    this.dataService.getContactsByIds(this.task.assigned).subscribe(assignedResponse => {
-      this.assigned = assignedResponse;
-      console.log('detail-assigned:',this.assigned);
-    }); 
-    }
+      if (this.task && this.task.assigned) {
+        this.dataService.getContactsByIds(this.task.assigned).subscribe(assignedResponse => {
+          this.assigned = assignedResponse;
+          console.log('detail-assigned:', this.assigned);
+        });
+      }
 
-    if (this.task && this.task.subtasks) {
-      this.dataService.getSubtasksByIds(this.task.subtasks).subscribe(subtaskResponse => {
-        this.subtasks = subtaskResponse;
-         
-    });
-  }
+      if (this.task && this.task.subtasks) {
+        this.dataService.getSubtasksByIds(this.task.subtasks).subscribe(subtaskResponse => {
+          this.subtasks = subtaskResponse;
 
-    
-})
-    
+        });
+      }
+
+
+    })
+
   }
 
   ngOnInit(): void {
-   
+
   }
-  
-  closeDialog(){
+
+  closeDialog() {
     this.dialogRef.close();
   }
 
-  deleteTask(taskId:number){
+  deleteTask(taskId: number) {
     this.dataService.deleteTask(taskId).subscribe(response => {
       console.log(response);
       this.dataService.fetchAndSortTasks();
@@ -56,25 +56,25 @@ this.dataService.getTaskById(this.taskId).subscribe(response => {
     })
   }
 
-  openEditTask(task:any){
-   
+  openEditTask(task: any) {
+
     const dialogConfig = new MatDialogConfig();
-    
+
     dialogConfig.minWidth = '100vw';
     dialogConfig.minHeight = '90vh';
-      dialogConfig.maxWidth = '100vw';
-      dialogConfig.maxHeight = '90vh';
-    
-  
-     dialogConfig.data =  {
-      task: task, 
+    dialogConfig.maxWidth = '100vw';
+    dialogConfig.maxHeight = '90vh';
+
+
+    dialogConfig.data = {
+      task: task,
       assigned: this.assigned,
       subtasks: this.subtasks,
       editMode: true
-    } ;
-    // const dialogRef = 
-    this.dialog.open(WrapperAddtaskComponent, dialogConfig);
+    };
    
+    this.dialog.open(WrapperAddtaskComponent, dialogConfig);
+
     console.log();
     this.dialogRef.close();
   }
