@@ -409,4 +409,23 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     console.log('editMode:', this.editMode);
   }
 
+  // Aktualisieren von subtaskValues bei Änderungen im FormArray
+updateSubtaskValuesFromForm() {
+  const subtasksArray = this.taskForm.get('subtasks') as FormArray;
+  this.subtaskValues = subtasksArray.value;
+}
+
+initializeSubtaskFormArray() {
+  const subtasksArray = this.taskForm.get('subtasks') as FormArray;
+  subtasksArray.clear(); // Bestehende Einträge im Array löschen
+
+  this.subtaskValues.forEach(subtask => {
+    const subtaskFormGroup = new FormGroup({
+      title: new FormControl(subtask.title),
+      completed: new FormControl(subtask.completed)
+    });
+
+    subtasksArray.push(subtaskFormGroup);
+  });
+}
 }

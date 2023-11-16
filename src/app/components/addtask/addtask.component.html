@@ -104,6 +104,20 @@
                     <mat-icon class="icon-cancel" style="color: red;" (click)="cancelSubtask(subtaskInput)">close</mat-icon>
                   </div>
                  
+
+                  <!-- <div formArrayName="subtasks">
+                    <div *ngFor="let subtask of subtaskValues; let i = index" [formGroupName]="i" class="subtaskRow">
+                      <mat-checkbox formControlName="completed"></mat-checkbox>
+                      <div class="subtaskList">
+                        <div>{{subtask.title}}</div>
+                        <div (click)="deleteSubtask(subtask.title)">
+                          <mat-icon style="color: rgb(255, 0, 0);">delete</mat-icon>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+                  
+
                     <div class="subtaskRow" *ngFor="let subtask of subtaskValues">
                         <mat-checkbox [checked]="subtask.completed"></mat-checkbox><div class="subtaskList"><div>{{subtask.title}}</div><div (click)="deleteSubtask(subtask.title)"><mat-icon style="color: rgb(255, 0, 0);">delete</mat-icon></div></div>
                     </div>
