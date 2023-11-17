@@ -99,6 +99,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     if (data) {
       this.editMode = data.editMode;
       this.subtaskValues = data.subtasks;
+      this.initializeSubtaskFormArray();
       const formattedDueDate = this.convertToYYYYMMDD(data.task.dueDate);
 
 
@@ -232,6 +233,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       taskData.category = taskData.category.id;
       taskData.status = this.dataService.Status.todo;
       console.log('body:', taskData);
+      console.log('this.taskForm.value.subtasks', this.taskForm.value.subtasks);
       this.dataService.saveTask(taskData).subscribe(response => {
 
         console.log('taskData:', taskData);
