@@ -102,6 +102,12 @@ getCategoryById(id: number): Observable<any> {
     );
   }
 
+  saveOrUpdateSubtasks(subtasks: any){
+    const url = environment.baseUrl + '/subtasks/';
+    return this.http.post(url, subtasks);
+    
+  }
+
   getSubtasks(){
        
     const url = environment.baseUrl + '/subtasks/';

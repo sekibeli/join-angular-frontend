@@ -31,6 +31,7 @@ export class TaskDetailComponent implements OnInit {
       if (this.task && this.task.subtasks) {
         this.dataService.getSubtasksByIds(this.task.subtasks).subscribe(subtaskResponse => {
           this.subtasks = subtaskResponse;
+          console.log('subbies:', this.subtasks);
 
         });
       }

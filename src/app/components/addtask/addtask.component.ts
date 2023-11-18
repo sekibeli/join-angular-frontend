@@ -2,6 +2,7 @@ import { Component, Inject, EventEmitter, Input, Output, OnDestroy, OnInit, Opti
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, FormArray } from '@angular/forms';
 import { Contact } from 'src/app/models/contact.class';
 import { Category } from 'src/app/models/category.class';
+import { Subtask } from 'src/app/models/subtask.class';
 import { DataService, Status } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -39,7 +40,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
 
 
-  subtaskValues: { title: string, completed: boolean }[] = [];
+  subtaskValues: { id: number, title: string, completed: boolean, task: number }[] = [];
   tomorrow: string = this.getTomorrowDate();
   priority?: string;
   contacts: Contact[] = [];
@@ -99,6 +100,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     if (data) {
       this.editMode = data.editMode;
       this.subtaskValues = data.subtasks;
+      console.log('mit ids:', this.subtaskValues);
       this.initializeSubtaskFormArray();
       const formattedDueDate = this.convertToYYYYMMDD(data.task.dueDate);
 
@@ -120,7 +122,8 @@ export class AddtaskComponent implements OnInit, OnDestroy {
         // console.log('geladene Subtasks:', this.subtaskValues);
 
       }
-      console.log('setFormValues - data:', data);
+   
+      console.log('taskForm Subtasks:', this.taskForm.value.subtasks);
 
 
     } else {
@@ -234,6 +237,8 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       taskData.status = this.dataService.Status.todo;
       console.log('body:', taskData);
       console.log('this.taskForm.value.subtasks', this.taskForm.value.subtasks);
+
+
       this.dataService.saveTask(taskData).subscribe(response => {
 
         console.log('taskData:', taskData);
@@ -262,14 +267,24 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       taskData.category = taskData.category.id; // Todo: Richtig in Formdata speichern
       taskData.status = taskData.status.id; // Todo: Richtig in Formdata speichern
    
+      console.log('this.taskForm.value.subtasks', this.taskForm.value.subtasks);
+      console.log(this.data.task.id);
+      this.dataService.saveOrUpdateSubtasks(this.taskForm.value.subtasks).subscribe(response => {
+        console.log('Subtasks gespeichert', response)
+      })
+
       // const taskData = this.taskForm.value;
       taskData.priority = this.priority;
       console.log('taskData in editTask', taskData);
 
 
-
       taskData.assigned = taskData.assigned.map((contact: Contact) => contact.id);
       console.log('body:', taskData);
+      console.log(taskData.subtasks);
+      
+      if (taskData.subtasks && Array.isArray(taskData.subtasks)) {
+        taskData.subtasks = taskData.subtasks.map((subtask: Subtask) => subtask.id); // oder subtask.pk, je nachdem, wie Ihre Datenstruktur aussieht
+      }
       this.dataService.editTask(taskData, this.data.task.id).subscribe(response => {
 
         console.log('taskData:', taskData);
@@ -419,12 +434,15 @@ updateSubtaskValuesFromForm() {
 
 initializeSubtaskFormArray() {
   const subtasksArray = this.taskForm.get('subtasks') as FormArray;
+  console.log('Inhalt:',subtasksArray);
   subtasksArray.clear(); // Bestehende Einträge im Array löschen
 
   this.subtaskValues.forEach(subtask => {
     const subtaskFormGroup = new FormGroup({
+      id: new FormControl(subtask.id),
       title: new FormControl(subtask.title),
-      completed: new FormControl(subtask.completed)
+      completed: new FormControl(subtask.completed),
+      task: new FormControl(subtask.task)
     });
 
     subtasksArray.push(subtaskFormGroup);
