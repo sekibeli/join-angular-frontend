@@ -329,6 +329,8 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     }
     this.closeParent();
   }
+
+  
   createNewCategory() {
     this.showNewCategoryInput = true;
   }

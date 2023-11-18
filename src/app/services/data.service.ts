@@ -126,7 +126,7 @@ getCategoryById(id: number): Observable<any> {
     // const subtasksWithoutId = subtasks.filter((subtask:Subtask) => subtask.id === undefined || subtask.id === null);
     
     const url = environment.baseUrl + `/tasks/${taskId}/`;
-    return this.http.put(url, subtasks);
+    return this.http.post(url, subtasks);
     
   }
   getSubtasks(){
