@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of, shareReplay, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.class';
+import { Subtask } from '../models/subtask.class';
 // import { Status } from '../models/status.class';
 import { BehaviorSubject } from 'rxjs';
 import { Contact } from '../models/contact.class';
@@ -102,12 +103,32 @@ getCategoryById(id: number): Observable<any> {
     );
   }
 
-  saveOrUpdateSubtasks(subtasks: any){
-    const url = environment.baseUrl + '/subtasks/';
-    return this.http.post(url, subtasks);
+  updateSubtasks(subtasks: any){
+    console.log('...', subtasks);
+    // const subtasksWithId = subtasks.filter(
+    //   (subtask:Subtask) => subtask.id !== undefined && subtask.id !== null);
+
+    // // Filtert Subtasks ohne ID
+    // const subtasksWithoutId = subtasks.filter((subtask:Subtask) => subtask.id === undefined || subtask.id === null);
+    
+    const url = environment.baseUrl + `/subtasks/update_many/`;
+    return this.http.put(url, subtasks);
     
   }
 
+
+  saveSubtasks(subtasks: any, taskId:number){
+    console.log('...', subtasks);
+    // const subtasksWithId = subtasks.filter(
+    //   (subtask:Subtask) => subtask.id !== undefined && subtask.id !== null);
+
+    // // Filtert Subtasks ohne ID
+    // const subtasksWithoutId = subtasks.filter((subtask:Subtask) => subtask.id === undefined || subtask.id === null);
+    
+    const url = environment.baseUrl + `/tasks/${taskId}/`;
+    return this.http.put(url, subtasks);
+    
+  }
   getSubtasks(){
        
     const url = environment.baseUrl + '/subtasks/';

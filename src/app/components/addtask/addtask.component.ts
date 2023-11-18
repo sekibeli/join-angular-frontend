@@ -205,15 +205,26 @@ export class AddtaskComponent implements OnInit, OnDestroy {
   }
 
   addSubtask(subtaskTitle: string, inputElem: HTMLInputElement) {
+    let newSubtask: any = {};
     if (subtaskTitle.length === 0) {
       return;
     }
     const subtasksArray = this.taskForm.get('subtasks') as FormArray;
 
-    const newSubtask = new FormGroup({
-      title: new FormControl(subtaskTitle),
-      completed: new FormControl(false),
-    });
+    if(this.editMode){
+     newSubtask = new FormGroup({
+        title: new FormControl(subtaskTitle),
+        completed: new FormControl(false),
+        task: new FormControl(this.data.task.id)
+      });
+    } else {
+      newSubtask = new FormGroup({
+        title: new FormControl(subtaskTitle),
+        completed: new FormControl(false),
+       
+      });
+    }
+   
 
     subtasksArray.push(newSubtask);
 
@@ -269,10 +280,25 @@ export class AddtaskComponent implements OnInit, OnDestroy {
    
       console.log('this.taskForm.value.subtasks', this.taskForm.value.subtasks);
       console.log(this.data.task.id);
-      this.dataService.saveOrUpdateSubtasks(this.taskForm.value.subtasks).subscribe(response => {
+
+      const subbies = this.taskForm.value.subtasks
+      const subtasksWithId = subbies.filter(
+        (subtask:Subtask) => subtask.id !== undefined && subtask.id !== null);
+  
+      // Filtert Subtasks ohne ID
+      const subtasksWithoutId = subbies.filter((subtask:Subtask) => subtask.id === undefined || subtask.id === null);
+
+
+      this.dataService.updateSubtasks(subtasksWithId).subscribe(response => {
         console.log('Subtasks gespeichert', response)
       })
 
+      if(subtasksWithoutId.length > 0){
+        this.dataService.saveSubtasks(subtasksWithoutId, this.data.task.id).subscribe(response => {
+          console.log('Subtasks gespeichert', response)
+        })
+      }
+     
       // const taskData = this.taskForm.value;
       taskData.priority = this.priority;
       console.log('taskData in editTask', taskData);
