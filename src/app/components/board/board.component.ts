@@ -106,7 +106,7 @@ ngOnDestroy(): void {
   }
   getStatusByContainerId(id: string): string {
     switch (id) {
-        case 'todoList': return "to do";
+        case 'todoList': return "To do";
         case 'inProgressList': return "In Progress";
         case 'awaitingFeedbackList': return "Awaiting Feedback";
         default: return "Done";
