@@ -105,12 +105,7 @@ getCategoryById(id: number): Observable<any> {
 
   updateSubtasks(subtasks: any){
     console.log('...', subtasks);
-    // const subtasksWithId = subtasks.filter(
-    //   (subtask:Subtask) => subtask.id !== undefined && subtask.id !== null);
-
-    // // Filtert Subtasks ohne ID
-    // const subtasksWithoutId = subtasks.filter((subtask:Subtask) => subtask.id === undefined || subtask.id === null);
-    
+       
     const url = environment.baseUrl + `/subtasks/update_many/`;
     return this.http.put(url, subtasks);
     
@@ -119,13 +114,8 @@ getCategoryById(id: number): Observable<any> {
 
   saveSubtasks(subtasks: any, taskId:number){
     console.log('...', subtasks);
-    // const subtasksWithId = subtasks.filter(
-    //   (subtask:Subtask) => subtask.id !== undefined && subtask.id !== null);
-
-    // // Filtert Subtasks ohne ID
-    // const subtasksWithoutId = subtasks.filter((subtask:Subtask) => subtask.id === undefined || subtask.id === null);
     
-    const url = environment.baseUrl + `/tasks/${taskId}/`;
+    const url = environment.baseUrl + `/tasks/${taskId}/add_subtasks/`;
     return this.http.post(url, subtasks);
     
   }
