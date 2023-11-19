@@ -288,43 +288,58 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       // Filtert Subtasks ohne ID
       const subtasksWithoutId = subbies.filter((subtask:Subtask) => subtask.id === undefined || subtask.id === null);
 
-
+      //updated bestehende subtasks
       this.dataService.updateSubtasks(subtasksWithId).subscribe(response => {
         console.log('Subtasks gespeichert', response)
       })
 
+      //speichert die neuen Subtasks
       if(subtasksWithoutId.length > 0){
         this.dataService.saveSubtasks(subtasksWithoutId, this.data.task.id).subscribe(response => {
           console.log('Subtasks gespeichert', response)
+          
+          //Abruf der aktuellen Subtasks eines Tasks
+          this.dataService.getSubtasksByTaskId(this.data.task.id).subscribe(response => {
+            console.log('Subtasksabruf: ',response);
+            taskData.subtasks = response;
+          })
+
         })
       }
      
       // const taskData = this.taskForm.value;
       taskData.priority = this.priority;
-      console.log('taskData in editTask', taskData);
+      // console.log('taskData in editTask', taskData);
 
 
       taskData.assigned = taskData.assigned.map((contact: Contact) => contact.id);
-      console.log('body:', taskData);
-      console.log(taskData.subtasks);
+      // console.log('body:', taskData);
+      // console.log(taskData.subtasks);
       
+
+
       if (taskData.subtasks && Array.isArray(taskData.subtasks)) {
         taskData.subtasks = taskData.subtasks.map((subtask: Subtask) => subtask.id); // oder subtask.pk, je nachdem, wie Ihre Datenstruktur aussieht
       }
+      delete taskData.subtasks; // lösche den Bereich weil schon im Backend vorhanden.
+      
+      //speichert das veränderte Task
       this.dataService.editTask(taskData, this.data.task.id).subscribe(response => {
 
-        console.log('taskData:', taskData);
-        console.log('Task gespeichert', response)
+        // console.log('taskData:', taskData);
+        // console.log('Task gespeichert', response)
         this.resetFormAndUI();
 
         this.route.navigateByUrl('/home/board').then(() => {
           this.dataService.cachedTasks = null;
           this.dataService.fetchAndSortTasks();
+          
         });
 
 
       }, error => {
         console.error('Error:', error);
+        this.dataService.fetchAndSortTasks();
       });
     }
     this.closeParent();
@@ -371,12 +386,12 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       this.showNewCategoryInput = false;
       this.newCategoryTitle = '';
       this.dataService.saveNewCategory(newCategory).subscribe(response => {
-        console.log('Category saved', response);
+        // console.log('Category saved', response);
         if (response && response.id) {
           newCategory.id = response.id;
           newCategory.author = response.author; // Stellen Sie sicher, dass 'author' in der Antwort enthalten ist
         }
-        console.log('Category saved', response.id);
+        // console.log('Category saved', response.id);
         const categoryToSelect = this.categories.find(cat => cat.title === newCategory.title);
         if (categoryToSelect) {
           this.taskForm.get('category')?.setValue(categoryToSelect);
@@ -391,7 +406,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
   refreshCategories() {
     this.dataService.getCategories().subscribe(response => {
       this.categories = response;
-      console.log(this.categories);
+      // console.log(this.categories);
     });
   }
 
@@ -450,8 +465,8 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     if (this.categoriesSub) {
       this.categoriesSub.unsubscribe();
     }
-    console.log('kaputtboardzu');
-    console.log('editMode:', this.editMode);
+    // console.log('kaputtboardzu');
+    // console.log('editMode:', this.editMode);
   }
 
   // Aktualisieren von subtaskValues bei Änderungen im FormArray
@@ -462,7 +477,7 @@ updateSubtaskValuesFromForm() {
 
 initializeSubtaskFormArray() {
   const subtasksArray = this.taskForm.get('subtasks') as FormArray;
-  console.log('Inhalt:',subtasksArray);
+  // console.log('Inhalt:',subtasksArray);
   subtasksArray.clear(); // Bestehende Einträge im Array löschen
 
   this.subtaskValues.forEach(subtask => {

@@ -41,7 +41,7 @@ if(this.task){
     this.category = categoryResponse;
   })
 }
-console.log(this.task);
+// console.log(this.task);
 
 }
 

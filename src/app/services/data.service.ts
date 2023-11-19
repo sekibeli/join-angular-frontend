@@ -136,6 +136,12 @@ getCategoryById(id: number): Observable<any> {
     return this.http.get(url);
 }
 
+getSubtasksByTaskId(taskId:number){
+  const url = `${environment.baseUrl}/subtasks/?task_id=${taskId}`;
+  return this.http.get(url);
+}
+
+
 getContactsByIds(ids: number[]): Observable<any> {
   const url = `${environment.baseUrl}/assigned/?ids[]=${ids.join('&ids[]=')}`;
   return this.http.get(url);
@@ -154,6 +160,11 @@ getTaskById(id:number){
 
 deleteTask(id:number){
   const url = `${environment.baseUrl}/tasks/${id}/`;
+  return this.http.delete(url);
+}
+
+deleteSubtask(id:number){
+  const url = `${environment.baseUrl}/subtasks/${id}`;
   return this.http.delete(url);
 }
 
