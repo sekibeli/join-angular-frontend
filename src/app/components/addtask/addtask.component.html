@@ -110,7 +110,7 @@
                       <mat-checkbox formControlName="completed"></mat-checkbox>
                       <div class="subtaskList">
                         <div>{{subtask.title}}</div>
-                        <div (click)="deleteSubtask(subtask.title)">
+                        <div (click)="deleteSubtask(subtask.title, subtask.id)">
                           <mat-icon style="color: rgb(255, 0, 0);">delete</mat-icon>
                         </div>
                       </div>

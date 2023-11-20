@@ -59,21 +59,9 @@ processTasks(tasks: any[]) {
 }
 ngOnDestroy(): void {
    this.alive = false; 
-   console.log('board destroyed');
+  //  console.log('board destroyed');
 }
-// fetchAndSortTasks() {
-  
-//   this.dataService.getTasks().subscribe(tasks => {
-//     this.tasks$.next(tasks);
-    
-//     // tasks nach status sortieren
-//     this.todo = tasks.filter((task:any) => task.status.title === 'todo');
-//     this.inProgress = tasks.filter((task:any) => task.status.title === 'inProgress');
-//     this.awaitingFeedback = tasks.filter((task:any) => task.status.title === 'awaitingFeedback');
-//     this.done = tasks.filter((task:any) => task.status.title === 'done');
-//   });
-  
-// }
+
 
   drop(event: CdkDragDrop<any[] | null, any> ) {
     if (!event.previousContainer.data || !event.container.data) {

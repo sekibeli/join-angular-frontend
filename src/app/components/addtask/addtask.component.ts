@@ -9,18 +9,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
 import { Subscription } from 'rxjs';
 
-// Importieren Sie den Dialog-Komponenten, den Sie erstellen werden.
-
-//  export enum Priority {
-//   LOW = 'low',
-//   MEDIUM = 'medium',
-//   URGENT = 'urgent'
-// }
-// interface PriorityType {
-//   key: Priority;
-//   value: string;
-// }
-
 
 @Component({
   selector: 'app-addtask',
@@ -29,7 +17,6 @@ import { Subscription } from 'rxjs';
 })
 export class AddtaskComponent implements OnInit, OnDestroy {
   @Output() closeEvent = new EventEmitter<void>();  //Möglichkeit die Elternkomponente von der Kinderkomponente aus zu schließen.
-  // Priority = Priority;
   private contactsSub: Subscription;
   private categoriesSub: Subscription;
   editMode = false;
@@ -37,7 +24,6 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
   newCategoryTitle: string = '';
   showNewCategoryInput: boolean = false;
-
 
 
   subtaskValues: { id: number, title: string, completed: boolean, task: number }[] = [];
@@ -67,7 +53,6 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
 
   constructor(private fb: FormBuilder, private dataService: DataService, private route: Router) {
-
     this.contactsSub = this.dataService.getContacts().subscribe((response: Contact[]) => {
       this.contacts = response;
       this.editMode = true;
@@ -89,7 +74,6 @@ export class AddtaskComponent implements OnInit, OnDestroy {
         const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category);
         this.taskForm.get('category')?.setValue(categoryToSet || null);
       }
-
     });
   }
   closeParent() {
@@ -100,31 +84,21 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     if (data) {
       this.editMode = data.editMode;
       this.subtaskValues = data.subtasks;
-      console.log('mit ids:', this.subtaskValues);
+      // console.log('mit ids:', this.subtaskValues);
       this.initializeSubtaskFormArray();
       const formattedDueDate = this.convertToYYYYMMDD(data.task.dueDate);
 
-
       if (this.editMode) {
         this.priority = data.task.priority;
-        // console.log('subtask', this.subtaskValues);
         this.taskForm.patchValue({
           ...this.data.task,
           dueDate: formattedDueDate,
           priority: this.priority,
           subtasks: this.subtaskValues
 
-          // category: data.task.category.title,
-          // assigned: selectedContacts,
-          // status: data.task.status.title.toLowerCase() 
         });
         this.priority = data.task.priority;
-        // console.log('geladene Subtasks:', this.subtaskValues);
-
       }
-   
-      console.log('taskForm Subtasks:', this.taskForm.value.subtasks);
-
 
     } else {
       this.editMode = false;
@@ -139,7 +113,6 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     if (selectedDate <= currentDate) {
       return { invalidDate: true };
     }
-
     return null;
   }
 
@@ -174,7 +147,6 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
 
   toggleDropdown() {
-    // console.log(this.showDropdown)
     this.showDropdown = !this.showDropdown;
   }
 
@@ -182,26 +154,11 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     return this.taskForm.get('contact-' + contact.id)?.value === true;
   }
 
-  // setPriority(newPriority: string) {
-  //   const priorityKey: Priority = newPriority.key;
-  //   const priorityValue = newPriority.value.toLowerCase();
-
-  //   const priorityToSend: PriorityType = {
-  //     key: priorityKey, // Direkt zuweisen, da es vom Typ Priority ist
-  //     value: newPriority.value // Der Wert sollte bereits in Kleinbuchstaben sein.
-  //   };
-
-  //   this.priority = priorityToSend;
-  //   this.taskForm.get('priority')?.setValue(newPriority.value);
-  //   console.log(this.priority);
-  //   console.log(this.taskForm);
-
-  // }
 
   setPriorityNew(newPrio: string) {
     this.priority = newPrio;
     this.taskForm.get('priority')?.setValue(newPrio);
-    console.log(this.taskForm);
+    // console.log(this.taskForm);
   }
 
   addSubtask(subtaskTitle: string, inputElem: HTMLInputElement) {
@@ -211,8 +168,8 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     }
     const subtasksArray = this.taskForm.get('subtasks') as FormArray;
 
-    if(this.editMode){
-     newSubtask = new FormGroup({
+    if (this.editMode) {
+      newSubtask = new FormGroup({
         title: new FormControl(subtaskTitle),
         completed: new FormControl(false),
         task: new FormControl(this.data.task.id)
@@ -221,24 +178,16 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       newSubtask = new FormGroup({
         title: new FormControl(subtaskTitle),
         completed: new FormControl(false),
-       
+
       });
     }
-   
-
     subtasksArray.push(newSubtask);
 
     subtaskTitle = '';
     // this.taskForm.get('subtaskInput')?.reset();
     inputElem.value = '';
-
     this.subtaskValues = subtasksArray.controls.map((control) => control.value);
-    console.log(this.subtaskValues);
-    console.log(this.taskForm)
-
   }
-
-
 
   submitTask() {
 
@@ -246,14 +195,8 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       const taskData = this.taskForm.value;
       taskData.category = taskData.category.id;
       taskData.status = this.dataService.Status.todo;
-      console.log('body:', taskData);
-      console.log('this.taskForm.value.subtasks', this.taskForm.value.subtasks);
-
 
       this.dataService.saveTask(taskData).subscribe(response => {
-
-        console.log('taskData:', taskData);
-        console.log('Task gespeichert', response)
         this.resetFormAndUI();
 
         this.route.navigateByUrl('/home/board').then(() => {
@@ -272,57 +215,48 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
     if (this.taskForm.valid) {
 
-      // Erstelle eine Kopie von taskData, um die Originaldaten nicht zu verändern
+      // Erstellt eine Kopie von taskData, um die Originaldaten nicht zu verändern
       const taskData = { ...this.taskForm.value };
-    
+
       taskData.category = taskData.category.id; // Todo: Richtig in Formdata speichern
       taskData.status = taskData.status.id; // Todo: Richtig in Formdata speichern
-   
-      console.log('this.taskForm.value.subtasks', this.taskForm.value.subtasks);
-      console.log(this.data.task.id);
 
       const subbies = this.taskForm.value.subtasks
       const subtasksWithId = subbies.filter(
-        (subtask:Subtask) => subtask.id !== undefined && subtask.id !== null);
-  
+        (subtask: Subtask) => subtask.id !== undefined && subtask.id !== null);
+
       // Filtert Subtasks ohne ID
-      const subtasksWithoutId = subbies.filter((subtask:Subtask) => subtask.id === undefined || subtask.id === null);
+      const subtasksWithoutId = subbies.filter((subtask: Subtask) => subtask.id === undefined || subtask.id === null);
 
       //updated bestehende subtasks
       this.dataService.updateSubtasks(subtasksWithId).subscribe(response => {
-        console.log('Subtasks gespeichert', response)
+        // console.log('Subtasks gespeichert', response)
       })
 
       //speichert die neuen Subtasks
-      if(subtasksWithoutId.length > 0){
+      if (subtasksWithoutId.length > 0) {
         this.dataService.saveSubtasks(subtasksWithoutId, this.data.task.id).subscribe(response => {
-          console.log('Subtasks gespeichert', response)
-          
+          // console.log('Subtasks gespeichert', response)
+
           //Abruf der aktuellen Subtasks eines Tasks
           this.dataService.getSubtasksByTaskId(this.data.task.id).subscribe(response => {
-            console.log('Subtasksabruf: ',response);
+            // console.log('Subtasksabruf: ',response);
             taskData.subtasks = response;
           })
 
         })
       }
-     
-      // const taskData = this.taskForm.value;
-      taskData.priority = this.priority;
-      // console.log('taskData in editTask', taskData);
 
+
+      taskData.priority = this.priority;
 
       taskData.assigned = taskData.assigned.map((contact: Contact) => contact.id);
-      // console.log('body:', taskData);
-      // console.log(taskData.subtasks);
-      
-
 
       if (taskData.subtasks && Array.isArray(taskData.subtasks)) {
         taskData.subtasks = taskData.subtasks.map((subtask: Subtask) => subtask.id); // oder subtask.pk, je nachdem, wie Ihre Datenstruktur aussieht
       }
-      delete taskData.subtasks; // lösche den Bereich weil schon im Backend vorhanden.
-      
+      delete taskData.subtasks; // lösche den Bereich subtasks weil schon im Backend vorhanden.
+
       //speichert das veränderte Task
       this.dataService.editTask(taskData, this.data.task.id).subscribe(response => {
 
@@ -333,7 +267,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
         this.route.navigateByUrl('/home/board').then(() => {
           this.dataService.cachedTasks = null;
           this.dataService.fetchAndSortTasks();
-          
+
         });
 
 
@@ -345,7 +279,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     this.closeParent();
   }
 
-  
+
   createNewCategory() {
     this.showNewCategoryInput = true;
   }
@@ -363,9 +297,6 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     });
 
     this.categoryForm.reset();
-
-    // UI-Zustände zurücksetzen
-    // this.priority = {key: Priority.LOW, value: 'low'};
     this.subtaskValues = [];
     this.showNewCategoryInput = false;
     this.selectedContacts = [];
@@ -419,7 +350,8 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     inputElem.value = '';
   }
 
-  deleteSubtask(sub: string) {
+  deleteSubtask(sub: string, id: number) {
+    // console.log('id', id);
     this.subtaskValues = this.subtaskValues.filter(subtask => subtask.title !== sub);
 
     const subtasksArray = this.taskForm.get('subtasks') as FormArray;
@@ -427,6 +359,12 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     if (indexToRemove > -1) {
       subtasksArray.removeAt(indexToRemove);
     }
+    if (id != undefined) {
+      this.dataService.deleteSubtask(id).subscribe(response => {
+        // console.log('subtask gelöscht', response);
+      })
+    }
+
   }
 
   generateDarkColor(): string {
@@ -453,9 +391,9 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     // Verwenden Sie padStart um sicherzustellen, dass Monat und Tag immer zweistellig sind
     return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
   }
-  closeDialog() {
-    // this.dialogRef.close();
-  }
+  // closeDialog() {
+  //   // this.dialogRef.close();
+  // }
 
   ngOnDestroy(): void {
     if (this.contactsSub) {
@@ -465,30 +403,28 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     if (this.categoriesSub) {
       this.categoriesSub.unsubscribe();
     }
-    // console.log('kaputtboardzu');
-    // console.log('editMode:', this.editMode);
   }
 
   // Aktualisieren von subtaskValues bei Änderungen im FormArray
-updateSubtaskValuesFromForm() {
-  const subtasksArray = this.taskForm.get('subtasks') as FormArray;
-  this.subtaskValues = subtasksArray.value;
-}
+  updateSubtaskValuesFromForm() {
+    const subtasksArray = this.taskForm.get('subtasks') as FormArray;
+    this.subtaskValues = subtasksArray.value;
+  }
 
-initializeSubtaskFormArray() {
-  const subtasksArray = this.taskForm.get('subtasks') as FormArray;
-  // console.log('Inhalt:',subtasksArray);
-  subtasksArray.clear(); // Bestehende Einträge im Array löschen
+  initializeSubtaskFormArray() {
+    const subtasksArray = this.taskForm.get('subtasks') as FormArray;
+    // console.log('Inhalt:',subtasksArray);
+    subtasksArray.clear(); // Bestehende Einträge im Array löschen
 
-  this.subtaskValues.forEach(subtask => {
-    const subtaskFormGroup = new FormGroup({
-      id: new FormControl(subtask.id),
-      title: new FormControl(subtask.title),
-      completed: new FormControl(subtask.completed),
-      task: new FormControl(subtask.task)
+    this.subtaskValues.forEach(subtask => {
+      const subtaskFormGroup = new FormGroup({
+        id: new FormControl(subtask.id),
+        title: new FormControl(subtask.title),
+        completed: new FormControl(subtask.completed),
+        task: new FormControl(subtask.task)
+      });
+
+      subtasksArray.push(subtaskFormGroup);
     });
-
-    subtasksArray.push(subtaskFormGroup);
-  });
-}
+  }
 }

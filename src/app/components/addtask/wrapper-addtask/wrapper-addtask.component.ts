@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class WrapperAddtaskComponent {
 
   constructor(private dialogRef: MatDialogRef<WrapperAddtaskComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any){
-    console.log('data Wrapper:', data);
+    // console.log('data Wrapper:', data);
   }
 
 
@@ -19,6 +19,6 @@ export class WrapperAddtaskComponent {
   
   closeSelf() {
     this.dialogRef.close();
-    console.log('Elternkomponente wird geschlossen');
+    // console.log('Elternkomponente wird geschlossen');
   }
 }
