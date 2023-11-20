@@ -7,7 +7,7 @@ import { DataService, Status } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
-import { Subscription } from 'rxjs';
+import { Subscription, lastValueFrom } from 'rxjs';
 
 
 @Component({
@@ -211,7 +211,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     }
   }
 
-  editTask() {
+  async editTask() {
 
     if (this.taskForm.valid) {
 
@@ -229,9 +229,11 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       const subtasksWithoutId = subbies.filter((subtask: Subtask) => subtask.id === undefined || subtask.id === null);
 
       //updated bestehende subtasks
-      this.dataService.updateSubtasks(subtasksWithId).subscribe(response => {
-        // console.log('Subtasks gespeichert', response)
-      })
+      await lastValueFrom(this.dataService.updateSubtasks(subtasksWithId))
+      
+      // .subscribe(response => {
+      //   // console.log('Subtasks gespeichert', response)
+      // })
 
       //speichert die neuen Subtasks
       if (subtasksWithoutId.length > 0) {
