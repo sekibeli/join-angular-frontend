@@ -18,11 +18,11 @@
                     <span>Tasks in <br>Board</span>
                 </div>
                 <div onclick="goToBoard()" class="single-box single-first-row animation2">
-                    <span class="big-number">{{1}}</span>
+                    <span class="big-number">{{this.dataService.progressCount}}</span>
                     <span>Tasks in <br>Progress</span>
                 </div>
                 <div onclick="goToBoard()" class="single-box single-first-row animation3">
-                    <span class="big-number">{{1}}</span>
+                    <span class="big-number">{{this.dataService.awaitingCount}}</span>
                     <span>Awaiting <br> Feedback</span>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                         <img class="summary-icon" src="assets/img/edit_white.png" alt="">
                     </div>
                     <div class="summary-todo-done">
-                        <span class="big-number">{{1}}</span>
+                        <span class="big-number">{{this.dataService.todoCount}}</span>
                         <span>To-do</span>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                         <img class="summary-icon" src="assets/img/icon-done.svg" alt="">
                     </div>
                     <div class="summary-todo-done">
-                        <span class="big-number">{{1}}</span>
+                        <span class="big-number">{{this.dataService.doneCount}}</span>
                         <span>Done</span>
                     </div>
                 </div>

@@ -34,12 +34,6 @@ export class BoardComponent implements OnInit, OnDestroy{
 
   alive: boolean = true;
 
-  // tasks$ = new BehaviorSubject<any[]>([]);
-  // public subtasks:any = [];
-  // public todo: any[] = [];
-  // public inProgress: any[] = [];
-  // public awaitingFeedback: any[] = [];
-  // public done: any[] = [];
 
   constructor(public dataService: DataService){
     this.dataService.fetchAndSortTasks();

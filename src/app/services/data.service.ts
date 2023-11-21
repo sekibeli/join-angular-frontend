@@ -40,6 +40,11 @@ public awaitingFeedback$ = new BehaviorSubject<any[]>([]);
 public done$ = new BehaviorSubject<any[]>([]);
 
 
+todoCount?: number;
+doneCount?: number;
+progressCount?: number;
+awaitingCount?:number;
+
   constructor(private http: HttpClient ) { }
  
 
@@ -180,7 +185,14 @@ fetchAndSortTasks() {
     this.awaitingFeedback$.next(tasks.filter((task: any) => task.status === 'Awaiting Feedback'));
     this.done$.next(tasks.filter((task: any) => task.status === 'Done'));
     
-    // console.log('todo-Tasks:', this.todo);
+     console.log('todo-Tasks:', this.todo$);
+     console.log('inProgress-Tasks:', this.inProgress$);
+
+     this.todoCount = this.todo$.value.length;
+     this.doneCount = this.done$.value.length;
+     this.awaitingCount = this.awaitingFeedback$.value.length;
+     this.progressCount = this.inProgress$.value.length;
+     console.log(this.todoCount);
   });
   
 }

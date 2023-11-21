@@ -9,14 +9,15 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class SummaryComponent{
   tasks: any;
-  constructor(private dataService: DataService) { }
+  constructor(public dataService: DataService) { }
 
-  ngOnInit(): void {
-    this.dataService.getTasks().subscribe(response => {
+ async ngOnInit(): Promise<void> {
+    await this.dataService.fetchAndSortTasks();
+    await this.dataService.getTasks().subscribe(response => {
       this.tasks = response;
       console.log(this.tasks);
 
     });
-    
+
   }
 }
