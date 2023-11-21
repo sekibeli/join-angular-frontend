@@ -236,17 +236,27 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       // })
 
       //speichert die neuen Subtasks
-      if (subtasksWithoutId.length > 0) {
-        this.dataService.saveSubtasks(subtasksWithoutId, this.data.task.id).subscribe(response => {
-          // console.log('Subtasks gespeichert', response)
+      // if (subtasksWithoutId.length > 0) {
+      //   this.dataService.saveSubtasks(subtasksWithoutId, this.data.task.id).subscribe(response => {
+      //     // console.log('Subtasks gespeichert', response)
 
-          //Abruf der aktuellen Subtasks eines Tasks
-          this.dataService.getSubtasksByTaskId(this.data.task.id).subscribe(response => {
-            // console.log('Subtasksabruf: ',response);
+      //     //Abruf der aktuellen Subtasks eines Tasks
+      //     this.dataService.getSubtasksByTaskId(this.data.task.id).subscribe(response => {
+      //       // console.log('Subtasksabruf: ',response);
+      //       taskData.subtasks = response;
+      //     })
+
+      //   })
+      // }
+
+      if(subtasksWithoutId.length > 0){
+        await lastValueFrom(this.dataService.saveSubtasks(subtasksWithoutId, this.data.task.id)).then( response => {
+           lastValueFrom(this.dataService.getSubtasksByTaskId(this.data.task.id)).then( response => {
             taskData.subtasks = response;
-          })
-
-        })
+           })
+        }
+          
+        );
       }
 
 

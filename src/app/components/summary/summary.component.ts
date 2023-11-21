@@ -8,14 +8,15 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./summary.component.scss']
 })
 export class SummaryComponent{
-  data: any;
+  tasks: any;
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
     this.dataService.getTasks().subscribe(response => {
-      this.data = response;
-      console.log(this.data);
+      this.tasks = response;
+      console.log(this.tasks);
 
     });
+    
   }
 }

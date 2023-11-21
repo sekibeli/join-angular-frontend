@@ -1,1 +1,74 @@
-<div class="summaryContainer"><p>summary works!</p></div>
+<!-- <div class="summaryContainer"><p>summary works!</p></div> -->
+<div class="summaryBox">
+    <div class="kanban-header-headline">
+        Kanban Projekt Management Tool
+    </div>
+    <div class="summary-headline">
+        <h1>Summary</h1>
+        <div class="headline-box-line">
+            <div class="summary-line"></div>
+            <span>Everything in a nutshell</span>
+        </div>
+    </div>
+    <div class="summary-and-greeting-box">
+        <div class="summary-box">
+            <div class="summary-row">
+                <div onclick="goToBoard()" class="single-box single-first-row animation1">
+                    <span class="big-number" *ngIf="tasks">{{tasks.length}}</span>
+                    <span>Tasks in <br>Board</span>
+                </div>
+                <div onclick="goToBoard()" class="single-box single-first-row animation2">
+                    <span class="big-number">{{1}}</span>
+                    <span>Tasks in <br>Progress</span>
+                </div>
+                <div onclick="goToBoard()" class="single-box single-first-row animation3">
+                    <span class="big-number">{{1}}</span>
+                    <span>Awaiting <br> Feedback</span>
+                </div>
+            </div>
+            <div class="summary-row">
+                <div onclick="goToBoard()" class="single-box single-second-row animation4">
+                    <div class="urgent-box">
+                        <div class="second-line-urgent-box">
+                            <img src="assets/img/urgent_icon.svg" alt="" id="urgent-summary">
+                        </div>
+                        <div class="urgent-and-number">
+                            <span class="big-number">{{1}}</span>
+                            <span>Urgent</span> 
+                        </div>
+                    </div>
+                    <div class="middle-row-line">
+                    </div>
+                    <div class="deadline-text">
+                        <span class="deadline-headline">{{1}}</span>
+                        <span>Upcoming Deadline</span>
+                    </div>
+                </div>
+            </div>
+            <div class="summary-row">
+                <div onclick="goToBoard()" class="single-box single-third-row animation5">
+                    <div class="summary-img-box">
+                        <img class="summary-icon" src="assets/img/edit_white.png" alt="">
+                    </div>
+                    <div class="summary-todo-done">
+                        <span class="big-number">{{1}}</span>
+                        <span>To-do</span>
+                    </div>
+                </div>
+                <div onclick="goToBoard()" class="single-box single-third-row animation6">
+                    <div class="summary-img-box">
+                        <img class="summary-icon" src="assets/img/icon-done.svg" alt="">
+                    </div>
+                    <div class="summary-todo-done">
+                        <span class="big-number">{{1}}</span>
+                        <span>Done</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="greeting-box">
+            <span class="greeting" id="greeting">Guten morgen,</span>
+            <span class="greeting-user" id="greeting-user">Julia<br>Schnickilein</span>
+        </div>
+    </div>
+</div>
