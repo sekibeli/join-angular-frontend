@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of, shareReplay, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.class';
 import { Subtask } from '../models/subtask.class';
 // import { Status } from '../models/status.class';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject , lastValueFrom} from 'rxjs';
 import { Contact } from '../models/contact.class';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { WrapperAddtaskComponent } from '../components/addtask/wrapper-addtask/wrapper-addtask.component';
@@ -20,13 +20,14 @@ export enum Status {
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class DataService implements OnInit {
   Status = Status;
   private cachedCategories: Observable<any> | null = null;
   private cachedContacts: Observable<any> | null = null;
   public cachedTasks: Observable<any> | null = null;
   private cachedSubtasks: Observable<any> | null = null;
 
+  currentUser:any;
 
   tasks$ = new BehaviorSubject<any[]>([]);
   // public subtasks:any = [];
@@ -38,15 +39,28 @@ export class DataService {
   public inProgress$ = new BehaviorSubject<any[]>([]);
 public awaitingFeedback$ = new BehaviorSubject<any[]>([]);
 public done$ = new BehaviorSubject<any[]>([]);
-
+public urgentTasks$ = new BehaviorSubject<any[]>([]);
+public urgentTasks: any[] = [];
+public tasks:any;
 
 todoCount?: number;
 doneCount?: number;
 progressCount?: number;
 awaitingCount?:number;
 
-  constructor(private http: HttpClient ) { }
- 
+  constructor(private http: HttpClient ) {
+    this.getTasks().subscribe(tasks => {
+      this.tasks$.next(tasks);
+      console.log('alle Tasks:', tasks);
+    });
+    this.tasks = this.tasks$.getValue();
+    
+   }
+ ngOnInit(): void {
+lastValueFrom(this.getCurrentUser()).then( response => {
+  console.log('User:', response);
+});
+ }
 
   getTasks(): Observable<any> {
     const url = environment.baseUrl + '/tasks/';
@@ -179,15 +193,13 @@ fetchAndSortTasks() {
     this.tasks$.next(tasks);
     console.log('alle Tasks:', tasks);
     
-    // sortieren
+    // sortieren für board
     this.todo$.next(tasks.filter((task: any) => task.status === 'To do'));
     this.inProgress$.next(tasks.filter((task: any) => task.status === 'In Progress'));
     this.awaitingFeedback$.next(tasks.filter((task: any) => task.status === 'Awaiting Feedback'));
     this.done$.next(tasks.filter((task: any) => task.status === 'Done'));
     
-     console.log('todo-Tasks:', this.todo$);
-     console.log('inProgress-Tasks:', this.inProgress$);
-
+ // Daten für Summary
      this.todoCount = this.todo$.value.length;
      this.doneCount = this.done$.value.length;
      this.awaitingCount = this.awaitingFeedback$.value.length;
@@ -197,10 +209,44 @@ fetchAndSortTasks() {
   
 }
 
+getUrgentTasks(){
+  this.tasks = this.tasks$.getValue();
+  this.urgentTasks$.next(this.tasks.filter((task:any)=> task.priority === 'urgent'))
+  this.urgentTasks = this.urgentTasks$.getValue();
+
+  return this.urgentTasks.length;
+}
+
 editTask(task:any, id:number){
   console.log('last check:', task);
   const url = `${environment.baseUrl}/tasks/${id}/`;
   return this.http.put(url, task);
+}
+
+getFirstUpcomingDeadline(){
+  const dateArray = this.tasks.map((task:any) => new Date(task.dueDate));
+
+  return this.findNextDueDate(dateArray);
+}
+
+findNextDueDate(dates:Date[]) {
+  // Aktuelles Datum für den Vergleich
+  const today = new Date();
+
+  // Filtern der Daten, die in der Zukunft liegen
+  const futureDates = dates.filter((date) => date > today);
+
+  // Sortieren der zukünftigen Daten
+  futureDates.sort((a, b) => a.getTime() - b.getTime());
+
+  // Rückgabe des nächstgelegenen Datums, falls vorhanden
+  return futureDates.length > 0 ? futureDates[0] : null;
+}
+
+getCurrentUser(){
+  const url = environment.baseUrl + '/user/';
+  this.currentUser = this.http.get(url)
+  return this.currentUser;
 }
 
 }

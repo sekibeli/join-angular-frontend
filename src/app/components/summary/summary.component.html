@@ -33,14 +33,15 @@
                             <img src="assets/img/urgent_icon.svg" alt="" id="urgent-summary">
                         </div>
                         <div class="urgent-and-number">
-                            <span class="big-number">{{1}}</span>
+                            <span class="big-number">{{this.dataService.getUrgentTasks()}}</span>
                             <span>Urgent</span> 
                         </div>
                     </div>
                     <div class="middle-row-line">
                     </div>
                     <div class="deadline-text">
-                        <span class="deadline-headline">{{1}}</span>
+                        <span class="deadline-headline">{{this.dataService.getFirstUpcomingDeadline() | date:'dd/MM/yyyy'
+                            }}</span>
                         <span>Upcoming Deadline</span>
                     </div>
                 </div>
