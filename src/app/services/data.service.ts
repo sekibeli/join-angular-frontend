@@ -60,6 +60,7 @@ awaitingCount?:number;
 lastValueFrom(this.getCurrentUser()).then( response => {
   console.log('User:', response);
 });
+console.log(this.currentUser);
  }
 
   getTasks(): Observable<any> {

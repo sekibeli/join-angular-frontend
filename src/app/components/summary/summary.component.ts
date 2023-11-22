@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
 
 
@@ -9,6 +10,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class SummaryComponent{
   tasks: any;
+  currentUser:any;
   constructor(public dataService: DataService) { }
 
  async ngOnInit(): Promise<void> {
@@ -18,6 +20,9 @@ export class SummaryComponent{
       console.log(this.tasks);
 
     });
-
+    
+    await lastValueFrom(this.dataService.getCurrentUser()).then((user: any) => {
+      this.currentUser = user;
+    })
   }
 }
