@@ -32,6 +32,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { ContactComponent } from './components/contacts/contact/contact.component';
 import { WrapperAddtaskComponent } from './components/addtask/wrapper-addtask/wrapper-addtask.component';
+import { AddContactComponent } from './components/contacts/add-contact/add-contact.component';
 
 
 
@@ -51,6 +52,7 @@ import { WrapperAddtaskComponent } from './components/addtask/wrapper-addtask/wr
     TaskDetailComponent,
     ContactComponent,
     WrapperAddtaskComponent,
+    AddContactComponent,
    
 
   ],

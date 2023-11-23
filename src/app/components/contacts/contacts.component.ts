@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Contact } from 'src/app/models/contact.class';
 import { DataService } from 'src/app/services/data.service';
+import { AddtaskComponent } from '../addtask/addtask.component';
+import { AddContactComponent } from './add-contact/add-contact.component';
 
 interface GroupedContacts {
   [key: string]: Contact[];
@@ -33,7 +36,7 @@ contacts$ = this.dataService.getContacts().pipe(
 
 
 
-  constructor(private dataService: DataService){}
+  constructor(private dataService: DataService, private dialog: MatDialog){}
 
 ngOnInit(): void {
     
@@ -45,6 +48,28 @@ ngOnInit(): void {
 
 getKeys(obj: { [key: string]: any }): string[] {
   return Object.keys(obj);
+}
+openAddContact() {
+
+  const dialogConfig = new MatDialogConfig();
+
+  dialogConfig.minWidth = '80vw';
+  dialogConfig.minHeight = '90vh';
+  dialogConfig.maxWidth = '100vw';
+  dialogConfig.maxHeight = '90vh';
+
+
+  // dialogConfig.data = {
+  //   task: task,
+  //   assigned: this.assigned,
+  //   subtasks: this.subtasks,
+  //   editMode: true
+  // };
+ 
+  this.dialog.open(AddContactComponent, dialogConfig);
+
+  
+
 }
 
 }

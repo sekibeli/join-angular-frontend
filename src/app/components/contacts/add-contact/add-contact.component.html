@@ -1,0 +1,37 @@
+<p>add-contact works!</p>
+<div>
+<form onsubmit="saveNewContact(); return false;" class="new-contact-circle-name" id="new-contact-circle-name">
+    <div class="edit-contact-circle">
+        <div class="contact-circle-big contact-circle-card bg0" id="circle-new-contact">
+            <img src="assets/img/person-icon-big.png" alt="">
+        </div>  
+    </div>
+    <div class="contact-new-inputs" id="contact-new-inputs">
+        <span onclick="closeNewContact()" class="close-contact-cross">&#10005;</span>
+            <div class="warning-message" id="warning-contact-new-edit">
+            </div>
+            <div class="input-form-new-contact">
+                <input required type="text" id="new-contact-name" placeholder ="first and last name" title="Enter first and last name">
+                <img src="assets/img/icon_person.png" alt="">
+            </div>
+            <div class="input-form-new-contact">
+                <input required type="email" id="new-contact-mail" placeholder ="e-mail">
+                <img src="assets/img/icon-email.svg" alt="">
+            </div>
+            <div class="input-form-new-contact">
+                <input required type="number" pattern="[0-9]+" id="new-contact-phone" placeholder ="phone">
+                <img src="assets/img/icon-phone.png" alt="">
+            </div>
+        <div class="create-cancel-box" id="create-edit-content">
+            <button type="button" class="contact-new-cancel" id="contact-new-cancel" onclick="closeNewContact()">
+                <span>Cancel</span>
+                <span>&#10005;</span>
+            </button>
+            <button type="submit" class="contact-new-create">
+                <span>Create Contact</span>
+                <img src="assets/img/create-icon.png" alt="">
+            </button>
+        </div>
+    </div>
+</form>
+</div>
