@@ -49,14 +49,14 @@ ngOnInit(): void {
 getKeys(obj: { [key: string]: any }): string[] {
   return Object.keys(obj);
 }
-openAddContact() {
+addNewContact() {
 
   const dialogConfig = new MatDialogConfig();
 
-  dialogConfig.minWidth = '80vw';
-  dialogConfig.minHeight = '90vh';
+  dialogConfig.minWidth = '60vw';
+  dialogConfig.minHeight = '60vh';
   dialogConfig.maxWidth = '100vw';
-  dialogConfig.maxHeight = '90vh';
+  dialogConfig.maxHeight = '60vh';
 
 
   // dialogConfig.data = {

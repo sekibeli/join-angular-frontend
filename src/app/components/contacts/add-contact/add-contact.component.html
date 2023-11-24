@@ -1,6 +1,16 @@
-<p>add-contact works!</p>
-<div>
-<form onsubmit="saveNewContact(); return false;" class="new-contact-circle-name" id="new-contact-circle-name">
+
+<div class="new-contact-overlay">
+<div class="new-contact-left">
+    <div class="new-contact-left-img-box" id="contact-new-img">
+        <img src="assets/img/Capa_white.png" alt="">
+    </div>
+    <span class="contact-left-headline" id="contact-left-add">Edit Contact</span>
+    <span class="contact-left-better darkblue" id="contact-left-tasks">Tasks are better with a team!</span>
+    <div class="new-contact-left-line" id="blue-line">
+    </div>
+
+</div>
+<form [formGroup]="contactForm" class="new-contact-circle-name" id="new-contact-circle-name">
     <div class="edit-contact-circle">
         <div class="contact-circle-big contact-circle-card bg0" id="circle-new-contact">
             <img src="assets/img/person-icon-big.png" alt="">
@@ -10,24 +20,63 @@
         <span onclick="closeNewContact()" class="close-contact-cross">&#10005;</span>
             <div class="warning-message" id="warning-contact-new-edit">
             </div>
-            <div class="input-form-new-contact">
+
+            <div class="form-group input-form-new-contact">
+                <!-- <label for="title">Name</label> -->
+                <input type="text" id="fullname" formControlName="name" class="form-control" placeholder ="first and last name">
+                <img src="assets/img/icon_person.png" alt="">
+                <!-- Error message for title -->
+                <div *ngIf="contactForm.controls['name'].touched && contactForm.controls['name'].invalid"
+                    class="error-text">
+                    Name is required
+                </div>
+            </div>
+
+            <!-- <div class="input-form-new-contact">
                 <input required type="text" id="new-contact-name" placeholder ="first and last name" title="Enter first and last name">
                 <img src="assets/img/icon_person.png" alt="">
+            </div> -->
+
+
+            <div class="form-group input-form-new-contact">
+                <!-- <label for="title">Name</label> -->
+                <input type="email" id="email" formControlName="email" class="form-control" placeholder ="email">
+                <img src="assets/img/icon-email.svg" alt="">
+                <!-- Error message for title -->
+                <div *ngIf="contactForm.controls['email'].touched && contactForm.controls['email'].invalid"
+                    class="error-text">
+                    Email is required
+                </div>
             </div>
-            <div class="input-form-new-contact">
+
+            <!-- <div class="input-form-new-contact">
                 <input required type="email" id="new-contact-mail" placeholder ="e-mail">
                 <img src="assets/img/icon-email.svg" alt="">
+            </div> -->
+
+            <div class="form-group input-form-new-contact">
+                <!-- <label for="title">Name</label> -->
+                <input type="number" id="phone" formControlName="phone" class="form-control" placeholder ="phone">
+                <img src="assets/img/icon-phone.png" alt="">
+                <!-- Error message for title -->
+                <div *ngIf="contactForm.controls['phone'].touched && contactForm.controls['phone'].invalid"
+                    class="error-text">
+                    Phone is required
+                </div>
             </div>
-            <div class="input-form-new-contact">
+
+
+
+            <!-- <div class="input-form-new-contact">
                 <input required type="number" pattern="[0-9]+" id="new-contact-phone" placeholder ="phone">
                 <img src="assets/img/icon-phone.png" alt="">
-            </div>
+            </div> -->
         <div class="create-cancel-box" id="create-edit-content">
-            <button type="button" class="contact-new-cancel" id="contact-new-cancel" onclick="closeNewContact()">
+            <button type="button" class="contact-new-cancel" id="contact-new-cancel" (click)="closeNewContact()">
                 <span>Cancel</span>
                 <span>&#10005;</span>
             </button>
-            <button type="submit" class="contact-new-create">
+            <button type="submit" (click)="submitContact()" [disabled]="contactForm.invalid" class="btn btn-primary contact-new-create">
                 <span>Create Contact</span>
                 <img src="assets/img/create-icon.png" alt="">
             </button>

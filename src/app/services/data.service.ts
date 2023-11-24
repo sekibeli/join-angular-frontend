@@ -250,5 +250,25 @@ getCurrentUser(){
   return this.currentUser;
 }
 
+generateDarkColor(): string {
+  // Funktion um eine zufällige dunkle Farbkomponente zu generieren
+  function randomDarkComponent(): number {
+    return Math.floor(Math.random() * (200 - 80 + 1) + 80); // Werte zwischen 80 und 200
+  }
+
+  // Erzeugt die RGB-Komponenten
+  const r = randomDarkComponent();
+  const g = randomDarkComponent();
+  const b = randomDarkComponent();
+
+  // Gibt die Farbe im #xxxxxx Format zurück
+  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+}
+
+saveContact(body:Contact){
+  const url = environment.baseUrl + '/contacts/';
+  return this.http.post(url, body);
+}
+
 }
 
