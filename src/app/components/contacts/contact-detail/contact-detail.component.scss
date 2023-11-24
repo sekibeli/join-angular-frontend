@@ -59,21 +59,14 @@ body {
 .contact-list-box {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding-top: 60px;
+    align-items: center;
+    margin-top: 60px;
     justify-content: flex-start;
-    // margin-left: 300px;
+    margin-left: 15px;
     padding-right: 15px;
     gap: 20px;
     overflow-y: auto;
-    width: 20vw;
-    padding-left: 20px;
-    background-color: white;
 }
-// .contactBox {
-//     display: flex;
-//     justify-content: flex-start;
-// }
 .contact-card {
     display: flex;
     align-items: center;

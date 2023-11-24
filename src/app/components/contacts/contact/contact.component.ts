@@ -11,7 +11,7 @@ import { Contact } from 'src/app/models/contact.class';
 export class ContactComponent {
 @Input() contact?: Contact;
 
-
+showContactDetail(contact:Contact | undefined){}
 
 
 }

@@ -23,7 +23,7 @@
                 <hr>
             </div>
     
-            <div class="contactBox" *ngFor="let contact of groupedContacts[letter]">
+            <div class="contactBox" *ngFor="let contact of groupedContacts[letter]" >
                 <app-contact [contact]="contact"></app-contact>
             </div>
         </div>
@@ -38,7 +38,9 @@
             <div class="contact-vertical"></div>
             <span class="contact-better-with">Better with a team</span>
           </div>
+        
         </div>
+       <div><app-contact-detail></app-contact-detail></div> 
       </div>
     </div>
   </div>
@@ -48,11 +50,11 @@
   <div id="infoText" class="d-none">
     <span>Task added to board</span><img src="assets/img/board_icon.svg" />
   </div>
-  <div
+  <!-- <div
     class="makeBgDarker d-none"
     id="makeBgDarker"
     onclick="closeItQuick()"
-  ></div>
-  <div class="overlayTask d-none" id="overlayTask"></div>
-  <div class="newTask d-none" id="newTask"></div>
+  ></div> -->
+  <!-- <div class="overlayTask d-none" id="overlayTask"></div>
+  <div class="newTask d-none" id="newTask"></div> -->
 </div>
