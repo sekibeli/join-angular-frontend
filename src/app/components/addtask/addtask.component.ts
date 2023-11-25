@@ -53,9 +53,10 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
 
   constructor(private fb: FormBuilder, private dataService: DataService, private route: Router) {
-    this.contactsSub = this.dataService.getContacts().subscribe((response: Contact[]) => {
+    this.contactsSub = this.dataService.contacts$.subscribe((response: Contact[]) => {
       this.contacts = response;
       this.editMode = true;
+      console.log(this.contacts);
 
       if (this.editMode && this.data) {
 

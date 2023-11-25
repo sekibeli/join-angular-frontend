@@ -1,36 +1,29 @@
-<!-- <p>contact-detail works!</p> -->
-<div class="contact-main-content" id="show-contact-content">
-    <div class="contact-headline-box">
-        <!-- <span class="kanban-text">Kanban Projekt Management Tool</span>
-        <span class="contact-headline">Contacts</span> -->
-        <span class="arrow-back-to-contact" (click)="something()">&#10132;</span>
-        <!-- <div class="vertical-and-better">
-            <div class="contact-vertical"></div>
-            <span class="contact-better-with">Better with a team</span>
-        </div> -->
-    </div>
-    <div *ngIf="" class="contact-main-name">
-        <div class="contact-circle-big bg${color}">
-           Initialen
+
+<div *ngIf="contact" class="contact-main-content" id="show-contact-content">
+ 
+    <div  class="contact-main-name">
+        <div class="contact-circle-big" [style.backgroundColor]="contact.color">
+           {{contact.initials}} 
+           
         </div>
         <div class="name-add-task">
-            <span class="name-main">Julia Georgiew</span>
-            <span class="addTaskContact">&#10011; Add Task</span>
+            <span class="name-main">{{contact.name}}</span>
+        
+            <div class="row"> 
+                <div class="addTaskContact" (click)="editContact()"><mat-icon>edit</mat-icon> Edit</div>
+                <div class="addTaskContact"(click)="contact.id !== undefined ? deleteContact(contact.id) : null"><mat-icon>delete</mat-icon> Delete</div>
+            </div>
+           
         </div>
     </div>
     <div class="contact-information-box">
         <span>Contact Information</span>
-        <div class="edit-contact-box" (click)="editContact()">
-            <div class="pen">
-                <img src="assets/img/edit.png">
-            </div>
-            <span class="pen-text">Edit Contact</span>
-        </div>
+    
     </div>
     <div class="mail-phone">
         <span class="mail-phone-headline">Email</span>
-        <a href="">java2011@me.com</a>
+        <a href="">{{contact.email}}</a>
         <span class="mail-phone-headline">Phone</span>
-        <span>123123</span>
+        <span>{{contact.phone}}</span>
     </div>
 </div>

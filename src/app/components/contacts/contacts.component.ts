@@ -16,10 +16,11 @@ interface GroupedContacts {
 })
 export class ContactsComponent implements OnInit {
 public contacts = new BehaviorSubject<any[]>([]);
+public selectedContact: Contact | null = null;
 
 
 
-contacts$ = this.dataService.getContacts().pipe(
+contacts$ = this.dataService.contacts$.pipe(
   map((contacts: Contact[]) => {
     const grouped = contacts.reduce<GroupedContacts>((acc, contact) => {
       const firstLetter = contact.name.charAt(0).toUpperCase();
@@ -40,7 +41,13 @@ contacts$ = this.dataService.getContacts().pipe(
 
 ngOnInit(): void {
     
-  this.dataService.getContacts().subscribe(contacts => {
+  this.dataService.contacts$.subscribe(contacts => {
+    // this.contacts.next(contacts);  // Aktualisiert Ihre lokale BehaviorSubject
+    // Transformieren Sie hier die Kontakte, wenn nötig
+    console.log('Empfangene Kontakte: ', contacts);
+  });
+
+  this.dataService.contacts$.subscribe(contacts => {
     this.contacts.next(contacts)
     console.log(this.contacts.value);
   })
@@ -70,6 +77,10 @@ addNewContact() {
 
   
 
+}
+
+showContactDetail(contact: Contact): void {
+  this.selectedContact = contact;
 }
 
 }

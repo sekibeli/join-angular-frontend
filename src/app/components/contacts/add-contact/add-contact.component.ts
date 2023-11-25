@@ -11,32 +11,33 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class AddContactComponent {
 
-  constructor(private dataService: DataService){}
+  constructor(private dataService: DataService) { }
   contact: Contact | null = null;
 
   contactForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
-   email: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
     phone: new FormControl(null, Validators.required),
- 
+
 
   })
 
-  closeNewContact(){}
+  closeNewContact() { }
 
-  submitContact(){
-if(this.contactForm.valid){
-  this.contact = this.contactForm.value as Contact;
+  submitContact() {
+    if (this.contactForm.valid) {
+      this.contact = this.contactForm.value as Contact;
 
-  this.contact.initials = this.getInitials(this.contact.name)
+      this.contact.initials = this.getInitials(this.contact.name)
 
-  this.contact.color = this.dataService.generateDarkColor();
-  console.log(this.contact);
-  lastValueFrom(this.dataService.saveContact(this.contact)).then((response)=> {
-    console.log(response);
-  })
-}
-  
+      this.contact.color = this.dataService.generateDarkColor();
+      console.log(this.contact);
+      lastValueFrom(this.dataService.saveContact(this.contact)).then((response) => {
+        console.log(response);
+        this.dataService.getContacts();
+      })
+    }
+
 
   }
 
@@ -44,5 +45,5 @@ if(this.contactForm.valid){
     const parts = name.split(' ');
     const initials = parts.map(part => part[0]).join('');
     return initials;
-}
+  }
 }

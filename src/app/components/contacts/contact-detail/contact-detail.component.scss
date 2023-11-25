@@ -487,6 +487,17 @@ body {
 .addTaskContact {
     color: rgb(11, 173, 221);
     cursor: pointer;
+    display: flex;
+   
+    margin-right: 20px;
+}
+mat-icon {
+    margin-right: 10px;
+}
+
+.row{
+    display: flex;
+    align-items: flex-end;
 }
 /* ################################## for mobiles ############## */
 
