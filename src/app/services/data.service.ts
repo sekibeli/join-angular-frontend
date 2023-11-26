@@ -254,6 +254,12 @@ export class DataService implements OnInit {
     return this.http.put(url, task);
   }
 
+  editContact(contact:Contact, id: number){
+    console.log('contact last check:', contact);
+    const url = `${environment.baseUrl}/contacts/${id}/`;
+    return this.http.put(url, contact);
+
+  }
   getFirstUpcomingDeadline() {
     const dateArray = this.tasks.map((task: any) => new Date(task.dueDate));
 

@@ -11,11 +11,15 @@
 
 </div>
 <form [formGroup]="contactForm" class="new-contact-circle-name" id="new-contact-circle-name">
-    <div class="edit-contact-circle">
+    <div *ngIf="!editMode" class="edit-contact-circle">
         <div class="contact-circle-big contact-circle-card bg0" id="circle-new-contact">
             <img src="assets/img/person-icon-big.png" alt="">
         </div>  
     </div>
+    <div *ngIf="editMode" class="contact-circle-big edit-contact-circle" [style.backgroundColor]="data.contact.color">
+        {{data.contact.initials}} 
+        
+     </div>
     <div class="contact-new-inputs" id="contact-new-inputs">
         <span onclick="closeNewContact()" class="close-contact-cross">&#10005;</span>
             <div class="warning-message" id="warning-contact-new-edit">
@@ -72,12 +76,16 @@
                 <img src="assets/img/icon-phone.png" alt="">
             </div> -->
         <div class="create-cancel-box" id="create-edit-content">
-            <button type="button" class="contact-new-cancel" id="contact-new-cancel" (click)="closeNewContact()">
+            <button type="button" class="contact-new-cancel" id="contact-new-cancel" (click)="cancel()">
                 <span>Cancel</span>
                 <span>&#10005;</span>
             </button>
-            <button type="submit" (click)="submitContact()" [disabled]="contactForm.invalid" class="btn btn-primary contact-new-create">
+            <button *ngIf="!editMode" type="submit" (click)="submitContact()" [disabled]="contactForm.invalid" class="btn btn-primary contact-new-create">
                 <span>Create Contact</span>
+                <img src="assets/img/create-icon.png" alt="">
+            </button>
+            <button *ngIf="editMode" type="submit" (click)="editContact()" [disabled]="contactForm.invalid" class="btn btn-primary contact-new-create">
+                <span>Save Contact</span>
                 <img src="assets/img/create-icon.png" alt="">
             </button>
         </div>

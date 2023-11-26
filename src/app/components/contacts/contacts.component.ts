@@ -66,12 +66,11 @@ addNewContact() {
   dialogConfig.maxHeight = '60vh';
 
 
-  // dialogConfig.data = {
-  //   task: task,
-  //   assigned: this.assigned,
-  //   subtasks: this.subtasks,
-  //   editMode: true
-  // };
+  dialogConfig.data = {
+   
+  
+    editMode: false
+  };
  
   this.dialog.open(AddContactComponent, dialogConfig);
 
@@ -82,5 +81,7 @@ addNewContact() {
 showContactDetail(contact: Contact): void {
   this.selectedContact = contact;
 }
+
+
 
 }
