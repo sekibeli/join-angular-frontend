@@ -33,7 +33,7 @@ export class ContactDetailComponent {
     };
    
     const dialogRef = this.dialog.open(AddContactComponent, dialogConfig);
-    dialogRef.componentInstance.contact = this.contact ?? null;
+    // dialogRef.componentInstance.contact = this.contact ?? null;
     
   
   }

@@ -55,7 +55,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder, private dataService: DataService, private route: Router) {
     this.contactsSub = this.dataService.contacts$.subscribe((response: Contact[]) => {
       this.contacts = response;
-      this.editMode = true;
+      // this.editMode = true;
       console.log(this.contacts);
 
       if (this.editMode && this.data) {
@@ -232,23 +232,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       //updated bestehende subtasks
       await lastValueFrom(this.dataService.updateSubtasks(subtasksWithId))
       
-      // .subscribe(response => {
-      //   // console.log('Subtasks gespeichert', response)
-      // })
-
-      //speichert die neuen Subtasks
-      // if (subtasksWithoutId.length > 0) {
-      //   this.dataService.saveSubtasks(subtasksWithoutId, this.data.task.id).subscribe(response => {
-      //     // console.log('Subtasks gespeichert', response)
-
-      //     //Abruf der aktuellen Subtasks eines Tasks
-      //     this.dataService.getSubtasksByTaskId(this.data.task.id).subscribe(response => {
-      //       // console.log('Subtasksabruf: ',response);
-      //       taskData.subtasks = response;
-      //     })
-
-      //   })
-      // }
+ 
 
       if(subtasksWithoutId.length > 0){
         await lastValueFrom(this.dataService.saveSubtasks(subtasksWithoutId, this.data.task.id)).then( response => {
@@ -273,8 +257,6 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       //speichert das veränderte Task
       this.dataService.editTask(taskData, this.data.task.id).subscribe(response => {
 
-        // console.log('taskData:', taskData);
-        // console.log('Task gespeichert', response)
         this.resetFormAndUI();
 
         this.route.navigateByUrl('/home/board').then(() => {
