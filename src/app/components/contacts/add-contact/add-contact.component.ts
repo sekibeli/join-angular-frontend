@@ -70,10 +70,10 @@ contactForm: FormGroup = new FormGroup({
      this.dialogRef.close();
     }
 
-    updateContact(){
-      // this.dataService.setUserName(this.data.user['id'], this.data.user['username']);
-      this.dialogRef.close();
-    }
+    // updateContact(){
+    //   // this.dataService.setUserName(this.data.user['id'], this.data.user['username']);
+    //   this.dialogRef.close();
+    // }
 
     setFormValues(data: any): void {
       if (data) {
