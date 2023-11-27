@@ -6,9 +6,9 @@
            {{contact.initials}} 
            
         </div>
-        <div class="name-add-task">
-            <span class="name-main">{{contact.name}}</span>
-            
+        <div *ngIf="selectedContact$ | async as selectedContact" class="name-add-task">
+            <span class="name-main">{{selectedContact.name}}</span>
+           
             <div class="row"> 
                 <div class="addTaskContact" (click)="contact.id !== undefined ? editContact(contact) : null"><mat-icon>edit</mat-icon> Edit</div>
                 <div class="addTaskContact"(click)="contact.id !== undefined ? deleteContact(contact.id) : null"><mat-icon>delete</mat-icon> Delete</div>

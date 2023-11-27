@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { lastValueFrom } from 'rxjs';
+import { Observable, lastValueFrom, map } from 'rxjs';
 import { Contact } from 'src/app/models/contact.class';
 import { DataService } from 'src/app/services/data.service';
 import { AddContactComponent } from '../add-contact/add-contact.component';
@@ -10,13 +10,15 @@ import { AddContactComponent } from '../add-contact/add-contact.component';
   templateUrl: './contact-detail.component.html',
   styleUrls: ['./contact-detail.component.scss']
 })
-export class ContactDetailComponent implements OnInit {
+export class ContactDetailComponent implements OnInit, OnChanges {
   @Input() contact?: Contact | null;
   id?: number;
   selectedContact?:Contact;
+  selectedContact$?: Observable<Contact | undefined>;
 
   constructor(private dataService: DataService, private dialog: MatDialog){
-    console.log(this.contact);
+   
+   
    
 
    
@@ -24,18 +26,39 @@ export class ContactDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    if (this.contact) {
+    
+    if (this.contact && this.contact.id) {
       this.id = this.contact.id;
+      this.fetchSelectedContact();
     }
+    this.dataService.contactUpdated.subscribe(updatedContact => {
+      if (updatedContact && this.id === updatedContact.id) {
+        this.contact = updatedContact;
+       
+      }
+    });
+    
+   
+  }
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.contact && this.contact.id) {
+      this.id = this.contact.id;
+      this.selectedContact$ = this.dataService.contacts$.pipe(
+        map(contacts => contacts.find(c => c.id === this.id))
+       
+      );
+    }
+  }
+  fetchSelectedContact(): void {
     this.dataService.contacts$.subscribe(contacts => {
-      if (this.id !== undefined && this.id < contacts.length) {
-        this.selectedContact = contacts[this.id];
-        this.contact = contacts[this.id];
-        console.log('Empfangener Kontakt: ', contacts[this.id]);
+      if (contacts && this.id) {
+        this.selectedContact = contacts.find(c => c.id === this.id);
       }
     });
   }
+  
   editContact(contact:Contact) {
 
     const dialogConfig = new MatDialogConfig();

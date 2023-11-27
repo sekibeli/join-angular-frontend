@@ -41,11 +41,6 @@ contacts$ = this.dataService.contacts$.pipe(
 
 ngOnInit(): void {
     
-  this.dataService.contacts$.subscribe(contacts => {
-    // this.contacts.next(contacts);  // Aktualisiert Ihre lokale BehaviorSubject
-    // Transformieren Sie hier die Kontakte, wenn nötig
-    console.log('Empfangene Kontakte: ', contacts);
-  });
 
   this.dataService.contacts$.subscribe(contacts => {
     this.contacts.next(contacts)

@@ -15,6 +15,7 @@ export class AddContactComponent implements OnInit {
 editMode: boolean;
 originalContact?: Contact;
 contact: Contact | null = null;
+editedContact: Contact | null = null;
 
 contactForm: FormGroup = new FormGroup({
   name: new FormControl('', Validators.required),
@@ -110,6 +111,9 @@ contactForm: FormGroup = new FormGroup({
   
         //speichert den veränderten Contact
         this.dataService.editContact(contactData, this.data.contact.id).subscribe(response => {
+          console.log('response: ', response);
+          this.editedContact = response as Contact;
+          this.dataService.contactUpdated.next(this.editedContact);
           this.dataService.getContacts();
         }, error => {
           console.error('Error:', error);

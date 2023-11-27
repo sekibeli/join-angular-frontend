@@ -21,6 +21,7 @@ export enum Status {
   providedIn: 'root'
 })
 export class DataService implements OnInit {
+  public contactUpdated = new BehaviorSubject<Contact | null>(null);
   private contactsSubject = new BehaviorSubject<Contact[]>([]);
   public contacts$ = this.contactsSubject.asObservable();
 
@@ -106,7 +107,7 @@ export class DataService implements OnInit {
     this.http.get<Contact[]>(url).subscribe(
       contacts => {
           this.contactsSubject.next(contacts);
-        console.log(contacts);
+      
       },
       error => {
         console.error('Fehler beim Laden der Kontakte:', error);
