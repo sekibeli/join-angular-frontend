@@ -1,16 +1,16 @@
 
 <div *ngIf="contact" class="contact-main-content" id="show-contact-content">
  
-    <div  class="contact-main-name">
+    <div *ngIf="selectedContact$ | async as selectedContact" class="contact-main-name">
         <div class="contact-circle-big" [style.backgroundColor]="contact.color">
-           {{contact.initials}} 
+           {{selectedContact.initials}} 
            
         </div>
-        <div *ngIf="selectedContact$ | async as selectedContact" class="name-add-task">
+        <div  class="name-add-task">
             <span class="name-main">{{selectedContact.name}}</span>
            
-            <div class="row"> 
-                <div class="addTaskContact" (click)="contact.id !== undefined ? editContact(contact) : null"><mat-icon>edit</mat-icon> Edit</div>
+            <div *ngIf="selectedContact$ | async as selectedContact" class="row"> 
+                <div class="addTaskContact" (click)="contact.id !== undefined ? editContact(selectedContact) : null"><mat-icon>edit</mat-icon> Edit</div>
                 <div class="addTaskContact"(click)="contact.id !== undefined ? deleteContact(contact.id) : null"><mat-icon>delete</mat-icon> Delete</div>
             </div>
            
@@ -20,10 +20,10 @@
         <span>Contact Information</span>
     
     </div>
-    <div class="mail-phone">
+    <div *ngIf="selectedContact$ | async as selectedContact" class="mail-phone">
         <span class="mail-phone-headline">Email</span>
-        <a href="">{{contact.email}}</a>
+        <a href="">{{selectedContact.email}}</a>
         <span class="mail-phone-headline">Phone</span>
-        <span>{{contact.phone}}</span>
+        <span>{{selectedContact.phone}}</span>
     </div>
 </div>

@@ -31,12 +31,12 @@ export class ContactDetailComponent implements OnInit, OnChanges {
       this.id = this.contact.id;
       this.fetchSelectedContact();
     }
-    this.dataService.contactUpdated.subscribe(updatedContact => {
-      if (updatedContact && this.id === updatedContact.id) {
-        this.contact = updatedContact;
+    // this.dataService.contactUpdated.subscribe(updatedContact => {
+    //   if (updatedContact && this.id === updatedContact.id) {
+    //     this.contact = updatedContact;
        
-      }
-    });
+    //   }
+    // });
     
    
   }
