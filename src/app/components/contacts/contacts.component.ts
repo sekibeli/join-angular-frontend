@@ -5,6 +5,7 @@ import { Contact } from 'src/app/models/contact.class';
 import { DataService } from 'src/app/services/data.service';
 import { AddtaskComponent } from '../addtask/addtask.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 
 interface GroupedContacts {
   [key: string]: Contact[];

@@ -59,3 +59,17 @@
   <!-- <div class="overlayTask d-none" id="overlayTask"></div>
   <div class="newTask d-none" id="newTask"></div> -->
 </div>
+
+
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer 
+  #leftDrawer 
+  mode="side" 
+  class="sidenavLeft" 
+  [opened]="true">
+    <!-- <app-left-drawer  (callToggle)="toggleLeftDrawer()"></app-left-drawer> -->
+  </mat-drawer>
+  <mat-drawer-content class="main">
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+  </mat-drawer-container>
