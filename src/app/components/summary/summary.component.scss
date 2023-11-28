@@ -258,6 +258,11 @@ body {
 }
 
 @media (max-width: 900px) {
+
+    .summaryBox {
+       left: 50px; 
+       width: calc(100% - 50px);
+    }
     .padding-header-side {
         padding-left: 50px;
         padding-top: 100px;
@@ -292,6 +297,12 @@ body {
         animation: showgreetingmobile 1.6s ease-in-out forwards;
 
 
+    }
+
+    .summaryBox {
+        top: 150px;
+        left: 20px; 
+        width: calc(100% - 20px);
     }
 
     @keyframes showgreetingmobile {
@@ -370,6 +381,10 @@ body {
 
 @media (max-width: 550px) {
 
+    .summaryBox {
+        left: 20px; 
+        width: calc(100% - 20px);
+     }
     .summary-img-box,
     .second-line-urgent-box img {
         width: 45px;
@@ -382,3 +397,7 @@ body {
     }
 
 }
+
+
+
+

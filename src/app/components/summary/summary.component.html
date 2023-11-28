@@ -13,21 +13,21 @@
     <div class="summary-and-greeting-box">
         <div class="summary-box">
             <div class="summary-row">
-                <div onclick="goToBoard()" class="single-box single-first-row animation1">
+                <div (click)="goToBoard()" class="single-box single-first-row animation1">
                     <span class="big-number" *ngIf="tasks">{{tasks.length}}</span>
                     <span>Tasks in <br>Board</span>
                 </div>
-                <div onclick="goToBoard()" class="single-box single-first-row animation2">
+                <div (click)="goToBoard()" class="single-box single-first-row animation2">
                     <span class="big-number">{{this.dataService.progressCount}}</span>
                     <span>Tasks in <br>Progress</span>
                 </div>
-                <div onclick="goToBoard()" class="single-box single-first-row animation3">
+                <div (click)="goToBoard()" class="single-box single-first-row animation3">
                     <span class="big-number">{{this.dataService.awaitingCount}}</span>
                     <span>Awaiting <br> Feedback</span>
                 </div>
             </div>
             <div class="summary-row">
-                <div onclick="goToBoard()" class="single-box single-second-row animation4">
+                <div (click)="goToBoard()" class="single-box single-second-row animation4">
                     <div class="urgent-box">
                         <div class="second-line-urgent-box">
                             <img src="assets/img/urgent_icon.svg" alt="" id="urgent-summary">
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="summary-row">
-                <div onclick="goToBoard()" class="single-box single-third-row animation5">
+                <div (click)="goToBoard()" class="single-box single-third-row animation5">
                     <div class="summary-img-box">
                         <img class="summary-icon" src="assets/img/edit_white.png" alt="">
                     </div>
@@ -56,7 +56,7 @@
                         <span>To-do</span>
                     </div>
                 </div>
-                <div onclick="goToBoard()" class="single-box single-third-row animation6">
+                <div (click)="goToBoard()" class="single-box single-third-row animation6">
                     <div class="summary-img-box">
                         <img class="summary-icon" src="assets/img/icon-done.svg" alt="">
                     </div>
@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="greeting-box">
-            <span class="greeting" id="greeting">Guten morgen,</span>
+            <span class="greeting" id="greeting">{{getGreetingBasedOnTime()}},</span>
             <span class="greeting-user" id="greeting-user">{{currentUser?.first_name}}<br>{{currentUser?.last_name}}</span>
         </div>
     </div>

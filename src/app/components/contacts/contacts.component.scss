@@ -553,11 +553,11 @@ body {
         width: 100%;
     }
     .contact-main-box{
-        width: 55%;
+        width: 65%;
         margin-top: 80px;
     }
     .contact-list-box{
-        width: 45%;
+        width: 35%;
         margin-top: 80px;
         margin-bottom: 80px;
     }
@@ -665,20 +665,25 @@ body {
     .add-new-contact-button{
         bottom: unset;
         right: unset;
-        left: 55%;
-        top: 15%;
+        left: 25%;
+        top: 10%;
     }
     .mail-phone{
         margin-top: 10px;
     }
     .contact-list-box{
-        margin-top: 120px;
-        width: 100%;
+        margin-top: 86px;
+        // width: 100%;
+        width: 35%;
+        margin-top: 80px;
+        margin-bottom: 80px;
     }
     .contact-main-box{
-        display: none;
+        // display: none;
         z-index: 9;
-        width: 100%;
+        // width: 100%;
+        width: 65%;
+        margin-top: 80px;
     }
     .contact-list-letter{
        width: 50%;
@@ -687,6 +692,25 @@ body {
         display: flex;
     }
 }
+
+@media (max-width: 750px){
+    .contact-list-box{
+        margin-top: 86px;
+         width: 100%;
+        // width: 35%;
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+    .contact-main-box{
+        display: none;
+        z-index: 9;
+        width: 100%;
+        // width: 65%;
+        margin-top: 80px;
+    }
+}
+
+
 @media (max-width: 450px){
     .name-main{
         width: 150px
@@ -695,7 +719,7 @@ body {
         font-size: 45px;
     }
     .add-new-contact-button{
-        left: 40%;
+        left: 20%;
     }
 
 }
