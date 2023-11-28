@@ -155,9 +155,15 @@ input {
 
 }
 
+
 .subtaskRow {
   display: flex;
 }
+
+.editModeBox {
+  left: 50px;
+}
+
 @media (max-width: 900px){
  
   .addtaskBox {

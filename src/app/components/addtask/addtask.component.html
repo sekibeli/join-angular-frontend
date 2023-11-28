@@ -1,5 +1,5 @@
 
-<div class='addtaskBox'>
+<div class='addtaskBox' [ngClass]="{'editModeBox': editMode}" >
     <!-- <div *ngIf="editMode" class="closeOverlay" (click)="closeDialog()"><mat-icon>close</mat-icon></div> -->
     <div *ngIf="!editMode"><h1>Add Task</h1></div>
     <div *ngIf="editMode"><h1>Edit Task</h1></div>
