@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+currentUser: any;
+
+constructor(private dataService: DataService){
+ lastValueFrom(this.dataService.getCurrentUser()).then((user: any) => {
+    this.currentUser = user;
+    console.log(this.currentUser);
+  })
+}
+
 
 }

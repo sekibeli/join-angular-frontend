@@ -27,4 +27,8 @@ export class SignupComponent {
       console.log('Fehler:', e);
     }
   }
+
+  showLogin(){
+    this.route.navigateByUrl('/login');
+  }
 }

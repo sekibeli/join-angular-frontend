@@ -311,7 +311,10 @@ export class DataService implements OnInit {
     return this.http.delete(url);
   }
 
-
+  // getUser(){
+  //   const url = environment.baseUrl + '/user/';
+  //   return this.http.get(url);
+  // }
 
 }
 

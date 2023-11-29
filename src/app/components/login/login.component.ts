@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 
 
 
@@ -10,11 +12,12 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  currentUser: any;
   email: string = '';
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private route: Router){}
+  constructor(private authService: AuthService, private route: Router, private dataService: DataService){}
 
 
 
@@ -23,6 +26,8 @@ async login() {
     let resp: any = await this.authService.login(this.email, this.password);
     console.log(resp.token);
     localStorage.setItem('token', resp.token);
+    this.currentUser = resp.user;
+  console.log(this.currentUser);
     this.route.navigateByUrl('/home/summary');
     console.log(resp);
   } catch (e) {
@@ -34,4 +39,9 @@ async login() {
 showSignUp(){
   this.route.navigateByUrl('/signup');
 }
+
+// getUser(){
+//   lastValueFrom(this.dataService.getUser()).then(())
+// }
+
 }

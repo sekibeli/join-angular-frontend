@@ -16,7 +16,7 @@ import { ContactsComponent } from './components/contacts/contacts.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -24,9 +24,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TaskComponent } from './components/board/task/task.component';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TaskDetailComponent } from './components/board/task-detail/task-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
@@ -34,7 +34,7 @@ import { ContactComponent } from './components/contacts/contact/contact.componen
 import { WrapperAddtaskComponent } from './components/addtask/wrapper-addtask/wrapper-addtask.component';
 import { AddContactComponent } from './components/contacts/add-contact/add-contact.component';
 import { ContactDetailComponent } from './components/contacts/contact-detail/contact-detail.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { SignupComponent } from './components/signup/signup.component';
 
 
@@ -58,7 +58,7 @@ import { SignupComponent } from './components/signup/signup.component';
     AddContactComponent,
     ContactDetailComponent,
     SignupComponent,
-   
+
 
   ],
   imports: [
@@ -80,9 +80,9 @@ import { SignupComponent } from './components/signup/signup.component';
     MatDialogModule,
     DatePipe,
     MatSidenavModule
-   
-    
-    
+
+
+
   ],
   providers: [
     {
