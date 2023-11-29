@@ -3,10 +3,10 @@
 <div class="overlayTask d-none" id="overlayTask"></div> -->
 <div class="main2" id="main-contact">
   <div class="new-contact-overlay-box d-none" id="overlay-box">
-    <div class="new-contact-overlay" id="new-contact-overlay">
+    <!-- <div class="new-contact-overlay" id="new-contact-overlay">
       <div class="new-contact-left" id="new-contact-left"></div>
       <div class="new-contact-right" id="new-contact-right-content"></div>
-    </div>
+    </div> -->
   </div>
   <div class="add-new-contact-button" (click)="addNewContact()">
     <span>New contact</span>
@@ -61,15 +61,3 @@
 </div>
 
 
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer 
-  #leftDrawer 
-  mode="side" 
-  class="sidenavLeft" 
-  [opened]="true">
-    <!-- <app-left-drawer  (callToggle)="toggleLeftDrawer()"></app-left-drawer> -->
-  </mat-drawer>
-  <mat-drawer-content class="main">
-    <router-outlet></router-outlet>
-  </mat-drawer-content>
-  </mat-drawer-container>

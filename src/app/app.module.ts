@@ -35,6 +35,7 @@ import { WrapperAddtaskComponent } from './components/addtask/wrapper-addtask/wr
 import { AddContactComponent } from './components/contacts/add-contact/add-contact.component';
 import { ContactDetailComponent } from './components/contacts/contact-detail/contact-detail.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { SignupComponent } from './components/signup/signup.component';
 
 
 
@@ -56,6 +57,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     WrapperAddtaskComponent,
     AddContactComponent,
     ContactDetailComponent,
+    SignupComponent,
    
 
   ],

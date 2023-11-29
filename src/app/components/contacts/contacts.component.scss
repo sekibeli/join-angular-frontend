@@ -665,7 +665,7 @@ body {
     .add-new-contact-button{
         bottom: unset;
         right: unset;
-        left: 25%;
+        left: 10%;
         top: 10%;
     }
     .mail-phone{
@@ -696,20 +696,43 @@ body {
 @media (max-width: 750px){
     .contact-list-box{
         margin-top: 86px;
-         width: 0%;
-        // width: 35%;
+        //  width: 0%;
+        width: 35%;
         margin-top: 80px;
         margin-bottom: 80px;
     }
     .contact-main-box{
         // display: none;
         z-index: 9;
-        width: 100%;
-        // width: 65%;
+        // width: 100%;
+        width: 65%;
         margin-top: 80px;
     }
 }
-
+@media (max-width: 600px){
+    .contact-main-box{
+         display: none;
+        z-index: 9;
+        width: 100%;
+        // width: 85%;
+        margin-top: 80px;
+    }
+    .contact-list-box{
+        margin-top: 86px;
+        //  width: 0%;
+        width: 100%;
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+    .showContactDetail {
+z-index: 20;
+position: absolute;
+top: 50px;
+left: 0px;
+right: 0px;
+background-color: antiquewhite;
+    }
+}
 
 @media (max-width: 450px){
     .name-main{

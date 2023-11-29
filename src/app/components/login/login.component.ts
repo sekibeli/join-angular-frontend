@@ -30,4 +30,8 @@ async login() {
     console.log('Fehler:', e);
   }
 }
+
+showSignUp(){
+  this.route.navigateByUrl('/signup');
+}
 }
