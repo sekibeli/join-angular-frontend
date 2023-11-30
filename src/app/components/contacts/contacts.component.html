@@ -54,7 +54,7 @@
         </div>
       </ng-container>
     </div>
-    <div class="contact-main-box" id="contact-main-box" [ngClass]="{'d-none' : dataService.isSmallScreen}">
+    <div class="contact-main-box" id="contact-main-box" [ngClass]="{'d-none' : dataService.isSmallScreen}" [ngClass]="{'d-none':  showDetails}">
       <div class="contact-main-content" id="show-contact-content">
         <div class="contact-headline-box">
           <span class="kanban-text">Kanban Projekt Management Tool</span>

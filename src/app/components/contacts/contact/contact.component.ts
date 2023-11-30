@@ -21,6 +21,7 @@ ngOnInit(): void {
 }
 showContactDetail():void{
   this.contactSelected.emit(this.contact);
+  this.dataService.showDetails = true;
 }
 
 

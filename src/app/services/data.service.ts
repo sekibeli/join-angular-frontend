@@ -22,6 +22,7 @@ export enum Status {
 })
 export class DataService implements OnInit {
   public isSmallScreen?: boolean;
+  public showDetails?: boolean;
   public contactUpdated = new BehaviorSubject<Contact | null>(null);
   private contactsSubject = new BehaviorSubject<Contact[]>([]);
   public contacts$ = this.contactsSubject.asObservable();
@@ -317,18 +318,23 @@ export class DataService implements OnInit {
   //   return this.http.get(url);
   // }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    this.checkScreenSize();
-  }
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event: Event) {
+  //   this.checkScreenSize();
+  // }
 
-  checkScreenSize() {
-    if(window.innerWidth < 650) {
-      this.isSmallScreen = true;
-    } else {
-      this.isSmallScreen = false;
-    }
-  }
+  // checkScreenSize() {
+  //   if(window.innerWidth < 650) {
+  //     this.isSmallScreen = true;
+  //   } else {
+  //     this.isSmallScreen = false;
+  //   }
+  //   console.log('isSmallScreen:', this.isSmallScreen);
+  // }
+
+  // showContactDetails(){
+  //   this.showDetails = false;
+  // }
 
 }
 

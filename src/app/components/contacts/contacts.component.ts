@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Contact } from 'src/app/models/contact.class';
@@ -21,7 +21,8 @@ interface GroupedContacts {
 export class ContactsComponent implements OnInit {
 public contacts = new BehaviorSubject<any[]>([]);
 public selectedContact: Contact | null = null;
-public showDetail?: boolean;
+public isDetailVisible?: boolean;
+public showDetails?: boolean = false;
 // public rightDrawerMode: string = "side";
 
 
@@ -83,7 +84,29 @@ showContactDetail(contact: Contact): void {
 }
 
 rightDrawerMode(): MatDrawerMode {
-  return (false) ? 'over' : 'side';
+  return (this.dataService.isSmallScreen) ? 'over' : 'side';
+}
+
+toggleDetailVisibility() {
+  this.isDetailVisible = !this.isDetailVisible;
+}
+
+@HostListener('window:resize', ['$event'])
+onResize(event: Event) {
+  this.checkScreenSize();
+}
+
+checkScreenSize() {
+  if(window.innerWidth < 600) {
+    this.dataService.isSmallScreen = true;
+  } else {
+    this.dataService.isSmallScreen = false;
+  }
+  console.log('isSmallScreen:', this.dataService.isSmallScreen);
+}
+
+showContactDetails(){
+  this.showDetails = false;
 }
 
 }
