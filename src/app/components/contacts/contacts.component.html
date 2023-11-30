@@ -1,12 +1,36 @@
-<div class="container" id="container-content"></div>
-<!-- <div class="makeBgDarker d-none" id="makeBgDarker" onclick="closeItQuick()"></div>
-<div class="overlayTask d-none" id="overlayTask"></div> -->
+<!-- <mat-drawer-container class="example-container" autosize>
+
+  <mat-drawer-content class="contactsList">
+    <div class="contact-list-box" >
+
+      <ng-container *ngIf="contacts$ | async as groupedContacts">
+        <div *ngFor="let letter of getKeys(groupedContacts)">
+          <div class="letter-divider">
+
+            {{ letter }}
+            <hr>
+          </div>
+
+          <app-contact *ngFor="let contact of groupedContacts[letter]" [contact]="contact"
+            (contactSelected)="showContactDetail($event)">
+          </app-contact>
+
+        </div>
+      </ng-container>
+    </div>
+
+  </mat-drawer-content>
+  <mat-drawer #rightDrawer class="contactDetail" position="end" [mode]="rightDrawerMode()" opened="true">
+    <app-contact-detail [contact]="selectedContact"></app-contact-detail>
+  </mat-drawer>
+</mat-drawer-container> -->
+
+
+<!-- <div class="container" id="container-content"></div> -->
+
 <div class="main2" id="main-contact">
   <div class="new-contact-overlay-box d-none" id="overlay-box">
-    <!-- <div class="new-contact-overlay" id="new-contact-overlay">
-      <div class="new-contact-left" id="new-contact-left"></div>
-      <div class="new-contact-right" id="new-contact-right-content"></div>
-    </div> -->
+
   </div>
   <div class="add-new-contact-button" (click)="addNewContact()">
     <span>New contact</span>
@@ -30,7 +54,7 @@
         </div>
       </ng-container>
     </div>
-    <div class="contact-main-box" id="contact-main-box">
+    <div class="contact-main-box" id="contact-main-box" [ngClass]="{'d-none' : dataService.isSmallScreen}">
       <div class="contact-main-content" id="show-contact-content">
         <div class="contact-headline-box">
           <span class="kanban-text">Kanban Projekt Management Tool</span>
@@ -51,13 +75,14 @@
   <div id="infoText" class="d-none">
     <span>Task added to board</span><img src="assets/img/board_icon.svg" />
   </div>
-  <!-- <div
-    class="makeBgDarker d-none"
-    id="makeBgDarker"
-    onclick="closeItQuick()"
-  ></div> -->
-  <!-- <div class="overlayTask d-none" id="overlayTask"></div>
-  <div class="newTask d-none" id="newTask"></div> -->
-</div>
+
+</div> 
+
+
+
+
+
+
+
 
 

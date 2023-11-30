@@ -37,6 +37,18 @@ body {
     margin-top: 90px;
     margin-left: 232px;
 }
+
+.example-container {
+    padding: 100px 0 0 230px;
+}
+
+.mat-drawer-inner-container {
+    padding-top: 150px;
+}
+.contactDetail {
+    padding-top: 100px;
+    width:50%;
+}
 .contact-main-box {
     background-color: rgb(247, 247, 247);
     height: 100vh;
@@ -56,6 +68,10 @@ body {
 .arrow-back-to-contact:hover{
     color: rgb(11, 173, 221);
 }
+
+.contactsList {
+
+}
 .contact-list-box {
     display: flex;
     flex-direction: column;
@@ -67,6 +83,7 @@ body {
     gap: 20px;
     overflow-y: auto;
     width: 20vw;
+    min-width: 200px;
     padding-left: 20px;
     background-color: white;
 }
@@ -541,6 +558,17 @@ body {
 }
 
 @media (max-width: 900px){
+
+    .contactsList {
+        width: 40%;
+    }
+    .contactDetail {
+        // padding-top: 100px;
+        width:60%;
+    }
+   .example-container {
+    padding: 0px 0 0 0px;
+   }
     .test{
         display: none;
     }
@@ -710,8 +738,13 @@ body {
     }
 }
 @media (max-width: 600px){
+
+    .d-none{
+        display: none;
+    }
+
     .contact-main-box{
-         display: none;
+        //  display: none;
         z-index: 9;
         width: 100%;
         // width: 85%;
@@ -720,18 +753,18 @@ body {
     .contact-list-box{
         margin-top: 86px;
         //  width: 0%;
-        width: 100%;
+        width: 35%;
         margin-top: 80px;
         margin-bottom: 80px;
     }
-    .showContactDetail {
-z-index: 20;
-position: absolute;
-top: 50px;
-left: 0px;
-right: 0px;
-background-color: antiquewhite;
-    }
+//     .showContactDetail {
+// z-index: 20;
+// position: absolute;
+// top: 50px;
+// left: 0px;
+// right: 0px;
+// background-color: rgb(134, 90, 32);
+//     }
 }
 
 @media (max-width: 450px){

@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { HostListener, Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of, shareReplay, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -21,6 +21,7 @@ export enum Status {
   providedIn: 'root'
 })
 export class DataService implements OnInit {
+  public isSmallScreen?: boolean;
   public contactUpdated = new BehaviorSubject<Contact | null>(null);
   private contactsSubject = new BehaviorSubject<Contact[]>([]);
   public contacts$ = this.contactsSubject.asObservable();
@@ -315,6 +316,19 @@ export class DataService implements OnInit {
   //   const url = environment.baseUrl + '/user/';
   //   return this.http.get(url);
   // }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    if(window.innerWidth < 650) {
+      this.isSmallScreen = true;
+    } else {
+      this.isSmallScreen = false;
+    }
+  }
 
 }
 

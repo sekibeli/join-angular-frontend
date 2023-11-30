@@ -7,6 +7,9 @@ import { AddtaskComponent } from '../addtask/addtask.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 
+
+type MatDrawerMode = 'over' | 'push' | 'side';
+
 interface GroupedContacts {
   [key: string]: Contact[];
 }
@@ -18,7 +21,8 @@ interface GroupedContacts {
 export class ContactsComponent implements OnInit {
 public contacts = new BehaviorSubject<any[]>([]);
 public selectedContact: Contact | null = null;
-
+public showDetail?: boolean;
+// public rightDrawerMode: string = "side";
 
 
 contacts$ = this.dataService.contacts$.pipe(
@@ -38,7 +42,7 @@ contacts$ = this.dataService.contacts$.pipe(
 
 
 
-  constructor(private dataService: DataService, private dialog: MatDialog){}
+  constructor(public dataService: DataService, private dialog: MatDialog){}
 
 ngOnInit(): void {
     
@@ -78,6 +82,8 @@ showContactDetail(contact: Contact): void {
   this.selectedContact = contact;
 }
 
-
+rightDrawerMode(): MatDrawerMode {
+  return (false) ? 'over' : 'side';
+}
 
 }
