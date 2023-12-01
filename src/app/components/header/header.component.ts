@@ -17,5 +17,13 @@ constructor(public dataService: DataService){
   })
 }
 
+getInitials(vorname: string, nachname: string){
+  if (vorname.length === 0 || nachname.length === 0) {
+    return '';
+}
+const firstLetter = vorname.charAt(0);
+const secondLetter = nachname.charAt(0);
+return firstLetter + secondLetter;
+}
 
 }

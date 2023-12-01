@@ -65,7 +65,7 @@ export class DataService implements OnInit {
       console.log('alle Tasks:', tasks);
     });
     this.tasks = this.tasks$.getValue();
-    // console.log('currentUser', this.currentUser);
+   
 
     this.getContacts();
 
@@ -78,36 +78,17 @@ export class DataService implements OnInit {
 
     this.getContacts();
 
-
-    // lastValueFrom(this.getContacts()).then((response)=> {
-    //   this.contactsSubject.next(response);
-    // });
   }
 
 
   getTasks(): Observable<any> {
     const url = environment.baseUrl + '/tasks/';
-    // if (!this.cachedTasks) {
+  
     this.cachedTasks = this.http.get(url)
-    //       .pipe(
-    //       shareReplay(1)  // Dies stellt sicher, dass das Ergebnis für zukünftige Abonnenten zwischengespeichert wird
-    //      );
-    //  }
+
     return this.cachedTasks;
   }
 
-  //   getContacts(): Observable<Contact[]> {
-  //     const url = environment.baseUrl + '/contacts/';
-  //     if (!this.cachedContacts) {
-  //       this.cachedContacts = this.http.get(url).pipe(
-  //         // this.contactsSubject.next(this.cachedContacts);
-  //       shareReplay(1)
-
-
-  //      );
-  //  }
-  //     return this.cachedContacts;
-  //   }
 
   getContacts(): void {
     const url = environment.baseUrl + '/contacts/';
