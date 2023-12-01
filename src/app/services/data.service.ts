@@ -9,6 +9,8 @@ import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { Contact } from '../models/contact.class';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { WrapperAddtaskComponent } from '../components/addtask/wrapper-addtask/wrapper-addtask.component';
+import { User } from '../models/user.class';
+import { Router } from '@angular/router';
 
 export enum Status {
   todo = 'To do',
@@ -21,6 +23,9 @@ export enum Status {
   providedIn: 'root'
 })
 export class DataService implements OnInit {
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  public userStatus$: Observable<User | null> = this.currentUserSubject.asObservable();
+
   public isSmallScreen?: boolean;
   public showDetails?: boolean;
   public contactUpdated = new BehaviorSubject<Contact | null>(null);
@@ -54,13 +59,13 @@ export class DataService implements OnInit {
   progressCount?: number;
   awaitingCount?: number;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private route: Router) {
     this.getTasks().subscribe(tasks => {
       this.tasks$.next(tasks);
       console.log('alle Tasks:', tasks);
     });
     this.tasks = this.tasks$.getValue();
-    console.log('currentUser', this.currentUser);
+    // console.log('currentUser', this.currentUser);
 
     this.getContacts();
 
@@ -286,6 +291,7 @@ export class DataService implements OnInit {
   getCurrentUser() {
     const url = environment.baseUrl + '/user/';
     this.currentUser = this.http.get(url)
+    this.currentUserSubject.next(this.currentUser);
     return this.currentUser;
   }
 
@@ -311,6 +317,18 @@ export class DataService implements OnInit {
   deleteContact(id: number) {
     const url = `${environment.baseUrl}/contacts/${id}`;
     return this.http.delete(url);
+  }
+
+  loginUser(user: User) {
+    this.currentUserSubject.next(user);
+    // Weitere Anmelde-Logik
+  }
+
+  // Methode zum Aktualisieren des Benutzerstatus beim Abmelden
+  logoutUser() {
+    this.currentUserSubject.next(null);
+    // Weitere Abmelde-Logik
+    this.route.navigateByUrl('');
   }
 
   // getUser(){

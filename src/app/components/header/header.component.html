@@ -12,7 +12,7 @@
         </div>
         <div > 
             {{currentUser?.first_name}}
-            <img onclick="showLogout()" class="pic" src="assets/img/christina.jpg" alt="">
+            <img (click)="this.dataService.logoutUser()" class="pic" src="assets/img/christina.jpg" alt="">
         </div>
         <div class="log-out-button" id="logout-button">
             <a href="../joinsingle/help.html" class="header-help">

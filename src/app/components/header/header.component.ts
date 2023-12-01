@@ -10,7 +10,7 @@ import { DataService } from 'src/app/services/data.service';
 export class HeaderComponent {
 currentUser: any;
 
-constructor(private dataService: DataService){
+constructor(public dataService: DataService){
  lastValueFrom(this.dataService.getCurrentUser()).then((user: any) => {
     this.currentUser = user;
     console.log(this.currentUser);

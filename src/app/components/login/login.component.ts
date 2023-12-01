@@ -23,13 +23,23 @@ export class LoginComponent {
 
 async login() {
   try {
-    let resp: any = await this.authService.login(this.email, this.password);
-    console.log(resp.token);
-    localStorage.setItem('token', resp.token);
-    this.currentUser = resp.user;
-  console.log(this.currentUser);
-    this.route.navigateByUrl('/home/summary');
-    console.log(resp);
+    // let resp: any = 
+    await this.authService.login(this.email, this.password).then((user)=> {
+      this.dataService.loginUser(user);
+      localStorage.setItem('token', user.token);
+      console.log('Eingeloggt ist:', user);
+      this.currentUser = user;
+      this.dataService.loginUser(user);
+      this.dataService.getContacts();
+      this.route.navigateByUrl('/home/summary');
+    });
+  //   console.log(resp.token);
+  //   localStorage.setItem('token', resp.token);
+  //   this.currentUser = resp.user;
+
+  // console.log(this.currentUser);
+  //   this.route.navigateByUrl('/home/summary');
+  //   console.log(resp);
   } catch (e) {
     alert('Anmeldung fehlgeschlagen - Passwort oder Username falsch');
     console.log('Fehler:', e);

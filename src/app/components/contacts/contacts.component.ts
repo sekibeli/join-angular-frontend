@@ -1,6 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
 import { Contact } from 'src/app/models/contact.class';
 import { DataService } from 'src/app/services/data.service';
 import { AddtaskComponent } from '../addtask/addtask.component';
@@ -18,7 +18,9 @@ interface GroupedContacts {
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss']
 })
-export class ContactsComponent implements OnInit {
+export class ContactsComponent implements OnInit, OnDestroy {
+  private userStatusSubscription?: Subscription;
+  // private userChangeSubscription?: Subscription;
 public contacts = new BehaviorSubject<any[]>([]);
 public selectedContact: Contact | null = null;
 public isDetailVisible?: boolean;
@@ -43,17 +45,30 @@ contacts$ = this.dataService.contacts$.pipe(
 
 
 
-  constructor(public dataService: DataService, private dialog: MatDialog){}
+  constructor(public dataService: DataService, private dialog: MatDialog){
+    this.loadContacts();
+  }
 
 ngOnInit(): void {
     
-
-  this.dataService.contacts$.subscribe(contacts => {
-    this.contacts.next(contacts)
-    console.log(this.contacts.value);
-  })
+  this.userStatusSubscription = this.dataService.userStatus$.subscribe(user => {
+    if (user) {
+      // Benutzer ist angemeldet, lade Kontakte
+      this.loadContacts();
+    } else {
+      // Kein Benutzer angemeldet, leere die Kontaktliste
+      // this.contacts = [];
+    }
+  });
+ 
 }
 
+private loadContacts(){
+  this.dataService.contacts$.subscribe(contacts => {
+    this.contacts.next(contacts)
+    console.log('contacts geladen', this.contacts.value);
+  })
+}
 getKeys(obj: { [key: string]: any }): string[] {
   return Object.keys(obj);
 }
@@ -109,4 +124,8 @@ showContactDetails(){
   this.showDetails = false;
 }
 
+ngOnDestroy(): void {
+  // Bereinigen des Abonnements
+  this.userStatusSubscription?.unsubscribe();
+}
 }
