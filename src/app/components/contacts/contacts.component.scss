@@ -10,6 +10,10 @@ body {
 .d-none{
     display: none !important;
 }
+
+.showDetail {
+    display: block;
+}
 ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px white;
     border-radius: 10px;

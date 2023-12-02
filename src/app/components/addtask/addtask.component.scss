@@ -162,12 +162,14 @@ input {
 
 .editModeBox {
   left: 50px;
+  
 }
 
 @media (max-width: 900px){
  
   .addtaskBox {
    left: 50px;
+   width: 97%;
 }
 
 .addTaskContainer {
