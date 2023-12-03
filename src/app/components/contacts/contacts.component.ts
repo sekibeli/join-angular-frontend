@@ -23,6 +23,7 @@ export class ContactsComponent implements OnInit {
   public selectedContact: Contact | null = null;
   public isDetailVisible?: boolean;
   public showDetails?: boolean = false;
+  
   // public rightDrawerMode: string = "side";
 
 
@@ -85,9 +86,9 @@ export class ContactsComponent implements OnInit {
     this.selectedContact = contact;
   }
 
-  rightDrawerMode(): MatDrawerMode {
-    return (this.dataService.isSmallScreen) ? 'over' : 'side';
-  }
+  // rightDrawerMode(): MatDrawerMode {
+  //   return (this.dataService.isSmallScreen) ? 'over' : 'side';
+  // }
 
   toggleDetailVisibility() {
     this.isDetailVisible = !this.isDetailVisible;

@@ -743,12 +743,12 @@ body {
 }
 @media (max-width: 600px){
 
-    .d-none{
-        display: none;
-    }
+    // .d-none{
+    //     display: none;
+    // }
 
     .contact-main-box{
-        //  display: none;
+          display: none;
         z-index: 9;
         width: 100%;
         // width: 85%;
@@ -760,6 +760,10 @@ body {
         width: 100%;
         margin-top: 80px;
         margin-bottom: 80px;
+    }
+
+    .contact-main-box .showDetail {
+        display: block; /* Wird angezeigt, wenn Klasse hinzugefügt wird */
     }
 //     .showContactDetail {
 // z-index: 20;

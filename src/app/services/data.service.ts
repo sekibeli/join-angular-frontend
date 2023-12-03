@@ -37,7 +37,7 @@ export class DataService implements OnInit {
 
   Status = Status;
   private cachedCategories: Observable<any> | null = null;
-  private cachedContacts: Observable<any> | null = null;
+  // private cachedContacts: Observable<any> | null = null;
   public cachedTasks: Observable<any> | null = null;
   private cachedSubtasks: Observable<any> | null = null;
 
@@ -70,8 +70,8 @@ export class DataService implements OnInit {
     this.tasks = this.tasks$.getValue();
    
 
-    // this.getContacts();
-    // this.getCategories();
+    this.getContacts();
+    this.getCategories();
 
   }
   ngOnInit(): void {
