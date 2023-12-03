@@ -32,6 +32,9 @@ export class DataService implements OnInit {
   private contactsSubject = new BehaviorSubject<Contact[]>([]);
   public contacts$ = this.contactsSubject.asObservable();
 
+  private categoriesSubject = new BehaviorSubject<Category[]>([]);
+  public categories$ = this.categoriesSubject.asObservable();
+
   Status = Status;
   private cachedCategories: Observable<any> | null = null;
   private cachedContacts: Observable<any> | null = null;
@@ -67,7 +70,8 @@ export class DataService implements OnInit {
     this.tasks = this.tasks$.getValue();
    
 
-    this.getContacts();
+    // this.getContacts();
+    // this.getCategories();
 
   }
   ngOnInit(): void {
@@ -76,7 +80,8 @@ export class DataService implements OnInit {
     });
     console.log('currentUser', this.currentUser);
 
-    this.getContacts();
+    // this.getContacts();
+    // this.getCategories();
 
   }
 
@@ -103,19 +108,35 @@ export class DataService implements OnInit {
     );
   }
 
-  getCategories(): Observable<Category[]> {
+  // getCategories(): Observable<Category[]> {
+  //   const url = environment.baseUrl + '/categories/';
+
+  //   if (!this.cachedCategories) {
+  //     this.cachedCategories = this.http.get(url).pipe(
+  //       shareReplay(1)
+  //     );
+  //   }
+
+  //   // Gibt das zwischengespeicherte Observable zurück (entweder das neu abgerufene oder das bereits vorhandene)
+  //   return this.cachedCategories;
+  // }
+
+
+  getCategories(): void {
     const url = environment.baseUrl + '/categories/';
 
-    if (!this.cachedCategories) {
-      this.cachedCategories = this.http.get(url).pipe(
-        shareReplay(1)
-      );
-    }
-
-    // Gibt das zwischengespeicherte Observable zurück (entweder das neu abgerufene oder das bereits vorhandene)
-    return this.cachedCategories;
+    this.http.get<Category[]>(url).subscribe(
+      categories => {
+          this.categoriesSubject.next(categories);
+      
+      },
+      error => {
+        console.error('Fehler beim Laden der Kontakte:', error);
+      }
+    );
+   
+   
   }
-
   getCategoryById(id: number): Observable<any> {
 
     const url = `${environment.baseUrl}/categories/${id}/`;

@@ -31,6 +31,7 @@ async login() {
       this.currentUser = user;
       this.dataService.loginUser(user);
       this.dataService.getContacts();
+      this.dataService.getCategories();
       this.route.navigateByUrl('/home/summary');
     });
   //   console.log(resp.token);

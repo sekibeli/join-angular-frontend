@@ -53,6 +53,21 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
 
   constructor(private fb: FormBuilder, private dataService: DataService, private route: Router) {
+
+    // this.dataService.getCategories().subscribe((categories)=> {
+    //   this.categories = categories;
+    //   console.log('hier:', categories);
+    // });
+    this.categoriesSub = this.dataService.categories$.subscribe((response: Category[]) => {
+      this.categories = response;
+      // this.editMode = true;
+      console.log(this.categories);
+      if (this.editMode && this.data) {
+        const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category);
+        this.taskForm.get('category')?.setValue(categoryToSet || null);
+      }
+    });
+
     this.contactsSub = this.dataService.contacts$.subscribe((response: Contact[]) => {
       this.contacts = response;
       // this.editMode = true;
@@ -68,14 +83,14 @@ export class AddtaskComponent implements OnInit, OnDestroy {
       }
 
     });
-    this.categoriesSub = this.dataService.getCategories().subscribe(response => {
-      this.categories = response;
+    // this.categoriesSub = this.dataService.getCategories().subscribe(response => {
+    //   this.categories = response;
 
-      if (this.editMode && this.data) {
-        const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category);
-        this.taskForm.get('category')?.setValue(categoryToSet || null);
-      }
-    });
+    //   if (this.editMode && this.data) {
+    //     const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category);
+    //     this.taskForm.get('category')?.setValue(categoryToSet || null);
+    //   }
+    // });
   }
   closeParent() {
     this.closeEvent.emit();
@@ -231,16 +246,16 @@ export class AddtaskComponent implements OnInit, OnDestroy {
 
       //updated bestehende subtasks
       await lastValueFrom(this.dataService.updateSubtasks(subtasksWithId))
-      
- 
 
-      if(subtasksWithoutId.length > 0){
-        await lastValueFrom(this.dataService.saveSubtasks(subtasksWithoutId, this.data.task.id)).then( response => {
-           lastValueFrom(this.dataService.getSubtasksByTaskId(this.data.task.id)).then( response => {
+
+
+      if (subtasksWithoutId.length > 0) {
+        await lastValueFrom(this.dataService.saveSubtasks(subtasksWithoutId, this.data.task.id)).then(response => {
+          lastValueFrom(this.dataService.getSubtasksByTaskId(this.data.task.id)).then(response => {
             taskData.subtasks = response;
-           })
+          })
         }
-          
+
         );
       }
 
@@ -329,12 +344,12 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     }
 
   }
-  refreshCategories() {
-    this.dataService.getCategories().subscribe(response => {
-      this.categories = response;
-      // console.log(this.categories);
-    });
-  }
+  // refreshCategories() {
+  //   this.dataService.getCategories().subscribe(response => {
+  //     this.categories = response;
+  //     // console.log(this.categories);
+  //   });
+  // }
 
   cancelNewCategory() {
     this.showNewCategoryInput = false;

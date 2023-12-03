@@ -16,7 +16,7 @@
         </div> -->
         <div > 
            
-            <div (click)="this.dataService.logoutUser()" class="contactCircle"  alt="">{{getInitials(currentUser.first_name, currentUser.last_name)}}</div>
+            <div *ngIf="currentUser" (click)="this.dataService.logoutUser()" class="contactCircle"  alt="">{{getInitials(currentUser.first_name, currentUser.last_name)}}</div>
         </div>
         <div class="log-out-button" id="logout-button">
             <a href="../joinsingle/help.html" class="header-help">
