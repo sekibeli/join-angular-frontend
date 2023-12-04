@@ -23,11 +23,13 @@ export enum Status {
   providedIn: 'root'
 })
 export class DataService implements OnInit {
+  public detailVisible: boolean = false;
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public userStatus$: Observable<User | null> = this.currentUserSubject.asObservable();
 
   public isSmallScreen?: boolean;
   public showDetails?: boolean;
+ 
   public contactUpdated = new BehaviorSubject<Contact | null>(null);
   private contactsSubject = new BehaviorSubject<Contact[]>([]);
   public contacts$ = this.contactsSubject.asObservable();
@@ -338,23 +340,35 @@ export class DataService implements OnInit {
   //   return this.http.get(url);
   // }
 
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event: Event) {
-  //   this.checkScreenSize();
-  // }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkScreenSize();
+  }
 
-  // checkScreenSize() {
-  //   if(window.innerWidth < 650) {
-  //     this.isSmallScreen = true;
-  //   } else {
-  //     this.isSmallScreen = false;
-  //   }
-  //   console.log('isSmallScreen:', this.isSmallScreen);
-  // }
+  checkScreenSize() {
+    if(window.innerWidth < 600) {
+      this.isSmallScreen = true;
+    } else {
+      this.isSmallScreen = false;
+    }
+    console.log('isSmallScreen:', this.isSmallScreen);
+  }
 
-  // showContactDetails(){
-  //   this.showDetails = false;
-  // }
+  showContactDetails(){
+    this.showDetails = false;
+  }
+
+  toggleDetailVisibility() {
+    this.detailVisible = !this.detailVisible;
+  }
+
+  showContactsDetails(){
+    this.detailVisible = true;
+  }
+
+  hideContactsDetails(){
+    this.detailVisible = false;
+  }
 
 }
 

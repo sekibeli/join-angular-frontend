@@ -51,7 +51,7 @@ body {
 }
 .contactDetail {
     padding-top: 100px;
-    width:50%;
+    width:53%;
 }
 .contact-main-box {
     background-color: rgb(247, 247, 247);
@@ -86,7 +86,7 @@ body {
     padding-right: 15px;
     gap: 20px;
     overflow-y: auto;
-    width: 20vw;
+    // width: 20vw;
     min-width: 200px;
     padding-left: 20px;
     background-color: white;
@@ -564,7 +564,7 @@ body {
 @media (max-width: 900px){
 
     .contactsList {
-        width: 40%;
+        width: 90%;
     }
     .contactDetail {
         // padding-top: 100px;
@@ -605,6 +605,14 @@ body {
     }
 }
 @media (max-width: 750px){
+    .contactDetail {
+        // padding-top: 100px;
+        width:70%;
+    }
+    .contactsList {
+        width: 70%;
+    }
+
     .new-contact-overlay{
         flex-direction: column;
         align-items: center;
@@ -725,28 +733,35 @@ body {
     }
 }
 
-@media (max-width: 750px){
-    .contact-list-box{
-        margin-top: 86px;
-        //  width: 0%;
-        width: 35%;
-        margin-top: 80px;
-        margin-bottom: 80px;
-    }
-    .contact-main-box{
-        // display: none;
-        z-index: 9;
-        // width: 100%;
-        width: 65%;
-        margin-top: 80px;
-    }
-}
+// @media (max-width: 750px){
+//     .contact-list-box{
+//         margin-top: 86px;
+//         //  width: 0%;
+//         width: 35%;
+//         margin-top: 80px;
+//         margin-bottom: 80px;
+//     }
+//     .contact-main-box{
+//         // display: none;
+//         z-index: 9;
+//         // width: 100%;
+//         width: 65%;
+//         margin-top: 80px;
+//     }
+// }
 @media (max-width: 600px){
 
     // .d-none{
     //     display: none;
     // }
+    .contactsList {
+        width: 90%;
+    }
 
+    .contactDetail {
+        // padding-top: 100px;
+        width:90%;
+    }
     .contact-main-box{
           display: none;
         z-index: 9;
@@ -762,8 +777,15 @@ body {
         margin-bottom: 80px;
     }
 
+    .hide-list-box {
+        width: 0%;
+    }
     .contact-main-box .showDetail {
         display: block; /* Wird angezeigt, wenn Klasse hinzugefügt wird */
+    }
+
+    .displayBlock {
+        display: block !important;
     }
 //     .showContactDetail {
 // z-index: 20;

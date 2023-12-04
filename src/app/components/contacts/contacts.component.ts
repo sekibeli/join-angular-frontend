@@ -21,7 +21,7 @@ interface GroupedContacts {
 export class ContactsComponent implements OnInit {
   public contacts = new BehaviorSubject<any[]>([]);
   public selectedContact: Contact | null = null;
-  public isDetailVisible?: boolean;
+  // public detailVisible?: boolean =false;
   public showDetails?: boolean = false;
   
   // public rightDrawerMode: string = "side";
@@ -46,6 +46,7 @@ export class ContactsComponent implements OnInit {
 
   constructor(public dataService: DataService, private dialog: MatDialog) {
     this.loadContacts();
+    console.log(this.dataService.detailVisible);
   }
 
   ngOnInit(): void {
@@ -86,12 +87,20 @@ export class ContactsComponent implements OnInit {
     this.selectedContact = contact;
   }
 
-  // rightDrawerMode(): MatDrawerMode {
-  //   return (this.dataService.isSmallScreen) ? 'over' : 'side';
+  rightDrawerMode(): MatDrawerMode {
+    return (this.dataService.isSmallScreen) ? 'over' : 'side';
+  }
+
+  // toggleDetailVisibility() {
+  //   this.detailVisible = !this.detailVisible;
   // }
 
-  toggleDetailVisibility() {
-    this.isDetailVisible = !this.isDetailVisible;
+  showContactsDetails(){
+    this.dataService.detailVisible = true;
+  }
+
+  hideContactsDetails(){
+    this.dataService.detailVisible = false;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -102,6 +111,7 @@ export class ContactsComponent implements OnInit {
   checkScreenSize() {
     if (window.innerWidth < 600) {
       this.dataService.isSmallScreen = true;
+      this.dataService.detailVisible = false;
     } else {
       this.dataService.isSmallScreen = false;
     }

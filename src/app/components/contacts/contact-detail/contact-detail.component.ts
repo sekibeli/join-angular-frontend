@@ -16,7 +16,7 @@ export class ContactDetailComponent implements OnInit, OnChanges {
   selectedContact?:Contact;
   selectedContact$?: Observable<Contact | undefined>;
 
-  constructor(private dataService: DataService, private dialog: MatDialog){
+  constructor(public dataService: DataService, private dialog: MatDialog){
    
    
    
@@ -90,5 +90,8 @@ deleteContact(contactId: number) {
   })
 }
 
+closeDetail(){
+  this.dataService.detailVisible = false;
+}
 
 }
