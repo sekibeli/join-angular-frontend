@@ -191,6 +191,19 @@ input {
 @media (max-width: 380px){
  
   .addtaskBox {
-   left: 20px;
+   left: 10px;
 }
+
+.addTaskContainer {
+  width: 230px;
+ 
+}
+
+}
+@media (max-width: 400px){
+  button.urgent,  button.medium, button.low  {
+     width:50px;
+     padding: 5px 5px;
+     font-size: 0.6em;
+  }
 }

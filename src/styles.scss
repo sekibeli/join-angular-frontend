@@ -22,3 +22,10 @@ body {
      border-radius: 30px !important;
      // border-top-right-radius: 0px !important;
  }
+@media (max-width: 400px){
+ button.urgent,  button.medium, button.low  {
+    width:50px;
+    padding: 5px 5px;
+    font-size: 0.6em;
+ }
+}

@@ -570,6 +570,9 @@ body {
     }
 }
 @media (max-width: 750px){
+
+  
+
     .new-contact-overlay{
         flex-direction: column;
         align-items: center;
@@ -684,6 +687,15 @@ body {
         display: flex;
     }
 }
+
+
+@media (max-width: 600px){
+    .new-contact-overlay {
+        width: 300px;
+    } 
+
+}
+
 @media (max-width: 450px){
     .name-main{
         width: 150px

@@ -67,7 +67,7 @@ export class ContactsComponent implements OnInit {
 
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.minWidth = '60vw';
+    dialogConfig.minWidth = '90vw';
     dialogConfig.minHeight = '60vh';
     dialogConfig.maxWidth = '100vw';
     dialogConfig.maxHeight = '60vh';

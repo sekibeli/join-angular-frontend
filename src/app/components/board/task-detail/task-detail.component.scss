@@ -107,3 +107,9 @@
     margin-right: 10px;
     cursor: pointer;
 }
+
+@media (max-width: 600px){
+    .taskDetailContainer {
+        width: 230px;
+    }
+}
