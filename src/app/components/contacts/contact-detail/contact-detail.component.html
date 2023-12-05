@@ -9,7 +9,7 @@
 
   </div> -->
 <div *ngIf="contact" class="contact-main-content" id="show-contact-content">
-    <div *ngIf="this.dataService.isSmallScreen" (click)="closeDetail()">zurück</div>
+    <div *ngIf="this.dataService.isSmallScreen" (click)="closeDetail()"><mat-icon>arrow_back</mat-icon></div>
  
     <div *ngIf="selectedContact$ | async as selectedContact" class="contact-main-name">
         <div class="contact-circle-big" [style.backgroundColor]="contact.color">
