@@ -702,6 +702,15 @@ mat-icon {
         display: flex;
     }
 }
+
+@media (max-width: 600px){
+    .arrowBack {
+        margin: 10px 0 0 10px;
+        &:hover {
+            color:rgb(11, 173, 221);
+        }
+    }
+}
 @media (max-width: 450px){
     .contact-circle-big {
         height: 35px;
