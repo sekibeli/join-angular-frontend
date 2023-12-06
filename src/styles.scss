@@ -22,6 +22,18 @@ body {
      border-radius: 30px !important;
      // border-top-right-radius: 0px !important;
  }
+
+ .mat-drawer-inner-container{
+    background-color:#FAFAFA;
+    border-left-color: #FAFAFA;
+ }
+//  mat-drawer-container {
+//     width: 1100px;
+//  }
+
+mat-Drawer-Content {
+    border: none;
+}
 @media (max-width: 400px){
  button.urgent,  button.medium, button.low  {
     width:50px;

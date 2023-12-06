@@ -8,7 +8,7 @@
     </div>
 
   </div> -->
-<div *ngIf="contact" class="contact-main-content" id="show-contact-content">
+<div *ngIf="contact" class="contact-main-content" >
     <div class="arrowBack" *ngIf="this.dataService.isSmallScreen" (click)="closeDetail()"><mat-icon>arrow_back</mat-icon></div>
  
     <div *ngIf="selectedContact$ | async as selectedContact" class="contact-main-name">

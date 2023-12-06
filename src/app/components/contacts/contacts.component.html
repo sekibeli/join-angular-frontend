@@ -1,21 +1,26 @@
 
-
-    <div class="contact-headline-box">
+<!-- <div class="headContact"> -->
+    <!-- <div class="contact-headline-box">
       <span class="kanban-text">Kanban Projekt Management Tool</span>
       <span class="contact-headline">Contacts</span>
       <div class="vertical-and-better">
         <div class="contact-vertical"></div>
         <span class="contact-better-with">Better with a team</span>
       </div>
-    </div>
-   
+    </div> -->
+<!-- </div> -->
 
-<mat-drawer-container class="example-container" autosize>
+<!-- <mat-drawer-container class="example-container" autosize>
 
 
 
   <mat-drawer-content class="contactsList">
     <div class="contact-list-box" >
+      <div class="add-new-contact-button" (click)="addNewContact()">
+        <span>New contact</span>
+        <img src="assets/img/contactnew.png" alt="" />
+      </div>
+
 
       <ng-container *ngIf="contacts$ | async as groupedContacts">
         <div *ngFor="let letter of getKeys(groupedContacts)">
@@ -34,10 +39,10 @@
     </div>
 
   </mat-drawer-content>
-  <mat-drawer #rightDrawer class="contactDetail" position="end" [mode]="rightDrawerMode()" [opened]=this.dataService.detailVisible>
+  <mat-drawer style="border:none" #rightDrawer class="contactDetail" position="end" [mode]="rightDrawerMode()" [opened]=this.dataService.detailVisible>
     <app-contact-detail [contact]="selectedContact"></app-contact-detail>
   </mat-drawer>
-</mat-drawer-container>
+</mat-drawer-container> -->
 
 
 <!-- <div class="container" id="container-content"></div> -->
@@ -46,14 +51,21 @@
   <!-- <div class="new-contact-overlay-box d-none">
 
   </div> -->
-  <div class="add-new-contact-button" (click)="addNewContact()">
+
+
+  <!-- <div class="add-new-contact-button" (click)="addNewContact()">
     <span>New contact</span>
     <img src="assets/img/contactnew.png" alt="" />
-  </div>
+  </div> -->
 
-  <!-- <div class="contact-container">
+  <div class="contact-container">
+
+   
     <div class="contact-list-box" [ngClass]="{'hide-list-box' : this.dataService.detailVisible}">
-
+      <div class="add-new-contact-button" (click)="addNewContact()">
+        <span>New contact</span>
+        <img src="assets/img/contactnew.png" alt="" />
+      </div>
       <ng-container *ngIf="contacts$ | async as groupedContacts">
         <div *ngFor="let letter of getKeys(groupedContacts)">
           <div class="letter-divider">
@@ -71,8 +83,8 @@
     </div>
 
     <div class="contact-main-box" [ngClass]="this.dataService.isSmallScreen ? 'd-none' : 'showDetail'">
-       <div class="contact-main-content"> -->
-        <!-- <div class="contact-headline-box">
+       <div class="contact-main-content"> 
+        <div class="contact-headline-box">
           <span class="kanban-text">Kanban Projekt Management Tool</span>
           <span class="contact-headline">Contacts</span>
           <div class="vertical-and-better">
@@ -91,6 +103,6 @@
   </div>
   <div id="infoText" class="d-none">
     <span>Task added to board</span><img src="assets/img/board_icon.svg" />
-  </div> -->
+  </div>
 
-<!-- </div> -->
+ <!-- </div> -->
