@@ -34,6 +34,10 @@ body {
 mat-Drawer-Content {
     border: none;
 }
+
+app-home {
+    margin-top: 100px;
+}
 @media (max-width: 400px){
  button.urgent,  button.medium, button.low  {
     width:50px;
