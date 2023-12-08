@@ -28,7 +28,7 @@ export class DataService implements OnInit {
   public userStatus$: Observable<User | null> = this.currentUserSubject.asObservable();
 
   public isSmallScreen?: boolean;
-  public showDetails?: boolean;
+  public showTheDetails?: boolean;
  
   public contactUpdated = new BehaviorSubject<Contact | null>(null);
   private contactsSubject = new BehaviorSubject<Contact[]>([]);
@@ -354,17 +354,17 @@ export class DataService implements OnInit {
     console.log('isSmallScreen:', this.isSmallScreen);
   }
 
-  showContactDetails(){
-    this.showDetails = false;
-  }
+  // showContactDetails(){
+  //   this.showDetails = true;
+  // }
 
   toggleDetailVisibility() {
     this.detailVisible = !this.detailVisible;
   }
 
-  showContactsDetails(){
-    this.detailVisible = true;
-  }
+  // showContactsDetails(){
+  //   this.detailVisible = true;
+  // }
 
   hideContactsDetails(){
     this.detailVisible = false;

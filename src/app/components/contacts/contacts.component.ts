@@ -22,7 +22,7 @@ export class ContactsComponent implements OnInit {
   public contacts = new BehaviorSubject<any[]>([]);
   public selectedContact: Contact | null = null;
   // public detailVisible?: boolean =false;
-  public showDetails?: boolean = false;
+  // public showDetails?: boolean = false;
   
   // public rightDrawerMode: string = "side";
 
@@ -45,6 +45,7 @@ export class ContactsComponent implements OnInit {
 
 
   constructor(public dataService: DataService, private dialog: MatDialog) {
+    this.dataService.checkScreenSize();
     this.loadContacts();
     console.log(this.dataService.detailVisible);
   }
@@ -118,9 +119,9 @@ export class ContactsComponent implements OnInit {
     console.log('isSmallScreen:', this.dataService.isSmallScreen);
   }
 
-  showContactDetails() {
-    this.showDetails = false;
-  }
+  // showContactDetails() {
+  //   this.showDetails = true;
+  // }
 
 
 }

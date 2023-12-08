@@ -8,7 +8,7 @@ body {
     width: 1px;
 }
 .d-none{
-    display: none !important;
+    display: none ;
 }
 
 .showDetail {
@@ -581,7 +581,13 @@ body {
 }
 
 @media (max-width: 900px){
-
+    .contact-container {
+        position: absolute;
+        left:0; 
+         top:0;
+         width: 100vw;
+           display: flex;
+    }
     .contactsList {
         width: 100%;
     }
@@ -598,11 +604,11 @@ body {
     .kanban-text{
         display: flex;
     }
-    .contact-container{
-        margin: 0;
-        justify-content: center;
-        width: 100%;
-    }
+    // .contact-container{
+    //     margin: 0;
+    //     justify-content: center;
+    //     width: 100%;
+    // }
     .contact-main-box{
         width: 65%;
         margin-top: 80px;
@@ -624,6 +630,13 @@ body {
     }
 }
 @media (max-width: 750px){
+    .contact-container {
+        position: absolute;
+        left:0; 
+         top:0;
+
+           display: flex;
+    }
     .contactDetail {
         // padding-top: 100px;
         width:70%;
@@ -773,6 +786,12 @@ body {
     // .d-none{
     //     display: none;
     // }
+    .contact-container {
+        position: absolute;
+        left:0; 
+         top:0;
+           display: flex;
+    }
     .contactsList {
         width: 100%;
     }
@@ -817,6 +836,13 @@ body {
 }
 
 @media (max-width: 450px){
+
+    .contact-container {
+        position: absolute;
+        left:0; 
+         top:0;
+           display: flex;
+    }
     .contact-headline-box {
         display: none;
     }
@@ -828,6 +854,14 @@ body {
     }
     .add-new-contact-button{
         left: 20%;
+    }
+
+    .contact-main-box {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
     }
 
 }
