@@ -58,9 +58,10 @@
     <img src="assets/img/contactnew.png" alt="" />
   </div> -->
 
+
+
   <div class="contact-container">
 
-   
     <div class="contact-list-box" *ngIf="dataService.showTheDetails || this.dataService.isSmallScreen || !this.dataService.isSmallScreen" >
       <!-- [ngClass]="{'hide-list-box' : this.dataService.detailVisible}"> -->
       <div class="add-new-contact-button" (click)="addNewContact()">
@@ -83,6 +84,16 @@
       </ng-container>
     </div>
 
+    <div class="contact-main-box" *ngIf="!dataService.isSmallScreen && dataService.showIt" >
+      <div class="contact-headline-box">
+        <span class="kanban-text">Kanban Projekt Management Tool</span>
+        <span class="contact-headline">Contacts</span>
+        <div class="vertical-and-better">
+          <div class="contact-vertical"></div>
+          <span class="contact-better-with">Better with a team</span>
+        </div>
+      </div>
+    </div>
     <div class="contact-main-box" *ngIf="this.dataService.showTheDetails" >
       <!-- [ngClass]="this.dataService.showTheDetails ? 'd-none' : 'showDetail'"> -->
        <div class="contact-main-content"> 

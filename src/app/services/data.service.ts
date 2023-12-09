@@ -24,6 +24,7 @@ export enum Status {
 })
 export class DataService implements OnInit {
   public detailVisible: boolean = false;
+  public showIt: boolean = true;
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public userStatus$: Observable<User | null> = this.currentUserSubject.asObservable();
 

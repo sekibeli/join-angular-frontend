@@ -93,6 +93,7 @@ deleteContact(contactId: number) {
 closeDetail(){
   this.dataService.detailVisible = false;
   this.dataService.showTheDetails = false;
+  this.dataService.showIt = true;
 }
 
 }

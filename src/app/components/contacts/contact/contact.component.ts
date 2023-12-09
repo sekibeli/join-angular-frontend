@@ -22,6 +22,7 @@ ngOnInit(): void {
 showContactDetail():void{
   this.contactSelected.emit(this.contact);
   this.dataService.showTheDetails = true;
+  this.dataService.showIt = false;
   // this.dataService.showContactsDetails();
 //   if (this.dataService.isSmallScreen) {
 //     this.dataService.detailVisible = true;

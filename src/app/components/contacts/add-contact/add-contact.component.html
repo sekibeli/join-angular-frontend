@@ -6,8 +6,8 @@
     </div>
     <span class="contact-left-headline" id="contact-left-add">Edit Contact</span>
     <span class="contact-left-better darkblue" id="contact-left-tasks">Tasks are better with a team!</span>
-    <div class="new-contact-left-line" id="blue-line">
-    </div>
+    <!-- <div class="new-contact-left-line" id="blue-line">
+    </div> -->
 
 </div>
 <form [formGroup]="contactForm" class="new-contact-circle-name" id="new-contact-circle-name">
@@ -30,11 +30,12 @@
                 <input type="text" id="fullname" formControlName="name" class="form-control" placeholder ="first and last name">
                 <img src="assets/img/icon_person.png" alt="">
                 <!-- Error message for title -->
-                <div *ngIf="contactForm.controls['name'].touched && contactForm.controls['name'].invalid"
-                    class="error-text">
-                    Name is required
-                </div>
+               
             </div>
+            <div *ngIf="contactForm.controls['name'].touched && contactForm.controls['name'].invalid"
+            class="error-text">
+            Name is required
+        </div>
 
             <!-- <div class="input-form-new-contact">
                 <input required type="text" id="new-contact-name" placeholder ="first and last name" title="Enter first and last name">
@@ -47,11 +48,12 @@
                 <input type="email" id="email" formControlName="email" class="form-control" placeholder ="email">
                 <img src="assets/img/icon-email.svg" alt="">
                 <!-- Error message for title -->
-                <div *ngIf="contactForm.controls['email'].touched && contactForm.controls['email'].invalid"
-                    class="error-text">
-                    Email is required
-                </div>
+             
             </div>
+            <div *ngIf="contactForm.controls['email'].touched && contactForm.controls['email'].invalid"
+            class="error-text">
+            Email is required
+        </div>
 
             <!-- <div class="input-form-new-contact">
                 <input required type="email" id="new-contact-mail" placeholder ="e-mail">
@@ -63,11 +65,12 @@
                 <input type="number" id="phone" formControlName="phone" class="form-control" placeholder ="phone">
                 <img src="assets/img/icon-phone.png" alt="">
                 <!-- Error message for title -->
-                <div *ngIf="contactForm.controls['phone'].touched && contactForm.controls['phone'].invalid"
-                    class="error-text">
-                    Phone is required
-                </div>
+               
             </div>
+            <div *ngIf="contactForm.controls['phone'].touched && contactForm.controls['phone'].invalid"
+            class="error-text">
+            Phone is required
+        </div>
 
 
 
