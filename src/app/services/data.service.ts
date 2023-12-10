@@ -195,8 +195,14 @@ export class DataService implements OnInit {
 
 
   getSubtasksByIds(ids: number[]): Observable<any> {
-    const url = `${environment.baseUrl}/subtasks/?ids[]=${ids.join('&ids[]=')}`;
-    return this.http.get(url);
+    if(ids.length > 0){
+      const url = `${environment.baseUrl}/subtasks/?ids[]=${ids.join('&ids[]=')}`;
+      return this.http.get(url);
+    }
+    else {
+      return of([])
+    }
+   
   }
 
   getSubtasksByTaskId(taskId: number) {
@@ -347,7 +353,7 @@ export class DataService implements OnInit {
   }
 
   checkScreenSize() {
-    if(window.innerWidth < 600) {
+    if(window.innerWidth < 750) {
       this.isSmallScreen = true;
     } else {
       this.isSmallScreen = false;
@@ -369,6 +375,12 @@ export class DataService implements OnInit {
 
   hideContactsDetails(){
     this.detailVisible = false;
+  }
+
+  closeDetail(){
+    this.detailVisible = false;
+    this.showTheDetails = false;
+    this.showIt = true;
   }
 
 }

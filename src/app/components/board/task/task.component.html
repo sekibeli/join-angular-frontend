@@ -2,14 +2,17 @@
     <div class="taskCategory" [style.backgroundColor]="category?.color">{{ category?.title}}</div>
     <div class="taskTitle">{{ task.title}}</div>
     <div class="taskDescription">{{task.description}}</div>
-    <div class="progressRow">
+    <div class="progressRow" *ngIf="subtasks.length > 0">
         <mat-progress-bar mode="determinate" value="{{percent}}" [ngStyle]="{'--mdc-linear-progress-active-indicator-color': category?.color}"></mat-progress-bar>
         <div class="progressText">{{completedCount}}/{{subtasks.length}} done</div>
     </div>
     <div class="lastRow">
         <div class="assignedContent">
-            <div class="assigned" [style.backgroundColor]="contact?.color" *ngFor="let contact of assigned">
+            <div class="assigned" [style.backgroundColor]="contact?.color" *ngFor="let contact of (assigned.length > 3 ? assigned.slice(0, 2) : assigned)">
                 {{contact?.initials}}
+            </div>
+            <div class="assigned" [style.backgroundColor]="'grey'" *ngIf="assigned.length > 3">
+                 +{{ assigned.length - 2 }}
             </div>
         </div>
         <div class="priority">

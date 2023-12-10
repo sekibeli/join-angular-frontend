@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+  constructor(public dataService : DataService){}
 }

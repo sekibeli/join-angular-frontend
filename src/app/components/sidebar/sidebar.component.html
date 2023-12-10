@@ -5,19 +5,19 @@
     <div class="sites-box">
     
       
-       <div class="menuBox" id="sidebar-summary" [routerLink]="['/home', 'summary']">
+       <div class="menuBox" id="sidebar-summary" [routerLink]="['/home', 'summary']" (click)="this.dataService.closeDetail()">
             <img src="../../../assets/img/summary_icon.svg" alt="">
             <span class="menuText">Summary</span>
         </div>
-       <div class="menuBox" id="sidebar-board" [routerLink]="['/home', 'board']">
+       <div class="menuBox" id="sidebar-board" [routerLink]="['/home', 'board']" (click)="this.dataService.closeDetail()">
             <img src="assets/img/board_icon.svg" alt="">
             <span class="menuText">Board</span>
         </div>
-        <div class="menuBox" id="sidebar-addtask" [routerLink]="['/home', 'addtask']">
+        <div class="menuBox" id="sidebar-addtask" [routerLink]="['/home', 'addtask']" (click)="this.dataService.closeDetail()">
             <img src="assets/img/addTask_icon.svg" alt="">
             <span class="menuText">Add Task</span>
         </div>
-     <div class="menuBox" id="sidebar-Contacts" [routerLink]="['/home', 'contacts']">
+     <div class="menuBox" id="sidebar-Contacts" [routerLink]="['/home', 'contacts']" (click)="this.dataService.closeDetail()">
            <img src="assets/img/contacts_icon.svg" alt="">
             <span class="menuText">Contacts</span>
         </div>

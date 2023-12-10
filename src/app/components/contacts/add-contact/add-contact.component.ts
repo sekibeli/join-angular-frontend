@@ -42,7 +42,9 @@ contactForm: FormGroup = new FormGroup({
       
   }
 
-  closeNewContact() { }
+  // closeNewContact() { 
+  //   this.dialogRef.close();
+  // }
 
   submitContact() {
     if (this.contactForm.valid) {

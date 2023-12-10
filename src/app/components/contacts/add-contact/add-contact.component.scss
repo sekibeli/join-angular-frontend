@@ -263,7 +263,7 @@ body {
     // top: 50%;
     // transform: translate(500%, -50%);
     height: 400px;
-    width: 750px;
+    width: 650px;
     color: white;
     box-sizing: border-box;
     // animation: newcontact 275ms ease-in-out forwards;
@@ -445,7 +445,7 @@ body {
     margin-right: 29px;
     height: 98px;
     width: 98px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgb(255, 255, 255);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -585,10 +585,10 @@ body {
         width: 350px;
         border-bottom-left-radius: 0;
         border-top-right-radius: 20px;
-        align-items: flex-start;
+        align-items: center;
         height: 45%;
         box-sizing: border-box;
-        padding-left: 30px;
+        // padding-left: 30px;
     }
     .new-contact-left-img-box{
         display: none;
@@ -624,7 +624,7 @@ body {
     .edit-contact-circle{
         z-index: 2;
         position: absolute;
-        transform: translateY(-75px);
+        transform: translateY(-65px);
        
     }
     .darkblue{
@@ -692,6 +692,7 @@ body {
 @media (max-width: 600px){
     .new-contact-overlay {
         width: 300px;
+        height: 650px;
     } 
 
 }
