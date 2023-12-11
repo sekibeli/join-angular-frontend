@@ -94,4 +94,8 @@ ngOnDestroy(): void {
         default: return "Done";
     }
 }
+
+newTask(){}
+
+filterTasks(){}
 }

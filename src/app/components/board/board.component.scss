@@ -154,6 +154,68 @@
 app-task {
   width: 100%;
 }
+
+// #totalInput {
+//   display: flex;
+//   gap: 15px;
+// }
+
+.boardHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.boardHeader_right {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+#search {
+  height: 38px;
+  width: 250px;
+  border-radius: 10px;
+  padding-left: 10px;
+  border: none;
+}
+
+.devider {
+  border-right: 1px solid #bfbfbf;
+  height: 30px;
+}
+
+.inputField {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  width: 250px;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid lightgrey;
+}
+.right {
+  display: flex;
+  align-items: center;
+}
+
+*:focus {
+  outline: none;
+}
+
+.picLupe {
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 20px;
+
+}
+
+.head {
+  width: 60vw;
+  display: flex;
+  justify-content: space-between;
+}
+
 @media (max-width: 1350px){
   .example-list {
     border: dotted 1px #ccc;
