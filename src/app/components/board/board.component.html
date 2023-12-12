@@ -4,7 +4,7 @@
             <div><h1>Board</h1></div>
             <div class="boardHeader_right">
                     <div class="inputField">
-                       <input id="search" (keyup)="filterTasks()" type="text" placeholder="Find Task">
+                       <input #searchInput id="search" (keyup)="dataService.onSearchChange(searchInput.value)" type="text" placeholder="Find Task">
                        <div class="right">
                                  <!-- <div class="devider"></div> -->
                           <img class="picLupe" id="picLupe" src="assets/img/lupe.svg">

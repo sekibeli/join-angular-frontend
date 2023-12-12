@@ -383,5 +383,16 @@ export class DataService implements OnInit {
     this.showIt = true;
   }
 
+  onSearchChange(query: string) {
+    this.searchTasks(query).subscribe((data: any) => {
+      this.tasks = data;
+    });
+  }
+
+  searchTasks(query: string): Observable<any> {
+    const url = `${environment.baseUrl}/search/`;
+    return this.http.get(url, { params: { q: query } });
+  }
+
 }
 
