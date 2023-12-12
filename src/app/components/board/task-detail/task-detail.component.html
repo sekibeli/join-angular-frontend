@@ -22,6 +22,7 @@
     </div>
     <div class="subtasksContent">
         <div class="subtaskTopic">Subtasks</div>
+        <div class="noSubtasks" *ngIf="subtasks.length == 0">Keine Subtasks vorhanden</div>
         <div class="subtasks" *ngFor="let subtask of subtasks">
             <mat-checkbox [checked]="subtask.completed" disabled></mat-checkbox>
             {{subtask.title}}

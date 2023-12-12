@@ -259,6 +259,8 @@ export class DataService implements OnInit {
 
   }
 
+
+
   getUrgentTasks() {
     this.tasks = this.tasks$.getValue();
     this.urgentTasks$.next(this.tasks.filter((task: any) => task.priority === 'urgent'))
@@ -384,8 +386,20 @@ export class DataService implements OnInit {
   }
 
   onSearchChange(query: string) {
-    this.searchTasks(query).subscribe((data: any) => {
-      this.tasks = data;
+    this.searchTasks(query).subscribe((tasks: any) => {
+      this.tasks$.next(tasks);
+      // this.tasks = data;
+       // sortieren für board
+       this.todo$.next(tasks.filter((task: any) => task.status === 'To do'));
+       this.inProgress$.next(tasks.filter((task: any) => task.status === 'In Progress'));
+       this.awaitingFeedback$.next(tasks.filter((task: any) => task.status === 'Awaiting Feedback'));
+       this.done$.next(tasks.filter((task: any) => task.status === 'Done'));
+ 
+       // Daten für Summary
+       this.todoCount = this.todo$.value.length;
+       this.doneCount = this.done$.value.length;
+       this.awaitingCount = this.awaitingFeedback$.value.length;
+       this.progressCount = this.inProgress$.value.length;
     });
   }
 

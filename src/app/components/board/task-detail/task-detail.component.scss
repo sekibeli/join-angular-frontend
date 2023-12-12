@@ -107,7 +107,11 @@
     margin-right: 10px;
     cursor: pointer;
 }
-
+.noSubtasks {
+    color: green;
+    font-size: 0.8em;
+    margin-top: 15px;
+}
 @media (max-width: 600px){
     .taskDetailContainer {
         width: 230px;
