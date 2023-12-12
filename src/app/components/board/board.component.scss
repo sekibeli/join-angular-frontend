@@ -216,6 +216,16 @@ app-task {
   justify-content: space-between;
 }
 
+.btn {
+  cursor: pointer;
+  border: none;
+  color: white;
+  font-weight: bold;
+  background-color: rgb(38, 38, 38);
+  padding: 10px;
+  border-radius: 8px;
+}
+
 @media (max-width: 1350px){
   .example-list {
     border: dotted 1px #ccc;
