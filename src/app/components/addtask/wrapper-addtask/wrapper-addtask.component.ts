@@ -1,4 +1,4 @@
-import { Component, Inject, Input, Optional } from '@angular/core';
+import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -6,12 +6,16 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   templateUrl: './wrapper-addtask.component.html',
   styleUrls: ['./wrapper-addtask.component.scss']
 })
-export class WrapperAddtaskComponent {
-
+export class WrapperAddtaskComponent implements OnInit{
+public overlayMode?: boolean;
   constructor(private dialogRef: MatDialogRef<WrapperAddtaskComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any){
-    // console.log('data Wrapper:', data);
+  
+   
   }
 
+  ngOnInit(){
+    console.log('overlayMode:', this.overlayMode);
+  }
 
   closeDialog(){
     this.dialogRef.close();

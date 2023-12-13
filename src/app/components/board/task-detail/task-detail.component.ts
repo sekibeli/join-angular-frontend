@@ -71,7 +71,8 @@ export class TaskDetailComponent implements OnInit {
       task: task,
       assigned: this.assigned,
       subtasks: this.subtasks,
-      editMode: true
+      editMode: true,
+      overlayMode: false,
     };
    
     this.dialog.open(WrapperAddtaskComponent, dialogConfig);

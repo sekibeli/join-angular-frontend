@@ -81,7 +81,8 @@ export class ContactDetailComponent implements OnInit, OnChanges {
   
     dialogConfig.data = {
       contact: contact,
-      editMode: true
+      editMode: true,
+      overlayMode: false,
     };
    
     const dialogRef = this.dialog.open(AddContactComponent, dialogConfig);

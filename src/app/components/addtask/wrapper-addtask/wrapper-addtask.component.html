@@ -1,5 +1,5 @@
 
 <div class="addTaskLayer">
     <div class="closeOverlay" (click)="closeDialog()"><mat-icon>close</mat-icon></div>
-    <app-addtask [data]="data" (closeEvent)="closeSelf()"></app-addtask> 
+    <app-addtask [data]="data" [overlayMode]="overlayMode" (closeEvent)="closeSelf()"></app-addtask> 
 </div>

@@ -11,6 +11,8 @@ import {
 } from '@angular/cdk/drag-drop';
 // import { Status } from 'src/app/models/status.class';
 import { BehaviorSubject } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { WrapperAddtaskComponent } from '../addtask/wrapper-addtask/wrapper-addtask.component';
 
 export enum Status {
   todo = 'To do',
@@ -35,7 +37,7 @@ export class BoardComponent implements OnInit, OnDestroy{
   alive: boolean = true;
 
 
-  constructor(public dataService: DataService){
+  constructor(public dataService: DataService,  private dialog: MatDialog){
     this.dataService.fetchAndSortTasks();
    
   }
@@ -95,7 +97,30 @@ ngOnDestroy(): void {
     }
 }
 
-newTask(){}
 
 filterTasks(){}
+
+newTask() {
+
+  const dialogConfig = new MatDialogConfig();
+
+  dialogConfig.minWidth = '80vw';
+  dialogConfig.minHeight = '90vh';
+  dialogConfig.maxWidth = '100vw';
+  dialogConfig.maxHeight = '90vh';
+
+
+  // dialogConfig.data = {
+  
+  //  editMode: false,
+  //   overlayMode: true
+  // };
+ 
+  const dialogRef = this.dialog.open(WrapperAddtaskComponent, dialogConfig);
+  dialogRef.componentInstance.overlayMode = true;
+  // console.log();
+  // this.dialogRef.close();
 }
+}
+
+

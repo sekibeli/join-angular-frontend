@@ -20,6 +20,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
   private contactsSub: Subscription;
   private categoriesSub: Subscription;
   editMode = false;
+  @Input() overlayMode?:boolean;
   @Input() data: any;
 
   newCategoryTitle: string = '';

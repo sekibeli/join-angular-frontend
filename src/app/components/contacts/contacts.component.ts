@@ -76,7 +76,7 @@ export class ContactsComponent implements OnInit {
 
 
     dialogConfig.data = {
-
+overlayMode: false,
       editMode: false
     };
 
