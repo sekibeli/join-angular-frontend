@@ -36,6 +36,7 @@ import { AddContactComponent } from './components/contacts/add-contact/add-conta
 import { ContactDetailComponent } from './components/contacts/contact-detail/contact-detail.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SignupComponent } from './components/signup/signup.component';
+import { DialogLogoutComponent } from './components/dialog-logout/dialog-logout.component';
 
 
 
@@ -58,6 +59,7 @@ import { SignupComponent } from './components/signup/signup.component';
     AddContactComponent,
     ContactDetailComponent,
     SignupComponent,
+    DialogLogoutComponent,
 
 
   ],

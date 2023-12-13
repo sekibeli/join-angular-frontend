@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { lastValueFrom } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
+import { DialogLogoutComponent } from '../dialog-logout/dialog-logout.component';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +12,7 @@ import { DataService } from 'src/app/services/data.service';
 export class HeaderComponent {
 currentUser: any;
 
-constructor(public dataService: DataService){
+constructor(public dataService: DataService, private dialog: MatDialog){
  lastValueFrom(this.dataService.getCurrentUser()).then((user: any) => {
     this.currentUser = user;
     console.log(this.currentUser);
@@ -26,4 +28,24 @@ const secondLetter = nachname.charAt(0);
 return firstLetter + secondLetter;
 }
 
+
+openLogout() {
+
+  const dialogConfig = new MatDialogConfig();
+
+  dialogConfig.width = '200px';
+  dialogConfig.height = '200px';
+
+
+
+  // dialogConfig.data = {
+  
+  //  editMode: false,
+  //   overlayMode: true
+  // };
+ 
+  const dialogRef = this.dialog.open(DialogLogoutComponent, dialogConfig);
+
+
+}
 }
