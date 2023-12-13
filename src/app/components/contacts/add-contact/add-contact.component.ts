@@ -68,6 +68,10 @@ contactForm: FormGroup = new FormGroup({
     const initials = parts.map(part => part[0]).join('');
     return initials;
   }
+
+  closeComponent(){
+    this.dialogRef.close();
+  }
   cancel(){
     Object.assign(this.data.contact, this.originalContact);
      this.dialogRef.close();

@@ -1,0 +1,18 @@
+.item {
+    outline: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 3px;
+
+    &:hover {
+        background-color: #38475d;
+    }
+}
+
+
+
+.logout {
+    padding: 10px;
+    background-color: #2A3647;
+    color: #CDCDCD
+}

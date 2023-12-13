@@ -34,9 +34,12 @@ openLogout() {
   const dialogConfig = new MatDialogConfig();
 
   dialogConfig.width = '200px';
-  dialogConfig.height = '200px';
+  dialogConfig.height = '95px';
 
-
+  dialogConfig.position = {
+    top: '100px',  // Ändere diese Werte entsprechend deiner gewünschten Position
+    right: '8%'   // Ändere diese Werte entsprechend deiner gewünschten Position
+  };
 
   // dialogConfig.data = {
   

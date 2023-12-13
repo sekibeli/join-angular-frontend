@@ -69,12 +69,19 @@ export class ContactsComponent implements OnInit {
 
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.minWidth = '90vw';
-    dialogConfig.minHeight = '60vh';
-    dialogConfig.maxWidth = '100vw';
-    dialogConfig.maxHeight = '60vh';
+    // dialogConfig.minWidth = '90vw';
+    // dialogConfig.minHeight = '60vh';
+    // dialogConfig.maxWidth = '100vw';
+    // dialogConfig.maxHeight = '60vh';
 
-
+    if (this.dataService.isSmallScreen){
+      dialogConfig.width = '290px';
+      dialogConfig.height = '500px';
+    }
+    else {
+      dialogConfig.width = '720px';
+      dialogConfig.height = '400px';
+    }
     dialogConfig.data = {
 overlayMode: false,
       editMode: false

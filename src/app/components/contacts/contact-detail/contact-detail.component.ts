@@ -70,7 +70,7 @@ export class ContactDetailComponent implements OnInit, OnChanges {
     
 
     if (this.dataService.isSmallScreen){
-      dialogConfig.width = '320px';
+      dialogConfig.width = '290px';
       dialogConfig.height = '500px';
     }
     else {
@@ -82,7 +82,7 @@ export class ContactDetailComponent implements OnInit, OnChanges {
     dialogConfig.data = {
       contact: contact,
       editMode: true,
-      overlayMode: false,
+      // overlayMode: false,
     };
    
     const dialogRef = this.dialog.open(AddContactComponent, dialogConfig);

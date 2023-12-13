@@ -168,7 +168,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 40px;
-    border: 2px solid white;
+    border: 2px solid rgb(157, 157, 157);
 }
 .contact-circle-big img{
     width: 31px;
@@ -359,7 +359,7 @@ body {
     width: 240px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     margin-top: 10px;
     justify-content: space-evenly;
 }
@@ -484,6 +484,13 @@ body {
 .error-text {
     font-size: 0.8em;
     color: red;
+    height: 10px; /* Fester Platz für die Fehlermeldung */
+    margin-top: 5px; /* Abstand zwischen Eingabefeld und Fehlermeldung */
+    visibility: hidden; /* Standardmäßig unsichtbar */
+   
+}
+.error-text.active {
+    visibility: visible; /* Sichtbar, wenn es einen Fehler gibt */
 }
 .kanban-text{
     display: none;
@@ -582,11 +589,12 @@ body {
         
     }
     .new-contact-left{
-        width: 350px;
+        width: 290px;
         border-bottom-left-radius: 0;
         border-top-right-radius: 20px;
         align-items: center;
-        height: 45%;
+        // height: 45%;
+        height: 200px;
         box-sizing: border-box;
         // padding-left: 30px;
     }
@@ -594,7 +602,7 @@ body {
         display: none;
     }
     .close-contact-cross{
-        transform: translate(260px, -260px);
+        transform: translate(215px, -195px);
         color: white;    
     }
     .new-contact-left-line{
@@ -620,6 +628,8 @@ body {
     .new-contact-circle-name{
         flex-direction: column;
         padding-bottom: 40px;
+        height: 300px;
+        width: 290px;
     }
     .edit-contact-circle{
         z-index: 2;
@@ -691,8 +701,8 @@ body {
 
 @media (max-width: 600px){
     .new-contact-overlay {
-        width: 300px;
-        height: 650px;
+        width: 290px;
+        height: 500px;
     } 
 
 }

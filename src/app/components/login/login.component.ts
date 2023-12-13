@@ -19,7 +19,18 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private route: Router, private dataService: DataService){}
 
-
+async guestLogin(){
+  await this.authService.login('max@muster.de', 'guestuser1').then((user)=> {
+    this.dataService.loginUser(user);
+    localStorage.setItem('token', user.token);
+    console.log('Eingeloggt ist:', user);
+    this.currentUser = user;
+    this.dataService.loginUser(user);
+    this.dataService.getContacts();
+    this.dataService.getCategories();
+    this.route.navigateByUrl('/home/summary');
+  });
+}
 
 async login() {
   try {

@@ -226,6 +226,9 @@ export class AddtaskComponent implements OnInit, OnDestroy {
         console.error('Error:', error);
       });
     }
+    if(this.overlayMode){
+      this.closeParent();
+    }
   }
 
   async editTask() {

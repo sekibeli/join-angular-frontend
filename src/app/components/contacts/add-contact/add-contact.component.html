@@ -4,7 +4,8 @@
     <div class="new-contact-left-img-box" id="contact-new-img">
         <img src="assets/img/Capa_white.png" alt="">
     </div>
-    <span class="contact-left-headline" id="contact-left-add">Edit Contact</span>
+    <span *ngIf="editMode" class="contact-left-headline" id="contact-left-add">Edit Contact</span>
+    <span *ngIf="!editMode" class="contact-left-headline" id="contact-left-add">Add Contact</span>
     <span class="contact-left-better darkblue" id="contact-left-tasks">Tasks are better with a team!</span>
     <!-- <div class="new-contact-left-line" id="blue-line">
     </div> -->
@@ -21,18 +22,19 @@
         
      </div>
     <div class="contact-new-inputs" id="contact-new-inputs">
-        <span (click)="cancel()" class="close-contact-cross">&#10005;</span>
-            <div class="warning-message" id="warning-contact-new-edit">
-            </div>
+        <span *ngIf="editMode" (click)="cancel()" class="close-contact-cross">&#10005;</span>
+        <span *ngIf="!editMode" (click)="closeComponent()" class="close-contact-cross">&#10005;</span>
+            <!-- <div class="warning-message" id="warning-contact-new-edit">
+            </div> -->
 
             <div class="form-group input-form-new-contact">
-                <!-- <label for="title">Name</label> -->
+            
                 <input type="text" id="fullname" formControlName="name" class="form-control" placeholder ="first and last name">
                 <img src="assets/img/icon_person.png" alt="">
-                <!-- Error message for title -->
+               
                
             </div>
-            <div *ngIf="contactForm.controls['name'].touched && contactForm.controls['name'].invalid"
+            <div [class.active]="contactForm.controls['name'].touched && contactForm.controls['name'].invalid"
             class="error-text">
             Name is required
         </div>
@@ -50,7 +52,7 @@
                 <!-- Error message for title -->
              
             </div>
-            <div *ngIf="contactForm.controls['email'].touched && contactForm.controls['email'].invalid"
+            <div [class.active]="contactForm.controls['email'].touched && contactForm.controls['email'].invalid"
             class="error-text">
             Email is required
         </div>
@@ -67,7 +69,7 @@
                 <!-- Error message for title -->
                
             </div>
-            <div *ngIf="contactForm.controls['phone'].touched && contactForm.controls['phone'].invalid"
+            <div [class.active]="contactForm.controls['phone'].touched && contactForm.controls['phone'].invalid"
             class="error-text">
             Phone is required
         </div>
