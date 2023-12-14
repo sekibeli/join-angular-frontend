@@ -355,7 +355,7 @@ export class DataService implements OnInit {
   }
 
   checkScreenSize() {
-    if(window.innerWidth < 750) {
+    if(window.innerWidth < 600) {
       this.isSmallScreen = true;
     } else {
       this.isSmallScreen = false;

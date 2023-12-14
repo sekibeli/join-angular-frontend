@@ -63,19 +63,16 @@ export class ContactDetailComponent implements OnInit, OnChanges {
 
     const dialogConfig = new MatDialogConfig();
   
-    // dialogConfig.minWidth = '300px';
-    // dialogConfig.minHeight = '60vh';
-    // dialogConfig.maxWidth = '600px';
-    // dialogConfig.maxHeight = '60vh';
     
-
     if (this.dataService.isSmallScreen){
       dialogConfig.width = '290px';
       dialogConfig.height = '500px';
+      console.log("small");
     }
     else {
-      dialogConfig.width = '720px';
+      dialogConfig.width = '550px';
       dialogConfig.height = '400px';
+      console.log("big");
     }
   
   

@@ -160,8 +160,8 @@ body {
     height: 100px;
 }
 .contact-circle-big {
-    height: 94px;
-    width: 94px;
+    height: 70px;
+    width: 70px;
     color: white;
     border-radius: 50%;
     display: flex;
@@ -287,7 +287,7 @@ body {
     } 
 }
 .new-contact-left{
-    width: 450px;
+    width: 220px;
     height: 100%;
     background-color: rgb(41, 54, 70); 
     border-top-left-radius: 20px;
@@ -441,10 +441,10 @@ body {
     display: flex;
 }
 .edit-contact-circle{
-    margin-left: 29px;
-    margin-right: 29px;
-    height: 98px;
-    width: 98px;
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 70px;
+    width: 70px;
     border: 1px solid rgb(255, 255, 255);
     border-radius: 50%;
     display: flex;
@@ -576,27 +576,62 @@ body {
         margin-left: 0;
     }
 }
-@media (max-width: 750px){
+@media (max-width: 850px){
 
+    .close-contact-cross[_ngcontent-ng-c1154027708] {
+        transform: translate(229px, -83px);
+        color: #878787;
   
-
-    .new-contact-overlay{
-        flex-direction: column;
-        align-items: center;
-        width: 350px;
-        height: 650px;
+    }
+    // .new-contact-overlay{
+    //     flex-direction: column;
+    //     align-items: center;
+    //     width: 290px;
+    //     height: 500px;
        
         
-    }
-    .new-contact-left{
-        width: 290px;
-        border-bottom-left-radius: 0;
-        border-top-right-radius: 20px;
-        align-items: center;
-        // height: 45%;
-        height: 200px;
+    // }
+    .new-contact-overlay{
+        position: absolute;
+        display: flex;
+        // left: 50%;
+        // top: 50%;
+        // transform: translate(500%, -50%);
+        height: 400px;
+        width: 650px;
+        color: white;
         box-sizing: border-box;
-        // padding-left: 30px;
+        // animation: newcontact 275ms ease-in-out forwards;
+        z-index: 4;
+    }
+
+    // .new-contact-left{
+    //     width: 290px;
+    //     // width: 100%;
+    //     border-bottom-left-radius: 0;
+    //     border-top-right-radius: 30px;
+    //     align-items: center;
+    //     // height: 45%;
+    //     height: 200px;
+    //     box-sizing: border-box;
+    //     // padding-left: 30px;
+    // }
+
+    .new-contact-left{
+        width: 200px;
+        height: 100%;
+        background-color: rgb(41, 54, 70); 
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 10px;
+        transition: transform 0.4s;
+        transition-delay: 0.4s;
+    
+        
     }
     .new-contact-left-img-box{
         display: none;
@@ -619,8 +654,8 @@ body {
         }
     }
     .new-contact-right{
-        width: 350px;
-        height: 55%;
+        // width: 350px;
+        // height: 55%;
         border-bottom-left-radius: 20px;
         border-top-right-radius: 0;
         transition: unset;
@@ -634,7 +669,7 @@ body {
     .edit-contact-circle{
         z-index: 2;
         position: absolute;
-        transform: translateY(-65px);
+        transform: translateY(20px);
        
     }
     .darkblue{
@@ -642,7 +677,7 @@ body {
         display: none;
     }
     .contact-new-inputs{
-        margin-top: 30px;
+        margin-top: 108px;
     }
     #contact-new-cancel{
         display: none;
@@ -700,6 +735,41 @@ body {
 
 
 @media (max-width: 600px){
+    .close-contact-cross[_ngcontent-ng-c1154027708] {
+        transform: translate(219px, -220px);
+        color: #ffffff;
+  
+    }
+
+    .edit-contact-circle{
+        z-index: 2;
+        position: absolute;
+        transform: translateY(-25px);
+    }
+
+    .contact-new-inputs {
+        margin-top: 73px;
+    }
+        .new-contact-overlay{
+        flex-direction: column;
+        align-items: center;
+        width: 290px;
+        height: 500px;
+       
+        
+    }
+     .new-contact-left{
+        width: 290px;
+        // width: 100%;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 30px;
+        align-items: center;
+        // height: 45%;
+        height: 200px;
+        box-sizing: border-box;
+        // padding-left: 30px;
+    }
+
     .new-contact-overlay {
         width: 290px;
         height: 500px;
@@ -708,6 +778,10 @@ body {
 }
 
 @media (max-width: 450px){
+    .new-contact-overlay {
+        width: 288px;
+       
+    } 
     .name-main{
         width: 150px
     }
