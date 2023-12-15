@@ -79,7 +79,7 @@ ngOnDestroy(): void {
       
       this.dataService.updateTaskStatus(movedTask.id, newStatusId)
       .subscribe(response => {
-          console.log("Status updated successfully", response);
+          // console.log("Status updated successfully", response);
           
          
       }, error => {
@@ -98,11 +98,7 @@ ngOnDestroy(): void {
 }
 
 
-filterTasks(){}
-
 newTask() {
-
-  
 
   const dialogConfig = new MatDialogConfig();
 
@@ -111,17 +107,10 @@ newTask() {
   dialogConfig.maxWidth = '100vw';
   dialogConfig.maxHeight = '90vh';
 
-
-  // dialogConfig.data = {
-  
-  //  editMode: false,
-  //   overlayMode: true
-  // };
  
   const dialogRef = this.dialog.open(WrapperAddtaskComponent, dialogConfig);
   dialogRef.componentInstance.overlayMode = true;
-  // console.log();
-  // this.dialogRef.close();
+
 }
 }
 
