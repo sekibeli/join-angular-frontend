@@ -67,12 +67,12 @@ export class ContactDetailComponent implements OnInit, OnChanges {
     if (this.dataService.isSmallScreen){
       dialogConfig.width = '290px';
       dialogConfig.height = '500px';
-      console.log("small");
+      // console.log("small");
     }
     else {
       dialogConfig.width = '550px';
       dialogConfig.height = '400px';
-      console.log("big");
+      // console.log("big");
     }
   
   
@@ -90,7 +90,7 @@ export class ContactDetailComponent implements OnInit, OnChanges {
 
 deleteContact(contactId: number) {
   lastValueFrom(this.dataService.deleteContact(contactId)).then(response => {
-    console.log(response);
+    // console.log(response);
     // this.dataService.fetchAndSortTasks();
    this.contact = null;
   

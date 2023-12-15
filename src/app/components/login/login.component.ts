@@ -23,7 +23,7 @@ async guestLogin(){
   await this.authService.login('max@muster.de', 'guestuser1').then((user)=> {
     this.dataService.loginUser(user);
     localStorage.setItem('token', user.token);
-    console.log('Eingeloggt ist:', user);
+    // console.log('Eingeloggt ist:', user);
     this.currentUser = user;
     this.dataService.loginUser(user);
     this.dataService.getContacts();
@@ -38,7 +38,7 @@ async login() {
     await this.authService.login(this.email, this.password).then((user)=> {
       this.dataService.loginUser(user);
       localStorage.setItem('token', user.token);
-      console.log('Eingeloggt ist:', user);
+      // console.log('Eingeloggt ist:', user);
       this.currentUser = user;
       this.dataService.loginUser(user);
       this.dataService.getContacts();
@@ -62,8 +62,6 @@ showSignUp(){
   this.route.navigateByUrl('/signup');
 }
 
-// getUser(){
-//   lastValueFrom(this.dataService.getUser()).then(())
-// }
+
 
 }

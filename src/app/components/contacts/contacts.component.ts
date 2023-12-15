@@ -47,7 +47,7 @@ export class ContactsComponent implements OnInit {
   constructor(public dataService: DataService, private dialog: MatDialog) {
     this.dataService.checkScreenSize();
     this.loadContacts();
-    console.log(this.dataService.detailVisible);
+    // console.log(this.dataService.detailVisible);
   }
 
   ngOnInit(): void {
@@ -73,12 +73,12 @@ export class ContactsComponent implements OnInit {
     if (this.dataService.isSmallScreen){
       dialogConfig.width = '290px';
       dialogConfig.height = '500px';
-      console.log("small");
+      // console.log("small");
     }
     else {
       dialogConfig.width = '550px';
       dialogConfig.height = '400px';
-      console.log('big');
+      // console.log('big');
     }
     dialogConfig.data = {
 overlayMode: false,
@@ -121,7 +121,7 @@ overlayMode: false,
     } else {
       this.dataService.isSmallScreen = false;
     }
-    console.log('isSmallScreen:', this.dataService.isSmallScreen);
+    // console.log('isSmallScreen:', this.dataService.isSmallScreen);
   }
 
   // showContactDetails() {

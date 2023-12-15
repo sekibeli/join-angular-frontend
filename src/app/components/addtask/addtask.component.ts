@@ -62,7 +62,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     this.categoriesSub = this.dataService.categories$.subscribe((response: Category[]) => {
       this.categories = response;
       // this.editMode = true;
-      console.log(this.categories);
+      // console.log(this.categories);
       if (this.editMode && this.data) {
         const categoryToSet = this.categories.find(cat => cat.id === this.data.task.category);
         this.taskForm.get('category')?.setValue(categoryToSet || null);
@@ -72,7 +72,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     this.contactsSub = this.dataService.contacts$.subscribe((response: Contact[]) => {
       this.contacts = response;
       // this.editMode = true;
-      console.log(this.contacts);
+      // console.log(this.contacts);
 
       if (this.editMode && this.data) {
 
@@ -351,7 +351,7 @@ export class AddtaskComponent implements OnInit, OnDestroy {
   // refreshCategories() {
   //   this.dataService.getCategories().subscribe(response => {
   //     this.categories = response;
-  //     // console.log(this.categories);
+  //      console.log(this.categories);
   //   });
   // }
 

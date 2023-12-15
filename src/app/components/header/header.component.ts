@@ -15,7 +15,7 @@ currentUser: any;
 constructor(public dataService: DataService, private dialog: MatDialog){
  lastValueFrom(this.dataService.getCurrentUser()).then((user: any) => {
     this.currentUser = user;
-    console.log(this.currentUser);
+    // console.log(this.currentUser);
   })
 }
 

@@ -102,6 +102,8 @@ filterTasks(){}
 
 newTask() {
 
+  
+
   const dialogConfig = new MatDialogConfig();
 
   dialogConfig.minWidth = '80vw';

@@ -66,22 +66,22 @@ export class DataService implements OnInit {
   awaitingCount?: number;
 
   constructor(private http: HttpClient, private route: Router) {
-    this.getTasks().subscribe(tasks => {
-      this.tasks$.next(tasks);
-      console.log('alle Tasks:', tasks);
-    });
-    this.tasks = this.tasks$.getValue();
+    // this.getTasks().subscribe(tasks => {
+    //   this.tasks$.next(tasks);
+    //    console.log('alle Tasks:', tasks);
+    // });
+    // this.tasks = this.tasks$.getValue();
    
 
-    this.getContacts();
-    this.getCategories();
+    // this.getContacts();
+    // this.getCategories();
 
   }
   ngOnInit(): void {
     lastValueFrom(this.getCurrentUser()).then(response => {
-      console.log('User:', response);
+      // console.log('User:', response);
     });
-    console.log('currentUser', this.currentUser);
+    // console.log('currentUser', this.currentUser);
 
     // this.getContacts();
     // this.getCategories();
@@ -157,7 +157,7 @@ export class DataService implements OnInit {
 
   saveTask(body: any): Observable<any> {
     const url = environment.baseUrl + '/create_task_with_subtasks/';
-    console.log('saveTask');
+    // console.log('saveTask');
     return this.http.post(url, body).pipe(
       catchError(error => {
         console.error('Error:', error);
@@ -167,7 +167,7 @@ export class DataService implements OnInit {
   }
 
   updateSubtasks(subtasks: any) {
-    console.log('...', subtasks);
+    // console.log('...', subtasks);
 
     const url = environment.baseUrl + `/subtasks/update_many/`;
     return this.http.put(url, subtasks);
@@ -176,7 +176,7 @@ export class DataService implements OnInit {
 
 
   saveSubtasks(subtasks: any, taskId: number) {
-    console.log('...', subtasks);
+    // console.log('...', subtasks);
 
     const url = environment.baseUrl + `/tasks/${taskId}/add_subtasks/`;
     return this.http.post(url, subtasks);
@@ -217,7 +217,7 @@ export class DataService implements OnInit {
   }
 
   updateTaskStatus(taskId: number, newStatus: string): Observable<any> {
-    console.log(taskId, newStatus);
+    // console.log(taskId, newStatus);
     const url = `${environment.baseUrl}/tasks/${taskId}/`;
     return this.http.patch(url, { status: newStatus });
   }
@@ -241,7 +241,7 @@ export class DataService implements OnInit {
 
     this.getTasks().subscribe(tasks => {
       this.tasks$.next(tasks);
-      console.log('alle Tasks:', tasks);
+      // console.log('alle Tasks:', tasks);
 
       // sortieren für board
       this.todo$.next(tasks.filter((task: any) => task.status === 'To do'));
@@ -254,7 +254,7 @@ export class DataService implements OnInit {
       this.doneCount = this.done$.value.length;
       this.awaitingCount = this.awaitingFeedback$.value.length;
       this.progressCount = this.inProgress$.value.length;
-      console.log(this.todoCount);
+      // console.log(this.todoCount);
     });
 
   }
@@ -270,13 +270,13 @@ export class DataService implements OnInit {
   }
 
   editTask(task: any, id: number) {
-    console.log('last check:', task);
+    // console.log('last check:', task);
     const url = `${environment.baseUrl}/tasks/${id}/`;
     return this.http.put(url, task);
   }
 
   editContact(contact:Contact, id: number){
-    console.log('contact last check:', contact);
+    // console.log('contact last check:', contact);
     const url = `${environment.baseUrl}/contacts/${id}/`;
     return this.http.put(url, contact);
 
@@ -360,7 +360,7 @@ export class DataService implements OnInit {
     } else {
       this.isSmallScreen = false;
     }
-    console.log('isSmallScreen:', this.isSmallScreen);
+    // console.log('isSmallScreen:', this.isSmallScreen);
   }
 
   // showContactDetails(){

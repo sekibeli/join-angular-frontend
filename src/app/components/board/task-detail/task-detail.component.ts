@@ -24,14 +24,14 @@ export class TaskDetailComponent implements OnInit {
       if (this.task && this.task.assigned) {
         this.dataService.getContactsByIds(this.task.assigned).subscribe(assignedResponse => {
           this.assigned = assignedResponse;
-          console.log('detail-assigned:', this.assigned);
+          // console.log('detail-assigned:', this.assigned);
         });
       }
 
       if (this.task && this.task.subtasks) {
         this.dataService.getSubtasksByIds(this.task.subtasks).subscribe(subtaskResponse => {
           this.subtasks = subtaskResponse;
-          console.log('subbies:', this.subtasks);
+          // console.log('subbies:', this.subtasks);
 
         });
       }
@@ -51,7 +51,7 @@ export class TaskDetailComponent implements OnInit {
 
   deleteTask(taskId: number) {
     this.dataService.deleteTask(taskId).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       this.dataService.fetchAndSortTasks();
       this.dialogRef.close();
     })
@@ -77,7 +77,7 @@ export class TaskDetailComponent implements OnInit {
    
     this.dialog.open(WrapperAddtaskComponent, dialogConfig);
 
-    console.log();
+    
     this.dialogRef.close();
   }
 }

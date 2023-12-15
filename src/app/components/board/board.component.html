@@ -11,8 +11,9 @@
                        </div>
                     </div>
                     <div>
-                         <button class="btn" (click)="newTask()">Add Task &#xFF0B;
-                         </button>
+                         <!-- <button *ngIf="!dataService.isSmallScreen" class="btn" (click)="newTask()">Add Task &#xFF0B;</button> -->
+                          <button  class="btn" (click)="newTask()">+</button>
+                         
           <!-- <button class="btn"
             onclick="testRenderNewTask('todo')"><img
                 src="assets/img/addTaskMobile.svg">

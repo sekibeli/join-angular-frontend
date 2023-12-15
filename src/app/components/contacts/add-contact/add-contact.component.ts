@@ -31,7 +31,7 @@ contactForm: FormGroup = new FormGroup({
     
     {
       this.originalContact = JSON.parse(JSON.stringify(this.data.contact));
-      console.log(this.originalContact);
+      // console.log(this.originalContact);
     }
   }
  
@@ -53,9 +53,9 @@ contactForm: FormGroup = new FormGroup({
       this.contact.initials = this.getInitials(this.contact.name)
 
       this.contact.color = this.dataService.generateDarkColor();
-      console.log(this.contact);
+      // console.log(this.contact);
       lastValueFrom(this.dataService.saveContact(this.contact)).then((response) => {
-        console.log(response);
+        // console.log(response);
         this.dataService.getContacts();
       })
     }
@@ -86,7 +86,7 @@ contactForm: FormGroup = new FormGroup({
       if (data) {
       //   this.editMode = data.editMode;
       //   this.subtaskValues = data.subtasks;
-      //   // console.log('mit ids:', this.subtaskValues);
+      //    console.log('mit ids:', this.subtaskValues);
       //   this.initializeSubtaskFormArray();
       //   const formattedDueDate = this.convertToYYYYMMDD(data.task.dueDate);
   
@@ -117,7 +117,7 @@ contactForm: FormGroup = new FormGroup({
   
         //speichert den veränderten Contact
         this.dataService.editContact(contactData, this.data.contact.id).subscribe(response => {
-          console.log('response: ', response);
+          // console.log('response: ', response);
           this.editedContact = response as Contact;
           this.dataService.contactUpdated.next(this.editedContact);
           this.dataService.getContacts();

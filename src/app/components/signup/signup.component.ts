@@ -18,10 +18,10 @@ export class SignupComponent {
   async signUp(){
     try {
       let resp: any = await this.authService.signup(this.vorname, this.nachname, this.email, this.password);
-      console.log(resp.token);
+      // console.log(resp.token);
       // localStorage.setItem('token', resp.token);
       this.route.navigateByUrl('/login');
-      console.log(resp);
+      // console.log(resp);
     } catch (e) {
       alert('Signup fehlgeschlagen - irgendwas ist schiefgegangen');
       console.log('Fehler:', e);

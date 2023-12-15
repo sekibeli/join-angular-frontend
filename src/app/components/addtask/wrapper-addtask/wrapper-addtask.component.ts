@@ -14,7 +14,7 @@ public overlayMode?: boolean;
   }
 
   ngOnInit(){
-    console.log('overlayMode:', this.overlayMode);
+    // console.log('overlayMode:', this.overlayMode);
   }
 
   closeDialog(){
