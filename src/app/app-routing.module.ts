@@ -8,6 +8,8 @@ import { BoardComponent } from './components/board/board.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { AddtaskComponent } from './components/addtask/addtask.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { ImpressumComponent } from './components/impressum/impressum.component';
+import { HelpComponent } from './components/help/help.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,7 +23,9 @@ export const routes: Routes = [
       { path: 'summary', component: SummaryComponent },
       { path: 'board', component: BoardComponent },
       { path: 'contacts', component: ContactsComponent },
-      { path: 'addtask', component: AddtaskComponent}
+      { path: 'addtask', component: AddtaskComponent},
+      { path: 'impressum', component: ImpressumComponent},
+      { path: 'help', component: HelpComponent}
 
     ]
   }

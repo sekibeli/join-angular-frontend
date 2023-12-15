@@ -2,6 +2,6 @@
 
 <div class="logout">
     
-<div class="item" (click)="goto()" >Impressum</div>
+<div class="item" (click)="dialog.close()" [routerLink]="['/home', 'impressum']" >Impressum</div>
 <div class="item" (click)="dataService.logoutUser(); dialog.close()" [routerLink]="['/']">Log out</div>
 </div>
