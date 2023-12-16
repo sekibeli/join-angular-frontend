@@ -47,6 +47,8 @@ export class ContactsComponent implements OnInit {
   constructor(public dataService: DataService, private dialog: MatDialog) {
     this.dataService.checkScreenSize();
     this.loadContacts();
+    this.dataService.getContacts();
+    this.dataService.getCategories();
     // console.log(this.dataService.detailVisible);
   }
 

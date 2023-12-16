@@ -44,6 +44,7 @@ export class DataService implements OnInit {
   public cachedTasks: Observable<any> | null = null;
   private cachedSubtasks: Observable<any> | null = null;
 
+  
   currentUser: any;
 
   tasks$ = new BehaviorSubject<any[]>([]);
@@ -60,11 +61,11 @@ export class DataService implements OnInit {
   public urgentTasks: any[] = [];
   public tasks: any;
 
-  todoCount?: number;
-  doneCount?: number;
+  todoCount: number | undefined;
+  doneCount: number | undefined;
   progressCount?: number;
   awaitingCount?: number;
-
+ 
   constructor(private http: HttpClient, private route: Router) {
     // this.getTasks().subscribe(tasks => {
     //   this.tasks$.next(tasks);
@@ -85,6 +86,7 @@ export class DataService implements OnInit {
 
     // this.getContacts();
     // this.getCategories();
+
 
   }
 

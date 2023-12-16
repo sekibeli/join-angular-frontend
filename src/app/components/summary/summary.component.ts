@@ -16,12 +16,13 @@ export class SummaryComponent{
 
  async ngOnInit(): Promise<void> {
     await this.dataService.fetchAndSortTasks();
+  
     await this.dataService.getTasks().subscribe(response => {
       this.tasks = response;
-      // console.log(this.tasks);
+      //  console.log(this.tasks);
 
     });
-    
+  
     await lastValueFrom(this.dataService.getCurrentUser()).then((user: any) => {
       this.currentUser = user;
     })

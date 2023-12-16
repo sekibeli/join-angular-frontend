@@ -14,7 +14,7 @@
         <div class="summary-box">
             <div class="summary-row">
                 <div (click)="goToBoard()" class="single-box single-first-row animation1">
-                    <span class="big-number" *ngIf="tasks">{{tasks.length}}</span>
+                    <span class="big-number" *ngIf="tasks">{{this.tasks.length}}</span>
                     <span>Tasks in <br>Board</span>
                 </div>
                 <div (click)="goToBoard()" class="single-box single-first-row animation2">

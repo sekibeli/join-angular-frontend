@@ -39,6 +39,8 @@ export class BoardComponent implements OnInit, OnDestroy{
 
   constructor(public dataService: DataService,  private dialog: MatDialog){
     this.dataService.fetchAndSortTasks();
+    this.dataService.getContacts();
+    this.dataService.getCategories();
    
   }
 

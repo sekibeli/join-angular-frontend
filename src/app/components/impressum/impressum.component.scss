@@ -48,3 +48,13 @@ flex-grow: 0;
         color: rgba(11, 173, 221);
     }
 }
+
+@media (max-width: 900px){
+    .impressum {
+        margin-top: 100px;
+        margin-left: 20px;
+        margin-right: 20px;
+        // margin-bottom: 150px;
+        padding-bottom: 100px;
+    }
+}
