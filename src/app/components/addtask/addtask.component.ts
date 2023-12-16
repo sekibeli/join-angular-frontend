@@ -293,6 +293,9 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     this.closeParent();
   }
 
+  gotoContacts(){
+    this.route.navigateByUrl('/home/contacts');
+  }
 
   createNewCategory() {
     this.showNewCategoryInput = true;

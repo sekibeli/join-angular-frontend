@@ -63,6 +63,9 @@
                             <mat-option *ngFor="let contact of contacts" [value]="contact">
                                 {{ contact.name }}
                             </mat-option>
+                            <mat-option (click)="gotoContacts()">
+                                Create new Contact
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
 
