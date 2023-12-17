@@ -330,7 +330,7 @@ export class DataService implements OnInit {
     return this.http.post(url, body);
   }
   deleteContact(id: number) {
-    const url = `${environment.baseUrl}/contacts/${id}`;
+    const url = `${environment.baseUrl}/contacts/${id}/`;
     return this.http.delete(url);
   }
 
