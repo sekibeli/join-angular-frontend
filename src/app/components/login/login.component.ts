@@ -62,6 +62,7 @@ showSignUp(){
   this.route.navigateByUrl('/signup');
 }
 
-
+showForgotPassword(){}
+rememberMe(){}
 
 }
